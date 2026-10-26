@@ -3,252 +3,343 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#000000">
 <title>김솔음의 휴대폰</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#050505;color:white;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif}
-button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.screen{position:absolute;inset:0;height:100dvh;overflow:hidden;background:#050505}
-.hidden{display:none!important}
-.status{position:absolute;top:0;left:0;width:100%;height:58px;padding:0 7%;display:flex;align-items:center;justify-content:space-between;z-index:10;font-size:15px;font-weight:600}
-.island{position:absolute;left:50%;top:11px;transform:translateX(-50%);width:105px;height:29px;border-radius:22px;background:black}
-.rightstatus{display:flex;align-items:center;gap:7px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif}
+button{font:inherit;color:inherit;cursor:pointer}
+.phone{position:relative;width:100%;height:100vh;height:100dvh;overflow:hidden;background:radial-gradient(ellipse at 50% 20%,#1b1b1d,#080808 80%)}
+.screen{position:absolute;inset:0;display:none}
+.screen.active{display:block}
+.status{position:absolute;top:0;left:0;width:100%;height:57px;display:flex;align-items:center;justify-content:space-between;padding:0 7%;z-index:10;font-size:16px;font-weight:600}
+.island{position:absolute;left:50%;top:11px;transform:translateX(-50%);width:112px;height:32px;border-radius:22px;background:#000}
+.indicators{display:flex;align-items:center;gap:6px}
 .signal{display:flex;align-items:end;gap:2px;height:15px}
-.signal i{width:4px;background:white;border-radius:1px}
+.signal i{display:block;width:4px;background:#fff;border-radius:2px}
 .signal i:nth-child(1){height:5px}
 .signal i:nth-child(2){height:8px}
-.signal i:nth-child(3){height:11px}
-.signal i:nth-child(4){height:14px}
-.wifi{width:18px;height:18px}
-.battery{width:27px;height:15px}
-.homebar{position:absolute;bottom:9px;left:50%;transform:translateX(-50%);width:125px;height:5px;background:white;border-radius:9px;z-index:12}
+.signal i:nth-child(3){height:12px}
+.signal i:nth-child(4){height:15px}
+.wifi{width:17px;height:17px}
+.battery{width:24px;height:12px;border:1.7px solid #fff;border-radius:4px;padding:2px;position:relative}
+.battery:after{content:"";position:absolute;right:-4px;top:3px;width:2px;height:4px;background:#fff;border-radius:2px}
+.battery-fill{width:70%;height:100%;background:#fff;border-radius:1px}
+.homebar{position:absolute;bottom:9px;left:50%;transform:translateX(-50%);width:130px;height:5px;border-radius:10px;background:#fff;z-index:15;touch-action:none}
+#lock{touch-action:pan-x}
 .lockclock{position:absolute;top:17%;width:100%;text-align:center}
-.lockicon{font-size:22px;margin-bottom:12px}
-.bigtime{font-size:clamp(68px,21vw,92px);font-weight:200;letter-spacing:-4px;line-height:1.1}
-.date{font-size:19px;margin-top:10px}
-.shortcuts{position:absolute;bottom:65px;width:100%;padding:0 35px;display:flex;justify-content:space-between}
-.round{width:52px;height:52px;border:0;border-radius:50%;background:#303030;color:white;display:grid;place-items:center}
-.round svg{width:24px;height:24px}
-.hintlock{position:absolute;bottom:43px;width:100%;text-align:center;font-size:12px;color:#bbb}
-#pass{text-align:center}
-.passarea{position:absolute;top:13%;width:100%}
-.passlabel{font-size:19px;margin:14px 0 9px}
-.hint{height:23px;margin-bottom:8px;color:#f9d47a;font-size:15px}
-.dots{display:flex;justify-content:center;gap:21px;margin:10px 0 27px}
+.lockicon{font-size:22px;margin-bottom:8px}
+.bigtime{font-size:clamp(68px,20vw,94px);font-weight:200;letter-spacing:-4px}
+.date{font-size:20px;margin-top:7px}
+.lockbottom{position:absolute;bottom:42px;width:100%;display:flex;justify-content:space-between;padding:0 34px}
+.round{border:0;width:52px;height:52px;border-radius:50%;background:#292929;display:grid;place-items:center}
+.round svg{width:25px;height:25px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.locktip{position:absolute;bottom:108px;width:100%;text-align:center;color:#aaa;font-size:13px}
+.passwrap{position:absolute;top:21%;width:100%;text-align:center}
+.passlabel{font-size:21px;margin-bottom:20px}
+.hint{height:24px;color:#ffce67;font-size:15px;margin-bottom:12px}
+.dots{display:flex;justify-content:center;gap:18px;margin-bottom:45px}
 .dot{width:13px;height:13px;border:1.5px solid white;border-radius:50%}
-.dot.filled{background:white}
-.keypad{display:grid;grid-template-columns:repeat(3,68px);justify-content:center;gap:12px 22px}
-.key{width:68px;height:68px;border:0;border-radius:50%;background:#303030;color:white;font-size:29px;font-weight:300}
-.key:active{background:#666}
-.key.blank{visibility:hidden}
-.passbottom{position:absolute;bottom:50px;width:100%;display:flex;justify-content:space-around}
-.passbottom button{background:none;border:0;color:white;font-size:15px}
-.shake{animation:shake .36s}
-@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-11px)}40%,80%{transform:translateX(11px)}}
-#home{background:linear-gradient(155deg,#1b1b1d,#050505)}
-.apps{position:absolute;top:110px;width:100%;display:grid;grid-template-columns:repeat(4,1fr);gap:25px 4px;padding:0 12px}
-.app{border:0;background:none;color:white;text-align:center;font-size:12px;padding:0;display:flex;align-items:center;flex-direction:column;gap:6px}
-.appicon{width:min(16vw,62px);height:min(16vw,62px);border-radius:15px;display:grid;place-items:center;overflow:hidden}
-.appicon svg{width:85%;height:85%}
-.appname{white-space:nowrap}
-.dock{position:absolute;bottom:35px;left:4%;width:92%;border-radius:27px;background:#ffffff26;display:flex;justify-content:space-around;padding:12px 5px}
-.toast{position:absolute;top:45%;left:10%;width:80%;background:#252525ee;border-radius:14px;padding:15px;text-align:center;font-size:14px}
-@media(max-height:620px){.passarea{top:9%}.keypad{gap:7px 20px;grid-template-columns:repeat(3,58px)}.key{width:58px;height:58px}.dots{margin-bottom:12px}.apps{top:80px;gap:12px 4px}}
+.dot.filled{background:#fff}
+.keypad{display:grid;grid-template-columns:repeat(3,74px);justify-content:center;gap:15px 21px}
+.key{width:74px;height:74px;border:0;border-radius:50%;background:#ffffff25;font-size:30px;font-weight:300}
+.key:active{background:#ffffff55}
+.key.small{background:transparent;font-size:15px}
+.passfooter{display:flex;justify-content:space-between;max-width:270px;margin:25px auto}
+.passfooter button{border:0;background:none;font-size:15px}
+.apps{position:absolute;top:27%;left:0;width:100%;padding:0 6%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:31px 12px}
+.app{text-align:center;min-width:0;cursor:pointer}
+.appicon{width:min(100%,76px);aspect-ratio:1;margin:auto;border-radius:18px;overflow:hidden;display:grid;place-items:center;background:#333}
+.appicon svg{width:100%;height:100%}
+.appname{font-size:12px;margin-top:7px;white-space:nowrap}
+.dock{position:absolute;bottom:43px;left:4%;width:92%;padding:13px 10px;border-radius:28px;background:#ffffff24;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.dock .appicon{width:min(100%,70px)}
+.dock .appname{font-size:11px}
+.page{position:absolute;inset:57px 0 0;background:#101012;display:none;z-index:12}
+.page.open{display:flex;flex-direction:column}
+.pageheader{height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-size:21px;font-weight:600;border-bottom:1px solid #ffffff20}
+.back{background:none;border:0;color:#4b9cff;font-size:17px}
+.pagebody{padding:20px;overflow:auto;flex:1}
+.item{background:#242427;border-radius:12px;padding:16px;margin-bottom:10px}
+.field{width:100%;padding:12px;border-radius:10px;border:0;background:#303035;color:#fff;font-size:16px;margin:8px 0}
+.action{background:#3289ff;border:0;border-radius:10px;padding:11px 16px;margin:6px 4px 6px 0}
+textarea.field{min-height:170px;resize:vertical}
+.muted{color:#aaa;font-size:13px}
+.hidden{display:none!important}
 </style>
 </head>
 <body>
-<template id="statusTemplate">
-<div class="status">
-<span class="smalltime">9:41</span>
-<div class="island"></div>
-<div class="rightstatus">
-<span class="signal"><i></i><i></i><i></i><i></i></span>
-<svg class="wifi" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.7" stroke-linecap="round"><path d="M2.5 8.5a15 15 0 0 1 19 0M6 12.5a10 10 0 0 1 12 0M9.5 16a5 5 0 0 1 5 0"/><circle cx="12" cy="19" r="1.5" fill="white" stroke="none"/></svg>
-<svg class="battery" viewBox="0 0 29 16"><rect x="1" y="1.5" width="24" height="13" rx="3.5" fill="none" stroke="white" stroke-width="1.5"/><rect x="3.5" y="4" width="18" height="8" rx="1.8" fill="white"/><path d="M26.5 5.5q3 2.5 0 5" stroke="white" stroke-width="1.5" fill="none"/></svg>
-</div>
-</div>
-</template>
+<div class="phone" id="phone">
 
-<section id="lock" class="screen">
+<div class="status">
+<span id="statusTime">9:41</span>
+<div class="island"></div>
+<div class="indicators">
+<div class="signal"><i></i><i></i><i></i><i></i></div>
+<svg class="wifi" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"><path d="M2 8Q12 0 22 8M6 12Q12 7 18 12M10 16Q12 14 14 16"/><circle cx="12" cy="20" r="1" fill="white" stroke="none"/></svg>
+<div class="battery"><div class="battery-fill"></div></div>
+</div>
+</div>
+
+<section class="screen active" id="lock">
 <div class="lockclock">
-<div class="lockicon">🔒</div>
-<div class="bigtime liveTime">9:41</div>
-<div class="date" id="date"></div>
+<div class="lockicon">♙</div>
+<div class="bigtime" id="bigTime">9:41</div>
+<div class="date" id="date">10월 26일 월요일</div>
 </div>
-<div class="shortcuts">
-<button class="round" aria-label="손전등">
-<svg viewBox="0 0 24 24" fill="white"><path d="M7 2h10l-1.2 8-2.5 3v7.5a1.3 1.3 0 0 1-2.6 0V13l-2.5-3z"/></svg>
+<div class="locktip">위로 쓸어올려 잠금 해제</div>
+<div class="lockbottom">
+<button class="round" onclick="flashlight()">
+<svg viewBox="0 0 24 24"><path d="M8 3h8v5l-2 3v9H10v-9L8 8zM10 14h4"/></svg>
 </button>
-<button class="round" aria-label="카메라">
-<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><rect x="2" y="6" width="20" height="15" rx="3"/><path d="M7 6l2-3h6l2 3"/><circle cx="12" cy="13.5" r="4"/></svg>
+<button class="round" onclick="openCamera()">
+<svg viewBox="0 0 24 24"><path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/></svg>
 </button>
 </div>
-<div class="hintlock">위로 쓸어올려 잠금 해제</div>
-<div class="homebar" id="swipebar"></div>
 </section>
 
-<section id="pass" class="screen hidden">
-<div class="passarea">
-<div class="lockicon">🔒</div>
+<section class="screen" id="pass">
+<div class="passwrap">
 <div class="passlabel">암호 입력</div>
 <div class="hint" id="hint"></div>
 <div class="dots" id="dots">
-<span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+<div class="dot"></div><div class="dot"></div>
+<div class="dot"></div><div class="dot"></div>
 </div>
 <div class="keypad" id="keys"></div>
+<div class="passfooter">
+<button onclick="show('lock')">취소</button>
+<button onclick="erasePin()">삭제</button>
 </div>
-<div class="passbottom">
-<button id="cancel">취소</button>
-<button id="delete">지우기</button>
 </div>
-<div class="homebar"></div>
 </section>
 
-<section id="home" class="screen hidden">
+<section class="screen" id="home">
 <div class="apps" id="apps"></div>
 <div class="dock" id="dock"></div>
-<div class="toast hidden" id="toast"></div>
-<div class="homebar" id="homebar"></div>
 </section>
 
+<div class="page" id="page">
+<div class="pageheader">
+<button class="back" onclick="closeApp()">‹ 뒤로</button>
+<span id="pageTitle"></span>
+<span style="width:40px"></span>
+</div>
+<div class="pagebody" id="pageBody"></div>
+</div>
+
+<div class="homebar" id="homebar"></div>
+</div>
+
 <script>
-const $=id=>document.getElementById(id);
-document.querySelectorAll('.screen').forEach(s=>s.prepend($('statusTemplate').content.cloneNode(true)));
+const icons={
+'메시지':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#30d553"/><path d="M17 23Q17 15 29 15H53Q66 15 66 29V45Q66 59 51 59H34L22 68L25 56Q17 52 17 43Z" fill="white"/></svg>`,
+'사진':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#fff"/><g transform="translate(40 40)"><ellipse cy="-19" rx="10" ry="21" fill="#f6b72d"/><ellipse cy="-19" rx="10" ry="21" fill="#f04b51" transform="rotate(45)"/><ellipse cy="-19" rx="10" ry="21" fill="#a64cba" transform="rotate(90)"/><ellipse cy="-19" rx="10" ry="21" fill="#5485d8" transform="rotate(135)"/><ellipse cy="-19" rx="10" ry="21" fill="#48bfc8" transform="rotate(180)"/><ellipse cy="-19" rx="10" ry="21" fill="#63b65b" transform="rotate(225)"/><ellipse cy="-19" rx="10" ry="21" fill="#f5c33b" transform="rotate(270)"/><ellipse cy="-19" rx="10" ry="21" fill="#e66d43" transform="rotate(315)"/><circle r="8" fill="#f7e9ad"/></g></svg>`,
+'메모':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#fff"/><path d="M0 0H80V22H0Z" fill="#ffd344"/><path d="M15 35H65M15 46H65M15 57H52" stroke="#ccc" stroke-width="2"/></svg>`,
+'캘린더':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="white"/><text x="40" y="22" text-anchor="middle" font-size="12" fill="#f34d54" id="calDay">MON</text><text x="40" y="64" text-anchor="middle" font-size="43" font-weight="300" fill="#111" id="calDate">26</text></svg>`,
+'음악':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#fb375e"/><path d="M38 17V55Q33 49 25 53Q15 57 19 65Q23 72 33 66Q38 63 38 56V31L59 26V49Q54 44 47 48Q37 52 41 60Q45 68 55 62Q61 59 61 52V15Z" fill="white"/></svg>`,
+'X':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#101010"/><path d="M19 15H29L61 65H51Z" fill="none" stroke="white" stroke-width="3"/><path d="M59 15L20 65" stroke="white" stroke-width="3"/></svg>`,
+'설정':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#aaa"/><g transform="translate(40 40)"><path d="M-7-29H7L10-22L17-20L24-24L31-12L25-6L25 6L31 12L24 24L17 20L10 22L7 29H-7L-10 22L-17 20L-24 24L-31 12L-25 6L-25-6L-31-12L-24-24L-17-20L-10-22Z" fill="#444" stroke="#ddd" stroke-width="2"/><circle r="19" fill="#777" stroke="#222" stroke-width="3"/><circle r="11" fill="#444" stroke="#ccc" stroke-width="3"/></g></svg>`,
+'비밀 폴더':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#333337"/><rect x="24" y="35" width="32" height="28" rx="5" fill="#e3b94c"/><path d="M30 36V26A10 10 0 0 1 50 26V36" fill="none" stroke="#f7d77c" stroke-width="6"/><circle cx="40" cy="48" r="3" fill="#795c25"/></svg>`,
+'전화':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#2ed657"/><path d="M24 15Q19 13 15 22Q9 39 29 59Q48 77 62 65Q68 60 63 56L51 47Q48 45 44 50L40 54Q30 49 25 39L30 34Q33 31 30 27Z" fill="white"/></svg>`,
+'Safari':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="white"/><circle cx="40" cy="40" r="31" fill="#159fe9" stroke="#d5d5d5" stroke-width="3"/><circle cx="40" cy="40" r="26" fill="none" stroke="#bce9ff" stroke-width="1" stroke-dasharray="1 3"/><path d="M51 24L44 44L28 55L36 35Z" fill="white"/><path d="M51 24L44 44L36 35Z" fill="#f4434d"/></svg>`,
+'카메라':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#a4a4a4"/><rect x="12" y="25" width="56" height="39" rx="8" fill="#333"/><path d="M22 25L28 17H49L56 25" fill="#555"/><circle cx="40" cy="44" r="18" fill="#777"/><circle cx="40" cy="44" r="13" fill="#222" stroke="#aaa" stroke-width="3"/><circle cx="59" cy="32" r="3" fill="#e5b941"/></svg>`,
+'연락처':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#d5d5d1"/><rect x="68" y="12" width="8" height="18" fill="#f0c844"/><rect x="68" y="30" width="8" height="18" fill="#43b8e4"/><rect x="68" y="48" width="8" height="18" fill="#62ad66"/><circle cx="37" cy="29" r="14" fill="#999"/><path d="M13 68Q15 46 37 46Q59 46 61 68" fill="#999"/></svg>`
+};
 
-function clock(){
-const n=new Date();
-const t=n.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',hour12:false});
-document.querySelectorAll('.smalltime,.liveTime').forEach(e=>e.textContent=t);
-$('date').textContent=n.toLocaleDateString('ko-KR',{month:'long',day:'numeric',weekday:'long'});
+const mainApps=['메시지','사진','메모','캘린더','음악','X','설정','비밀 폴더'];
+const dockApps=['전화','Safari','카메라','연락처'];
+let pin='',currentApp='',notes=JSON.parse(localStorage.getItem('solNotes')||'[]');
+let contacts=JSON.parse(localStorage.getItem('solContacts')||'[]');
+let messages=JSON.parse(localStorage.getItem('solMessages')||'[]');
+
+function updateClock(){
+const now=new Date();
+const time=now.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',hour12:false});
+document.getElementById('statusTime').textContent=time;
+document.getElementById('bigTime').textContent=time;
+document.getElementById('date').textContent=now.toLocaleDateString('ko-KR',{month:'long',day:'numeric',weekday:'long'});
+const day=['SUN','MON','TUE','WED','THU','FRI','SAT'][now.getDay()];
+const cal=document.querySelector('#apps .appicon svg #calDay');
+const date=document.querySelector('#apps .appicon svg #calDate');
+if(cal)cal.textContent=day;
+if(date)date.textContent=now.getDate();
 }
-clock();
-setInterval(clock,1000);
-
-const lock=$('lock'),pass=$('pass'),home=$('home');
-function show(el){
-[lock,pass,home].forEach(x=>x.classList.add('hidden'));
-el.classList.remove('hidden');
+function show(id){
+document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+document.getElementById('page').classList.remove('open');
 }
-let startY=null;
-lock.addEventListener('touchstart',e=>{startY=e.touches[0].clientY},{passive:true});
-lock.addEventListener('touchend',e=>{
-if(startY!==null&&startY-e.changedTouches[0].clientY>45)show(pass);
-startY=null;
-},{passive:true});
-$('swipebar').onclick=()=>show(pass);
+function makeApp(name){
+const el=document.createElement('div');
+el.className='app';
+el.innerHTML=`<div class="appicon">${icons[name]}</div><div class="appname">${name}</div>`;
+el.onclick=()=>openApp(name);
+return el;
+}
+mainApps.forEach(n=>document.getElementById('apps').appendChild(makeApp(n)));
+dockApps.forEach(n=>document.getElementById('dock').appendChild(makeApp(n)));
+updateClock();setInterval(updateClock,1000);
 
-let pin='',checking=false;
-const dots=[...document.querySelectorAll('.dot')];
 function renderDots(){
-dots.forEach((d,i)=>d.classList.toggle('filled',i<pin.length));
+document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('filled',i<pin.length));
 }
-function enter(n){
-if(checking||pin.length>=4)return;
-pin+=n;
-renderDots();
+function addPin(n){
+if(pin.length>=4)return;
+pin+=n;renderDots();
 if(pin.length===4){
-checking=true;
 setTimeout(()=>{
 if(pin==='0913'){
-pin='';
-renderDots();
-$('hint').textContent='';
-show(home);
+pin='';renderDots();
+document.getElementById('hint').textContent='';
+show('home');
 }else{
-$('hint').textContent='힌트 : 생일';
-$('dots').classList.add('shake');
-setTimeout(()=>$('dots').classList.remove('shake'),380);
-pin='';
-renderDots();
+document.getElementById('hint').textContent='힌트 : 생일';
+pin='';renderDots();
 }
-checking=false;
-},240);
+},220);
 }
 }
-['1','2','3','4','5','6','7','8','9','','0',''].forEach(n=>{
+function erasePin(){pin=pin.slice(0,-1);renderDots()}
+const keys=document.getElementById('keys');
+['1','2','3','4','5','6','7','8','9','','0',''].forEach((n,i)=>{
 const b=document.createElement('button');
-b.className='key'+(!n?' blank':'');
+b.className='key'+(!n?' small':'');
 b.textContent=n;
-if(n)b.onclick=()=>enter(n);
-$('keys').appendChild(b);
+if(n)b.onclick=()=>addPin(n);
+keys.appendChild(b);
 });
-$('cancel').onclick=()=>{
-pin='';checking=false;renderDots();
-$('hint').textContent='';show(lock);
+let startY=0;
+document.getElementById('lock').addEventListener('touchstart',e=>{startY=e.touches[0].clientY},{passive:true});
+document.getElementById('lock').addEventListener('touchend',e=>{
+if(startY-e.changedTouches[0].clientY>45)show('pass');
+});
+document.getElementById('lock').addEventListener('click',e=>{
+if(!e.target.closest('button'))show('pass');
+});
+const homebar=document.getElementById('homebar');
+homebar.onclick=()=>{
+if(document.getElementById('page').classList.contains('open'))closeApp();
+else if(document.getElementById('lock').classList.contains('active'))show('pass');
+else if(document.getElementById('pass').classList.contains('active'))show('lock');
+else show('home');
 };
-$('delete').onclick=()=>{
-if(checking)return;
-pin=pin.slice(0,-1);renderDots();
-};
+function flashlight(){alert('손전등은 웹사이트에서 실제로 켤 수 없어요.')}
+function openCamera(){openApp('카메라')}
 
-const svg=c=>'<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">'+c+'</svg>';
-const icons={
-message:svg('<path fill="white" d="M12 13h40a9 9 0 0 1 9 9v18a9 9 0 0 1-9 9H29L15 58l3-11a9 9 0 0 1-6-8V22a9 9 0 0 1 9-9z"/>'),
-photos:svg('<g transform="translate(32 32)"><ellipse rx="7" ry="17" cy="-14" fill="#ff4c5d"/><ellipse rx="7" ry="17" cy="-14" fill="#ff9b36" transform="rotate(45)"/><ellipse rx="7" ry="17" cy="-14" fill="#ffdc3e" transform="rotate(90)"/><ellipse rx="7" ry="17" cy="-14" fill="#69c84b" transform="rotate(135)"/><ellipse rx="7" ry="17" cy="-14" fill="#4cc9d9" transform="rotate(180)"/><ellipse rx="7" ry="17" cy="-14" fill="#4a8df5" transform="rotate(225)"/><ellipse rx="7" ry="17" cy="-14" fill="#a36cf5" transform="rotate(270)"/><ellipse rx="7" ry="17" cy="-14" fill="#f56ba7" transform="rotate(315)"/><circle r="6" fill="#fff6cf"/></g>'),
-notes:svg('<rect width="64" height="64" fill="#fff"/><rect width="64" height="15" fill="#f8ce49"/><path d="M9 28h46M9 38h46M9 48h34" stroke="#d3d3d3" stroke-width="2"/>'),
-calendar:svg('<rect width="64" height="64" fill="#fff"/><text x="32" y="17" font-size="13" text-anchor="middle" font-family="Arial" fill="#e64d48" class="calWeek">MON</text><text x="32" y="53" font-size="40" font-weight="300" text-anchor="middle" font-family="Arial" fill="#111" class="calDay">26</text>'),
-music:svg('<path d="M37 10v32a9 9 0 1 1-6-8V17l22-5v25a9 9 0 1 1-6-8V7z" fill="white"/>'),
-x:svg('<path d="M12 10h10l30 44H42zM46 10h7L18 54h-7z" fill="white"/>'),
-settings:svg('<text x="32" y="48" text-anchor="middle" font-size="49">⚙️</text>'),
-secret:svg('<rect x="9" y="26" width="46" height="31" rx="7" fill="#ddd"/><path d="M19 26v-9a13 13 0 0 1 26 0v9" fill="none" stroke="#ddd" stroke-width="7"/><circle cx="32" cy="40" r="4" fill="#555"/>'),
-phone:svg('<path d="M16 9c-6 2-8 8-6 16 4 16 18 29 33 31 8 1 12-3 13-9l-14-9-8 7C24 40 20 34 18 26l7-6z" fill="white"/>'),
-safari:svg('<circle cx="32" cy="32" r="28" fill="#e9f6ff"/><circle cx="32" cy="32" r="24" fill="#229af0"/><path d="M42 19 28 29 21 45l14-12z" fill="white"/><path d="M42 19 28 29l7 4z" fill="#f34e59"/>'),
-camera:svg('<rect x="6" y="17" width="52" height="38" rx="8" fill="#ddd"/><path d="M18 17l5-7h18l5 7" fill="#ddd"/><circle cx="32" cy="36" r="14" fill="#777"/><circle cx="32" cy="36" r="10" fill="#333"/>'),
-contacts:svg('<circle cx="32" cy="23" r="12" fill="#f2f2f2"/><path d="M9 56c1-14 11-21 23-21s22 7 23 21" fill="#f2f2f2"/>')
+function openApp(name){
+currentApp=name;
+document.getElementById('pageTitle').textContent=name;
+document.getElementById('page').classList.add('open');
+renderApp();
+}
+function closeApp(){
+document.getElementById('page').classList.remove('open');
+show('home');
+}
+function escapeHTML(s){
+return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function renderApp(){
+const body=document.getElementById('pageBody');
+if(currentApp==='메모'){
+body.innerHTML=`<button class="action" onclick="newNote()">+ 새 메모</button><div id="noteList"></div>`;
+document.getElementById('noteList').innerHTML=notes.map((n,i)=>`<div class="item" onclick="editNote(${i})">${escapeHTML(n.slice(0,70))||'빈 메모'}</div>`).join('');
+}else if(currentApp==='캘린더'){
+const d=new Date();
+body.innerHTML=`<div class="item" style="text-align:center;font-size:24px">${d.toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric',weekday:'long'})}</div><input class="field" type="date" id="eventDate"><input class="field" id="eventText" placeholder="일정 입력"><button class="action" onclick="addEvent()">일정 추가</button><div id="events"></div>`;
+renderEvents();
+}else if(currentApp==='연락처'){
+body.innerHTML=`<input class="field" id="contactName" placeholder="이름"><input class="field" id="contactPhone" placeholder="전화번호"><button class="action" onclick="addContact()">연락처 추가</button><div id="contactList"></div>`;
+renderContacts();
+}else if(currentApp==='메시지'){
+body.innerHTML=`<input class="field" id="msgTo" placeholder="받는 사람"><textarea class="field" id="msgText" placeholder="메시지 입력"></textarea><button class="action" onclick="addMessage()">가상 메시지 저장</button><div id="messageList"></div>`;
+renderMessages();
+}else if(currentApp==='비밀 폴더'){
+body.innerHTML=`<div class="item" style="text-align:center">🔒 비밀 폴더</div><input class="field" type="password" inputmode="numeric" id="secretPin" placeholder="비밀번호 4자리"><button class="action" onclick="unlockSecret()">열기</button><div id="secretContent"></div>`;
+}else if(currentApp==='사진'){
+body.innerHTML=`<div class="item">사진 보관함</div><input class="field" type="file" accept="image/*" multiple id="photoInput"><div id="photoGallery" style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px"></div>`;
+document.getElementById('photoInput').onchange=e=>{
+const gallery=document.getElementById('photoGallery');
+Array.from(e.target.files).forEach(f=>{
+const url=URL.createObjectURL(f);
+const img=document.createElement('img');
+img.src=url;img.style.cssText='width:100%;aspect-ratio:1;object-fit:cover';
+gallery.appendChild(img);
+});
 };
-
-const appList=[
-['메시지','message','#35c85a'],
-['사진','photos','#fff'],
-['메모','notes','#fff'],
-['캘린더','calendar','#fff'],
-['음악','music','#fa4260'],
-['X','x','#111'],
-['설정','settings','#747474'],
-['비밀 폴더','secret','#454550']
-];
-const dockList=[
-['전화','phone','#34c759'],
-['Safari','safari','#fff'],
-['카메라','camera','#858585'],
-['연락처','contacts','#858585']
-];
-let toastTimer;
-function makeApp([name,key,bg],inDock=false){
-const b=document.createElement('button');
-b.className='app';
-const icon=document.createElement('div');
-icon.className='appicon';
-icon.style.background=bg;
-icon.innerHTML=icons[key];
-b.appendChild(icon);
-if(!inDock){
-const label=document.createElement('span');
-label.className='appname';
-label.textContent=name;
-b.appendChild(label);
-}
-b.onclick=()=>{
-const t=$('toast');
-t.textContent=name+' 앱은 다음에 만들 거야!';
-t.classList.remove('hidden');
-clearTimeout(toastTimer);
-toastTimer=setTimeout(()=>t.classList.add('hidden'),1600);
+}else if(currentApp==='Safari'){
+body.innerHTML=`<input class="field" id="urlInput" placeholder="웹사이트 주소"><button class="action" onclick="visitSite()">이동</button><p class="muted">새 탭에서 웹사이트가 열립니다.</p>`;
+}else if(currentApp==='전화'){
+body.innerHTML=`<input class="field" id="dialNumber" type="tel" placeholder="전화번호"><button class="action" onclick="dial()">전화 걸기</button><p class="muted">실제 통화는 기기의 전화 앱을 사용합니다.</p>`;
+}else if(currentApp==='카메라'){
+body.innerHTML=`<input class="field" type="file" accept="image/*" capture="environment" id="cameraInput"><div id="cameraPreview"></div>`;
+document.getElementById('cameraInput').onchange=e=>{
+const f=e.target.files[0];if(!f)return;
+const img=document.createElement('img');img.src=URL.createObjectURL(f);img.style.width='100%';
+document.getElementById('cameraPreview').replaceChildren(img);
 };
-return b;
+}else if(currentApp==='설정'){
+body.innerHTML=`<div class="item">김솔음의 휴대폰</div><div class="item">화면 모드: 다크</div><div class="item">잠금 방식: 4자리 암호</div><button class="action" onclick="show('lock')">화면 잠그기</button>`;
+}else if(currentApp==='음악'){
+body.innerHTML=`<div class="item">음악 플레이어</div><input class="field" type="file" accept="audio/*" id="musicFile"><audio id="player" controls style="width:100%;margin-top:20px"></audio>`;
+document.getElementById('musicFile').onchange=e=>{
+const f=e.target.files[0];if(f)document.getElementById('player').src=URL.createObjectURL(f);
+};
+}else if(currentApp==='X'){
+body.innerHTML=`<div class="item" style="text-align:center;font-size:34px">𝕏</div><button class="action" onclick="window.open('https://x.com','_blank')">X 열기</button>`;
 }
-appList.forEach(a=>$('apps').appendChild(makeApp(a)));
-dockList.forEach(a=>$('dock').appendChild(makeApp(a,true)));
-
-function updateCalendar(){
-const n=new Date();
-document.querySelectorAll('.calDay').forEach(e=>e.textContent=n.getDate());
-document.querySelectorAll('.calWeek').forEach(e=>e.textContent=['SUN','MON','TUE','WED','THU','FRI','SAT'][n.getDay()]);
 }
-updateCalendar();
-setInterval(updateCalendar,60000);
-$('homebar').onclick=()=>show(lock);
+function newNote(){editNote(-1)}
+function editNote(i){
+const value=i<0?'':notes[i];
+document.getElementById('pageBody').innerHTML=`<textarea class="field" id="noteEdit" placeholder="메모 작성">${escapeHTML(value)}</textarea><button class="action" onclick="saveNote(${i})">저장</button><button class="action" onclick="renderApp()">취소</button>${i>=0?`<button class="action" onclick="deleteNote(${i})">삭제</button>`:''}`;
+}
+function saveNote(i){
+const v=document.getElementById('noteEdit').value;
+if(i<0)notes.unshift(v);else notes[i]=v;
+localStorage.setItem('solNotes',JSON.stringify(notes));renderApp();
+}
+function deleteNote(i){notes.splice(i,1);localStorage.setItem('solNotes',JSON.stringify(notes));renderApp()}
+function addEvent(){
+const d=document.getElementById('eventDate').value,t=document.getElementById('eventText').value.trim();
+if(!d||!t)return;
+const a=JSON.parse(localStorage.getItem('solEvents')||'[]');
+a.push({date:d,text:t});localStorage.setItem('solEvents',JSON.stringify(a));renderEvents();
+}
+function renderEvents(){
+const a=JSON.parse(localStorage.getItem('solEvents')||'[]');
+document.getElementById('events').innerHTML=a.map(x=>`<div class="item">${escapeHTML(x.date)} · ${escapeHTML(x.text)}</div>`).join('');
+}
+function addContact(){
+const name=document.getElementById('contactName').value.trim(),phone=document.getElementById('contactPhone').value.trim();
+if(!name)return;contacts.push({name,phone});localStorage.setItem('solContacts',JSON.stringify(contacts));renderApp();
+}
+function renderContacts(){
+document.getElementById('contactList').innerHTML=contacts.map(c=>`<div class="item">${escapeHTML(c.name)}<p class="muted">${escapeHTML(c.phone)}</p></div>`).join('');
+}
+function addMessage(){
+const to=document.getElementById('msgTo').value.trim(),msg=document.getElementById('msgText').value.trim();
+if(!msg)return;messages.unshift({to,msg});localStorage.setItem('solMessages',JSON.stringify(messages));renderApp();
+}
+function renderMessages(){
+document.getElementById('messageList').innerHTML=messages.map(m=>`<div class="item"><b>${escapeHTML(m.to)}</b><p>${escapeHTML(m.msg)}</p></div>`).join('');
+}
+function unlockSecret(){
+const v=document.getElementById('secretPin').value;
+document.getElementById('secretContent').innerHTML=v==='0913'?'<div class="item">비밀 폴더가 열렸습니다.</div>':'<div class="item">비밀번호가 틀렸습니다.</div>';
+}
+function visitSite(){
+let url=document.getElementById('urlInput').value.trim();
+if(!url)return;
+if(!/^https?:\/\//i.test(url))url='https://'+url;
+try{const u=new URL(url);if(!['http:','https:'].includes(u.protocol))return;window.open(u.href,'_blank','noopener')}catch(e){alert('주소를 확인해 주세요.')}
+}
+function dial(){
+const n=document.getElementById('dialNumber').value;
+if(/^[0-9+*# -]{2,25}$/.test(n))location.href='tel:'+n.replace(/[^0-9+*#]/g,'');
+}
 </script>
 </body>
 </html>
