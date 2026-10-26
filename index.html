@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>김솔음의 휴대폰</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#000;color:white;font-family:-apple-system,BlinkMacSystemFont,"Arial",sans-serif}
+.phone{height:100dvh;min-height:500px;background:#000;display:flex;flex-direction:column;align-items:center;position:relative}
+.status{width:100%;padding:16px 26px;display:flex;justify-content:space-between;align-items:center;font-size:15px;font-weight:600}
+.island{width:90px;height:25px;background:#151515;border-radius:20px}
+.clock{margin-top:65px;text-align:center}
+.lock{font-size:21px;margin-bottom:12px}
+.time{font-size:76px;font-weight:200;letter-spacing:-3px;line-height:1.1}
+.date{font-size:19px;margin-top:10px}
+.bottom{position:absolute;bottom:32px;width:100%;padding:0 35px;display:flex;justify-content:space-between}
+.circle{width:50px;height:50px;border-radius:50%;background:#252525;display:flex;align-items:center;justify-content:center;font-size:23px}
+.bar{position:absolute;bottom:8px;width:130px;height:5px;border-radius:10px;background:white}
+</style>
+</head>
+<body>
+<div class="phone">
+<div class="status"><span id="smallTime">9:41</span><div class="island"></div><span>● ▰</span></div>
+<div class="clock">
+<div class="lock">♙</div>
+<div class="time" id="time">9:41</div>
+<div class="date" id="date"></div>
+</div>
+<div class="bottom"><div class="circle">♢</div><div class="circle">◎</div></div>
+<div class="bar"></div>
+</div>
+<script>
+function updateClock(){
+const now=new Date();
+const time=now.toLocaleTimeString('ko-KR',{hour:'numeric',minute:'2-digit',hour12:false});
+const date=now.toLocaleDateString('ko-KR',{month:'long',day:'numeric',weekday:'long'});
+document.getElementById('time').textContent=time;
+document.getElementById('smallTime').textContent=time;
+document.getElementById('date').textContent=date;
+}
+updateClock();
+setInterval(updateClock,1000);
+</script>
+</body>
+</html>
