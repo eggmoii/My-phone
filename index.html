@@ -3,98 +3,180 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="theme-color" content="#000000">
 <title>김솔음의 휴대폰</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif}
-button{font:inherit;color:inherit;cursor:pointer}
-.phone{position:relative;width:100%;height:100vh;height:100dvh;overflow:hidden;background:radial-gradient(ellipse at 50% 20%,#1b1b1d,#080808 80%)}
+html,body{
+margin:0;width:100%;height:100%;overflow:hidden;
+background:#000;color:white;
+font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif
+}
+button,input,textarea{font:inherit}
+button{color:inherit;cursor:pointer}
+.phone{
+position:relative;width:100%;height:100vh;height:100dvh;
+overflow:hidden;
+background:radial-gradient(ellipse at 50% 25%,#19191b,#080808 78%)
+}
 .screen{position:absolute;inset:0;display:none}
 .screen.active{display:block}
-.status{position:absolute;top:0;left:0;width:100%;height:57px;display:flex;align-items:center;justify-content:space-between;padding:0 7%;z-index:10;font-size:16px;font-weight:600}
-.island{position:absolute;left:50%;top:11px;transform:translateX(-50%);width:112px;height:32px;border-radius:22px;background:#000}
-.indicators{display:flex;align-items:center;gap:6px}
-.signal{display:flex;align-items:end;gap:2px;height:15px}
+.status{
+position:absolute;top:0;left:0;width:100%;height:55px;
+display:flex;align-items:center;justify-content:space-between;
+padding:0 7%;z-index:10;font-size:15px;font-weight:600;
+pointer-events:none
+}
+.island{
+position:absolute;left:50%;top:11px;
+transform:translateX(-50%);
+width:110px;height:31px;border-radius:22px;background:#000
+}
+.indicators{display:flex;align-items:center;gap:9px}
+.signal{display:flex;align-items:flex-end;gap:2px;height:15px}
 .signal i{display:block;width:4px;background:#fff;border-radius:2px}
 .signal i:nth-child(1){height:5px}
 .signal i:nth-child(2){height:8px}
 .signal i:nth-child(3){height:12px}
 .signal i:nth-child(4){height:15px}
-.wifi{width:17px;height:17px}
-.battery{width:24px;height:12px;border:1.7px solid #fff;border-radius:4px;padding:2px;position:relative}
-.battery:after{content:"";position:absolute;right:-4px;top:3px;width:2px;height:4px;background:#fff;border-radius:2px}
+.battery{
+position:relative;width:25px;height:13px;
+border:1.7px solid #fff;border-radius:4px;padding:2px
+}
+.battery:after{
+content:"";position:absolute;right:-4px;top:3px;
+width:2px;height:5px;background:#fff;border-radius:2px
+}
 .battery-fill{width:70%;height:100%;background:#fff;border-radius:1px}
-.homebar{position:absolute;bottom:9px;left:50%;transform:translateX(-50%);width:130px;height:5px;border-radius:10px;background:#fff;z-index:15;touch-action:none}
-#lock{touch-action:pan-x}
-.lockclock{position:absolute;top:17%;width:100%;text-align:center}
-.lockicon{font-size:22px;margin-bottom:8px}
-.bigtime{font-size:clamp(68px,20vw,94px);font-weight:200;letter-spacing:-4px}
+.homebar{
+position:absolute;bottom:9px;left:50%;
+transform:translateX(-50%);width:130px;height:5px;
+background:#fff;border-radius:10px;z-index:15
+}
+.lockclock{
+position:absolute;top:17%;width:100%;text-align:center
+}
+.bigtime{
+font-size:clamp(68px,20vw,94px);
+font-weight:200;letter-spacing:-4px
+}
 .date{font-size:20px;margin-top:7px}
-.lockbottom{position:absolute;bottom:42px;width:100%;display:flex;justify-content:space-between;padding:0 34px}
-.round{border:0;width:52px;height:52px;border-radius:50%;background:#292929;display:grid;place-items:center}
-.round svg{width:25px;height:25px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.locktip{position:absolute;bottom:108px;width:100%;text-align:center;color:#aaa;font-size:13px}
-.passwrap{position:absolute;top:21%;width:100%;text-align:center}
+.locktip{
+position:absolute;bottom:110px;width:100%;
+text-align:center;color:#aaa;font-size:13px
+}
+.lockbottom{
+position:absolute;bottom:43px;width:100%;
+display:flex;justify-content:space-between;padding:0 34px
+}
+.round{
+border:0;width:52px;height:52px;border-radius:50%;
+background:#292929;display:grid;place-items:center
+}
+.round svg{
+width:25px;height:25px;stroke:white;fill:none;
+stroke-width:2;stroke-linecap:round;stroke-linejoin:round
+}
+.passwrap{
+position:absolute;top:20%;width:100%;text-align:center
+}
 .passlabel{font-size:21px;margin-bottom:20px}
 .hint{height:24px;color:#ffce67;font-size:15px;margin-bottom:12px}
-.dots{display:flex;justify-content:center;gap:18px;margin-bottom:45px}
+.dots{display:flex;justify-content:center;gap:18px;margin-bottom:35px}
 .dot{width:13px;height:13px;border:1.5px solid white;border-radius:50%}
-.dot.filled{background:#fff}
-.keypad{display:grid;grid-template-columns:repeat(3,74px);justify-content:center;gap:15px 21px}
-.key{width:74px;height:74px;border:0;border-radius:50%;background:#ffffff25;font-size:30px;font-weight:300}
+.dot.filled{background:white}
+.keypad{
+display:grid;grid-template-columns:repeat(3,72px);
+justify-content:center;gap:13px 21px
+}
+.key{
+width:72px;height:72px;border:0;border-radius:50%;
+background:#ffffff25;font-size:30px;font-weight:300
+}
 .key:active{background:#ffffff55}
-.key.small{background:transparent;font-size:15px}
-.passfooter{display:flex;justify-content:space-between;max-width:270px;margin:25px auto}
+.passfooter{
+display:flex;justify-content:space-between;
+max-width:270px;margin:24px auto
+}
 .passfooter button{border:0;background:none;font-size:15px}
-.apps{position:absolute;top:27%;left:0;width:100%;padding:0 6%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:31px 12px}
+.apps{
+position:absolute;top:23%;left:0;width:100%;
+padding:0 7%;
+display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+column-gap:13px;row-gap:29px
+}
 .app{text-align:center;min-width:0;cursor:pointer}
-.appicon{width:min(100%,76px);aspect-ratio:1;margin:auto;border-radius:18px;overflow:hidden;display:grid;place-items:center;background:#333}
-.appicon svg{width:100%;height:100%}
-.appname{font-size:12px;margin-top:7px;white-space:nowrap}
-.dock{position:absolute;bottom:43px;left:4%;width:92%;padding:13px 10px;border-radius:28px;background:#ffffff24;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.dock .appicon{width:min(100%,70px)}
-.dock .appname{font-size:11px}
-.page{position:absolute;inset:57px 0 0;background:#101012;display:none;z-index:12}
+.appicon{
+width:min(100%,66px);aspect-ratio:1;
+margin:auto;border-radius:15px;overflow:hidden;
+display:grid;place-items:center;background:#333
+}
+.appicon svg{width:100%;height:100%;display:block}
+.appname{font-size:11px;margin-top:7px;white-space:nowrap}
+.dock{
+position:absolute;bottom:43px;left:5%;width:90%;
+padding:12px 8px;border-radius:25px;
+background:#ffffff24;
+display:grid;grid-template-columns:repeat(4,1fr);gap:8px
+}
+.dock .appicon{width:min(100%,63px)}
+.dock .appname{font-size:11px;margin-top:6px}
+.page{
+position:absolute;inset:55px 0 0;background:#101012;
+display:none;z-index:12
+}
 .page.open{display:flex;flex-direction:column}
-.pageheader{height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-size:21px;font-weight:600;border-bottom:1px solid #ffffff20}
+.pageheader{
+height:60px;display:flex;align-items:center;
+justify-content:space-between;padding:0 20px;
+font-size:20px;font-weight:600;
+border-bottom:1px solid #ffffff20
+}
 .back{background:none;border:0;color:#4b9cff;font-size:17px}
-.pagebody{padding:20px;overflow:auto;flex:1}
+.pagebody{padding:20px;overflow:auto;flex:1;padding-bottom:65px}
 .item{background:#242427;border-radius:12px;padding:16px;margin-bottom:10px}
-.field{width:100%;padding:12px;border-radius:10px;border:0;background:#303035;color:#fff;font-size:16px;margin:8px 0}
-.action{background:#3289ff;border:0;border-radius:10px;padding:11px 16px;margin:6px 4px 6px 0}
+.field{
+width:100%;padding:12px;border-radius:10px;border:0;
+background:#303035;color:white;font-size:16px;margin:8px 0
+}
+.action{
+background:#3289ff;border:0;border-radius:10px;
+padding:11px 16px;margin:6px 4px 6px 0
+}
 textarea.field{min-height:170px;resize:vertical}
 .muted{color:#aaa;font-size:13px}
-.hidden{display:none!important}
 </style>
 </head>
 <body>
-<div class="phone" id="phone">
+<div class="phone">
 
 <div class="status">
 <span id="statusTime">9:41</span>
 <div class="island"></div>
 <div class="indicators">
 <div class="signal"><i></i><i></i><i></i><i></i></div>
-<svg class="wifi" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"><path d="M2 8Q12 0 22 8M6 12Q12 7 18 12M10 16Q12 14 14 16"/><circle cx="12" cy="20" r="1" fill="white" stroke="none"/></svg>
 <div class="battery"><div class="battery-fill"></div></div>
 </div>
 </div>
 
 <section class="screen active" id="lock">
 <div class="lockclock">
-<div class="lockicon">♙</div>
 <div class="bigtime" id="bigTime">9:41</div>
-<div class="date" id="date">10월 26일 월요일</div>
+<div class="date" id="date"></div>
 </div>
 <div class="locktip">위로 쓸어올려 잠금 해제</div>
 <div class="lockbottom">
-<button class="round" onclick="flashlight()">
-<svg viewBox="0 0 24 24"><path d="M8 3h8v5l-2 3v9H10v-9L8 8zM10 14h4"/></svg>
+<button class="round" onclick="flashlight()" aria-label="손전등">
+<svg viewBox="0 0 24 24">
+<path d="M8 3h8v5l-2 3v9h-4v-9L8 8zM10 14h4"/>
+</svg>
 </button>
-<button class="round" onclick="openCamera()">
-<svg viewBox="0 0 24 24"><path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/></svg>
+<button class="round" onclick="openCamera()" aria-label="카메라">
+<svg viewBox="0 0 24 24">
+<path d="M3 7h4l2-3h6l2 3h4v13H3z"/>
+<circle cx="12" cy="13" r="4"/>
+</svg>
 </button>
 </div>
 </section>
@@ -109,7 +191,7 @@ textarea.field{min-height:170px;resize:vertical}
 </div>
 <div class="keypad" id="keys"></div>
 <div class="passfooter">
-<button onclick="show('lock')">취소</button>
+<button onclick="cancelPin()">취소</button>
 <button onclick="erasePin()">삭제</button>
 </div>
 </div>
@@ -150,19 +232,25 @@ const icons={
 
 const mainApps=['메시지','사진','메모','캘린더','음악','X','설정','비밀 폴더'];
 const dockApps=['전화','Safari','카메라','연락처'];
-let pin='',currentApp='',notes=JSON.parse(localStorage.getItem('solNotes')||'[]');
+let pin='',checking=false,currentApp='';
+let notes=JSON.parse(localStorage.getItem('solNotes')||'[]');
 let contacts=JSON.parse(localStorage.getItem('solContacts')||'[]');
 let messages=JSON.parse(localStorage.getItem('solMessages')||'[]');
 
 function updateClock(){
 const now=new Date();
-const time=now.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',hour12:false});
+const time=now.toLocaleTimeString('ko-KR',{
+hour:'2-digit',minute:'2-digit',hour12:false
+});
 document.getElementById('statusTime').textContent=time;
 document.getElementById('bigTime').textContent=time;
-document.getElementById('date').textContent=now.toLocaleDateString('ko-KR',{month:'long',day:'numeric',weekday:'long'});
+document.getElementById('date').textContent=
+now.toLocaleDateString('ko-KR',{
+month:'long',day:'numeric',weekday:'long'
+});
 const day=['SUN','MON','TUE','WED','THU','FRI','SAT'][now.getDay()];
-const cal=document.querySelector('#apps .appicon svg #calDay');
-const date=document.querySelector('#apps .appicon svg #calDate');
+const cal=document.querySelector('#apps #calDay');
+const date=document.querySelector('#apps #calDate');
 if(cal)cal.textContent=day;
 if(date)date.textContent=now.getDate();
 }
@@ -180,52 +268,76 @@ return el;
 }
 mainApps.forEach(n=>document.getElementById('apps').appendChild(makeApp(n)));
 dockApps.forEach(n=>document.getElementById('dock').appendChild(makeApp(n)));
-updateClock();setInterval(updateClock,1000);
+updateClock();
+setInterval(updateClock,1000);
 
 function renderDots(){
-document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('filled',i<pin.length));
+document.querySelectorAll('.dot').forEach((d,i)=>{
+d.classList.toggle('filled',i<pin.length);
+});
 }
 function addPin(n){
-if(pin.length>=4)return;
-pin+=n;renderDots();
+if(checking||pin.length>=4)return;
+pin+=n;
+renderDots();
 if(pin.length===4){
+checking=true;
 setTimeout(()=>{
 if(pin==='0913'){
-pin='';renderDots();
+pin='';
+renderDots();
 document.getElementById('hint').textContent='';
 show('home');
 }else{
 document.getElementById('hint').textContent='힌트 : 생일';
-pin='';renderDots();
+pin='';
+renderDots();
 }
+checking=false;
 },220);
 }
 }
-function erasePin(){pin=pin.slice(0,-1);renderDots()}
+function erasePin(){
+if(checking)return;
+pin=pin.slice(0,-1);
+renderDots();
+}
+function cancelPin(){
+pin='';
+checking=false;
+renderDots();
+document.getElementById('hint').textContent='';
+show('lock');
+}
 const keys=document.getElementById('keys');
-['1','2','3','4','5','6','7','8','9','','0',''].forEach((n,i)=>{
+['1','2','3','4','5','6','7','8','9','','0',''].forEach(n=>{
 const b=document.createElement('button');
-b.className='key'+(!n?' small':'');
+b.className='key';
 b.textContent=n;
 if(n)b.onclick=()=>addPin(n);
+else b.style.visibility='hidden';
 keys.appendChild(b);
 });
+
 let startY=0;
-document.getElementById('lock').addEventListener('touchstart',e=>{startY=e.touches[0].clientY},{passive:true});
+document.getElementById('lock').addEventListener('touchstart',e=>{
+startY=e.touches[0].clientY;
+},{passive:true});
 document.getElementById('lock').addEventListener('touchend',e=>{
 if(startY-e.changedTouches[0].clientY>45)show('pass');
 });
 document.getElementById('lock').addEventListener('click',e=>{
 if(!e.target.closest('button'))show('pass');
 });
-const homebar=document.getElementById('homebar');
-homebar.onclick=()=>{
+document.getElementById('homebar').onclick=()=>{
 if(document.getElementById('page').classList.contains('open'))closeApp();
 else if(document.getElementById('lock').classList.contains('active'))show('pass');
-else if(document.getElementById('pass').classList.contains('active'))show('lock');
+else if(document.getElementById('pass').classList.contains('active'))cancelPin();
 else show('home');
 };
-function flashlight(){alert('손전등은 웹사이트에서 실제로 켤 수 없어요.')}
+function flashlight(){
+alert('웹사이트에서는 실제 손전등을 켤 수 없어요.');
+}
 function openCamera(){openApp('카메라')}
 
 function openApp(name){
@@ -239,16 +351,21 @@ document.getElementById('page').classList.remove('open');
 show('home');
 }
 function escapeHTML(s){
-return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+return String(s).replace(/[&<>"']/g,c=>({
+'&':'&amp;','<':'&lt;','>':'&gt;',
+'"':'&quot;',"'":'&#39;'
+}[c]));
 }
 function renderApp(){
 const body=document.getElementById('pageBody');
 if(currentApp==='메모'){
 body.innerHTML=`<button class="action" onclick="newNote()">+ 새 메모</button><div id="noteList"></div>`;
-document.getElementById('noteList').innerHTML=notes.map((n,i)=>`<div class="item" onclick="editNote(${i})">${escapeHTML(n.slice(0,70))||'빈 메모'}</div>`).join('');
+document.getElementById('noteList').innerHTML=notes.map((n,i)=>
+`<div class="item" onclick="editNote(${i})">${escapeHTML(n.slice(0,70))||'빈 메모'}</div>`
+).join('');
 }else if(currentApp==='캘린더'){
 const d=new Date();
-body.innerHTML=`<div class="item" style="text-align:center;font-size:24px">${d.toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric',weekday:'long'})}</div><input class="field" type="date" id="eventDate"><input class="field" id="eventText" placeholder="일정 입력"><button class="action" onclick="addEvent()">일정 추가</button><div id="events"></div>`;
+body.innerHTML=`<div class="item" style="text-align:center;font-size:23px">${d.toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric',weekday:'long'})}</div><input class="field" type="date" id="eventDate"><input class="field" id="eventText" placeholder="일정 입력"><button class="action" onclick="addEvent()">일정 추가</button><div id="events"></div>`;
 renderEvents();
 }else if(currentApp==='연락처'){
 body.innerHTML=`<input class="field" id="contactName" placeholder="이름"><input class="field" id="contactPhone" placeholder="전화번호"><button class="action" onclick="addContact()">연락처 추가</button><div id="contactList"></div>`;
@@ -263,9 +380,9 @@ body.innerHTML=`<div class="item">사진 보관함</div><input class="field" typ
 document.getElementById('photoInput').onchange=e=>{
 const gallery=document.getElementById('photoGallery');
 Array.from(e.target.files).forEach(f=>{
-const url=URL.createObjectURL(f);
 const img=document.createElement('img');
-img.src=url;img.style.cssText='width:100%;aspect-ratio:1;object-fit:cover';
+img.src=URL.createObjectURL(f);
+img.style.cssText='width:100%;aspect-ratio:1;object-fit:cover';
 gallery.appendChild(img);
 });
 };
@@ -276,8 +393,11 @@ body.innerHTML=`<input class="field" id="dialNumber" type="tel" placeholder="전
 }else if(currentApp==='카메라'){
 body.innerHTML=`<input class="field" type="file" accept="image/*" capture="environment" id="cameraInput"><div id="cameraPreview"></div>`;
 document.getElementById('cameraInput').onchange=e=>{
-const f=e.target.files[0];if(!f)return;
-const img=document.createElement('img');img.src=URL.createObjectURL(f);img.style.width='100%';
+const f=e.target.files[0];
+if(!f)return;
+const img=document.createElement('img');
+img.src=URL.createObjectURL(f);
+img.style.width='100%';
 document.getElementById('cameraPreview').replaceChildren(img);
 };
 }else if(currentApp==='설정'){
@@ -285,7 +405,8 @@ body.innerHTML=`<div class="item">김솔음의 휴대폰</div><div class="item">
 }else if(currentApp==='음악'){
 body.innerHTML=`<div class="item">음악 플레이어</div><input class="field" type="file" accept="audio/*" id="musicFile"><audio id="player" controls style="width:100%;margin-top:20px"></audio>`;
 document.getElementById('musicFile').onchange=e=>{
-const f=e.target.files[0];if(f)document.getElementById('player').src=URL.createObjectURL(f);
+const f=e.target.files[0];
+if(f)document.getElementById('player').src=URL.createObjectURL(f);
 };
 }else if(currentApp==='X'){
 body.innerHTML=`<div class="item" style="text-align:center;font-size:34px">𝕏</div><button class="action" onclick="window.open('https://x.com','_blank')">X 열기</button>`;
@@ -298,47 +419,79 @@ document.getElementById('pageBody').innerHTML=`<textarea class="field" id="noteE
 }
 function saveNote(i){
 const v=document.getElementById('noteEdit').value;
-if(i<0)notes.unshift(v);else notes[i]=v;
-localStorage.setItem('solNotes',JSON.stringify(notes));renderApp();
+if(i<0)notes.unshift(v);
+else notes[i]=v;
+localStorage.setItem('solNotes',JSON.stringify(notes));
+renderApp();
 }
-function deleteNote(i){notes.splice(i,1);localStorage.setItem('solNotes',JSON.stringify(notes));renderApp()}
+function deleteNote(i){
+notes.splice(i,1);
+localStorage.setItem('solNotes',JSON.stringify(notes));
+renderApp();
+}
 function addEvent(){
-const d=document.getElementById('eventDate').value,t=document.getElementById('eventText').value.trim();
+const d=document.getElementById('eventDate').value;
+const t=document.getElementById('eventText').value.trim();
 if(!d||!t)return;
 const a=JSON.parse(localStorage.getItem('solEvents')||'[]');
-a.push({date:d,text:t});localStorage.setItem('solEvents',JSON.stringify(a));renderEvents();
+a.push({date:d,text:t});
+localStorage.setItem('solEvents',JSON.stringify(a));
+renderEvents();
 }
 function renderEvents(){
 const a=JSON.parse(localStorage.getItem('solEvents')||'[]');
-document.getElementById('events').innerHTML=a.map(x=>`<div class="item">${escapeHTML(x.date)} · ${escapeHTML(x.text)}</div>`).join('');
+document.getElementById('events').innerHTML=a.map(x=>
+`<div class="item">${escapeHTML(x.date)} · ${escapeHTML(x.text)}</div>`
+).join('');
 }
 function addContact(){
-const name=document.getElementById('contactName').value.trim(),phone=document.getElementById('contactPhone').value.trim();
-if(!name)return;contacts.push({name,phone});localStorage.setItem('solContacts',JSON.stringify(contacts));renderApp();
+const name=document.getElementById('contactName').value.trim();
+const phone=document.getElementById('contactPhone').value.trim();
+if(!name)return;
+contacts.push({name,phone});
+localStorage.setItem('solContacts',JSON.stringify(contacts));
+renderApp();
 }
 function renderContacts(){
-document.getElementById('contactList').innerHTML=contacts.map(c=>`<div class="item">${escapeHTML(c.name)}<p class="muted">${escapeHTML(c.phone)}</p></div>`).join('');
+document.getElementById('contactList').innerHTML=contacts.map(c=>
+`<div class="item">${escapeHTML(c.name)}<p class="muted">${escapeHTML(c.phone)}</p></div>`
+).join('');
 }
 function addMessage(){
-const to=document.getElementById('msgTo').value.trim(),msg=document.getElementById('msgText').value.trim();
-if(!msg)return;messages.unshift({to,msg});localStorage.setItem('solMessages',JSON.stringify(messages));renderApp();
+const to=document.getElementById('msgTo').value.trim();
+const msg=document.getElementById('msgText').value.trim();
+if(!msg)return;
+messages.unshift({to,msg});
+localStorage.setItem('solMessages',JSON.stringify(messages));
+renderApp();
 }
 function renderMessages(){
-document.getElementById('messageList').innerHTML=messages.map(m=>`<div class="item"><b>${escapeHTML(m.to)}</b><p>${escapeHTML(m.msg)}</p></div>`).join('');
+document.getElementById('messageList').innerHTML=messages.map(m=>
+`<div class="item"><b>${escapeHTML(m.to)}</b><p>${escapeHTML(m.msg)}</p></div>`
+).join('');
 }
 function unlockSecret(){
 const v=document.getElementById('secretPin').value;
-document.getElementById('secretContent').innerHTML=v==='0913'?'<div class="item">비밀 폴더가 열렸습니다.</div>':'<div class="item">비밀번호가 틀렸습니다.</div>';
+document.getElementById('secretContent').innerHTML=
+v==='0913'
+?'<div class="item">비밀 폴더가 열렸습니다.</div>'
+:'<div class="item">비밀번호가 틀렸습니다.</div>';
 }
 function visitSite(){
 let url=document.getElementById('urlInput').value.trim();
 if(!url)return;
 if(!/^https?:\/\//i.test(url))url='https://'+url;
-try{const u=new URL(url);if(!['http:','https:'].includes(u.protocol))return;window.open(u.href,'_blank','noopener')}catch(e){alert('주소를 확인해 주세요.')}
+try{
+const u=new URL(url);
+if(!['http:','https:'].includes(u.protocol))return;
+window.open(u.href,'_blank','noopener');
+}catch(e){alert('주소를 확인해 주세요.')}
 }
 function dial(){
 const n=document.getElementById('dialNumber').value;
-if(/^[0-9+*# -]{2,25}$/.test(n))location.href='tel:'+n.replace(/[^0-9+*#]/g,'');
+if(/^[0-9+*# -]{2,25}$/.test(n)){
+location.href='tel:'+n.replace(/[^0-9+*#]/g,'');
+}
 }
 </script>
 </body>
