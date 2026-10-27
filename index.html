@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#000000">
 <title>김솔음의 휴대폰</title>
-
 <style>
 *{
   box-sizing:border-box;
@@ -32,20 +31,14 @@ button{
   height:100vh;
   height:100dvh;
   overflow:hidden;
-  background:radial-gradient(
-    ellipse at 50% 25%,
-    #19191b,
-    #080808 78%
-  );
+  background:radial-gradient(ellipse at 50% 25%,#19191b,#080808 78%);
 }
 .screen{
   position:absolute;
   inset:0;
   display:none;
 }
-.screen.active{
-  display:block;
-}
+.screen.active{display:block}
 
 /* 상단 상태바 */
 .status{
@@ -75,7 +68,7 @@ button{
 }
 .indicators{
   display:flex;
-  align-items:center;
+  align-items:flex-end;
   gap:10px;
 }
 .signal{
@@ -132,9 +125,7 @@ button{
 }
 
 /* 잠금화면 */
-#lock{
-  touch-action:pan-y;
-}
+#lock{touch-action:pan-y}
 .lockclock{
   position:absolute;
   top:clamp(100px,16%,155px);
@@ -230,9 +221,7 @@ button{
   border:1.5px solid #fff;
   border-radius:50%;
 }
-.dot.filled{
-  background:#fff;
-}
+.dot.filled{background:#fff}
 .keypad{
   display:grid;
   grid-template-columns:repeat(3,var(--key-size));
@@ -248,9 +237,7 @@ button{
   font-size:clamp(22px,4vh,30px);
   font-weight:300;
 }
-.key:active{
-  background:#ffffff55;
-}
+.key:active{background:#ffffff55}
 .passfooter{
   width:calc(var(--key-size) * 3 + 38px);
   display:flex;
@@ -314,12 +301,8 @@ button{
   grid-template-columns:repeat(4,minmax(0,1fr));
   gap:8px;
 }
-.dock .appicon{
-  width:min(100%,62px);
-}
-.dock .appname{
-  display:none;
-}
+.dock .appicon{width:min(100%,62px)}
+.dock .appname{display:none}
 
 @media(max-height:650px){
   .apps{
@@ -330,34 +313,18 @@ button{
   .dock .appicon{
     width:min(100%,56px);
   }
-  .dock{
-    padding:10px 8px;
-  }
+  .dock{padding:10px 8px}
 }
-
 @media(max-height:580px){
   #pass{
     --key-size:clamp(39px,7.5vh,52px);
     --key-gap-y:4px;
   }
-  .passwrap{
-    top:45px;
-    bottom:18px;
-  }
-  .passlabel{
-    font-size:18px;
-    margin-bottom:5px;
-  }
-  .hint{
-    min-height:20px;
-    margin-bottom:4px;
-  }
-  .dots{
-    margin-bottom:9px;
-  }
-  .passfooter{
-    margin-top:7px;
-  }
+  .passwrap{top:45px;bottom:18px}
+  .passlabel{font-size:18px;margin-bottom:5px}
+  .hint{min-height:20px;margin-bottom:4px}
+  .dots{margin-bottom:9px}
+  .passfooter{margin-top:7px}
 }
 </style>
 </head>
@@ -365,84 +332,51 @@ button{
 <body>
 <div class="phone">
 
-<!-- 상단 상태바 -->
 <div class="status">
   <span id="statusTime">9:41</span>
-
   <div class="island"></div>
-
   <div class="indicators">
-    <div class="signal">
-      <i></i><i></i><i></i><i></i>
-    </div>
-
-    <div class="battery">
-      <div class="battery-fill"></div>
-    </div>
+    <div class="signal"><i></i><i></i><i></i><i></i></div>
+    <div class="battery"><div class="battery-fill"></div></div>
   </div>
 </div>
 
 <!-- 잠금화면 -->
 <section class="screen active" id="lock">
-
   <div class="lockclock">
     <div class="bigtime" id="bigTime">9:41</div>
     <div class="date" id="date"></div>
   </div>
-
-  <div class="locktip">
-    위로 쓸어올려 잠금 해제
-  </div>
-
+  <div class="locktip">위로 쓸어올려 잠금 해제</div>
   <div class="lockbottom">
-
-    <button
-      class="round"
-      onclick="virtualFlashlight()"
-      aria-label="손전등"
-    >
+    <button class="round" onclick="virtualFlashlight()" aria-label="손전등">
       <svg viewBox="0 0 24 24">
         <path d="M8 3h8v5l-2 3v9h-4v-9L8 8zM10 14h4"/>
       </svg>
     </button>
-
-    <button
-      class="round"
-      onclick="show('pass')"
-      aria-label="카메라"
-    >
+    <button class="round" onclick="show('pass')" aria-label="카메라">
       <svg viewBox="0 0 24 24">
         <path d="M3 7h4l2-3h6l2 3h4v13H3z"/>
         <circle cx="12" cy="13" r="4"/>
       </svg>
     </button>
-
   </div>
 </section>
 
 <!-- 비밀번호 화면 -->
 <section class="screen" id="pass">
-
   <div class="passwrap">
-
     <div class="passlabel">암호 입력</div>
-
     <div class="hint" id="hint"></div>
-
     <div class="dots">
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
+      <div class="dot"></div><div class="dot"></div>
+      <div class="dot"></div><div class="dot"></div>
     </div>
-
     <div class="keypad" id="keys"></div>
-
     <div class="passfooter">
       <button onclick="cancelPin()">취소</button>
       <button onclick="erasePin()">삭제</button>
     </div>
-
   </div>
 </section>
 
@@ -453,46 +387,16 @@ button{
 </section>
 
 <div class="homebar" id="homebar"></div>
-
 </div>
 
 <script>
-
-/*
-  김솔음의 휴대폰
-
-  홈 화면 앱 8개:
-  캘린더, 사진, 카메라, 지도
-  메모, 날씨, 미리알림, 네이버
-
-  Dock 앱 4개:
-  전화, Safari, 메시지, 음악
-
-  모든 앱은 터치해도 아무 변화 없음.
-  실제 휴대폰 앱과 연결되지 않음.
-*/
-
 const icons={
 
 '캘린더':`
 <svg viewBox="0 0 80 80">
   <rect width="80" height="80" rx="18" fill="#fafafa"/>
-  <text
-    x="40" y="21"
-    text-anchor="middle"
-    font-size="13"
-    font-weight="600"
-    fill="#e84242"
-    id="calDay"
-  >화요일</text>
-  <text
-    x="40" y="65"
-    text-anchor="middle"
-    font-size="46"
-    font-weight="300"
-    fill="#111"
-    id="calDate"
-  >27</text>
+  <text x="40" y="21" text-anchor="middle" font-size="13" font-weight="600" fill="#e84242" id="calDay">화요일</text>
+  <text x="40" y="65" text-anchor="middle" font-size="46" font-weight="300" fill="#111" id="calDate">27</text>
 </svg>`,
 
 '사진':`
@@ -526,7 +430,6 @@ const icons={
       <stop offset="1" stop-color="#08090e"/>
     </radialGradient>
   </defs>
-
   <rect width="80" height="80" rx="18" fill="url(#camBg)"/>
   <circle cx="40" cy="40" r="32" fill="#292929"/>
   <circle cx="40" cy="40" r="29" fill="#777"/>
@@ -554,8 +457,7 @@ const icons={
   <rect width="80" height="80" rx="18" fill="#fff"/>
   <path d="M0 0H80V23H0Z" fill="#ffd948"/>
   <path d="M0 23H80" stroke="#ddd" stroke-width="2" stroke-dasharray="2 4"/>
-  <path d="M11 38H69M11 52H69M11 66H69"
-    stroke="#bdbdbd" stroke-width="2"/>
+  <path d="M11 38H69M11 52H69M11 66H69" stroke="#bdbdbd" stroke-width="2"/>
 </svg>`,
 
 '날씨':`
@@ -570,13 +472,9 @@ const icons={
       <stop offset="1" stop-color="#a9cbe9"/>
     </linearGradient>
   </defs>
-
   <rect width="80" height="80" rx="18" fill="url(#weatherBg)"/>
   <circle cx="53" cy="29" r="20" fill="#ffce42"/>
-  <path
-    d="M20 63C10 63 7 55 10 47C13 40 20 38 26 39C28 27 39 22 48 28C55 32 58 38 58 44C68 44 73 51 71 58C69 64 64 66 57 66H22Z"
-    fill="url(#weatherCloud)"
-  />
+  <path d="M20 63C10 63 7 55 10 47C13 40 20 38 26 39C28 27 39 22 48 28C55 32 58 38 58 44C68 44 73 51 71 58C69 64 64 66 57 66H22Z" fill="url(#weatherCloud)"/>
 </svg>`,
 
 '미리알림':`
@@ -585,8 +483,7 @@ const icons={
   <circle cx="19" cy="23" r="6" fill="#ffad20"/>
   <circle cx="19" cy="40" r="6" fill="#168dff"/>
   <circle cx="19" cy="57" r="6" fill="#ff4949"/>
-  <path d="M32 23H68M32 40H68M32 57H68"
-    stroke="#d4d4d4" stroke-width="3"/>
+  <path d="M32 23H68M32 40H68M32 57H68" stroke="#d4d4d4" stroke-width="3"/>
 </svg>`,
 
 '네이버':`
@@ -597,10 +494,35 @@ const icons={
       <stop offset="1" stop-color="#16b953"/>
     </linearGradient>
   </defs>
-
   <rect width="80" height="80" rx="18" fill="url(#naverBg)"/>
-  <path d="M20 18H35L48 38V18H62V62H47L33 41V62H20Z"
-    fill="#fff"/>
+  <path d="M20 18H35L48 38V18H62V62H47L33 41V62H20Z" fill="#fff"/>
+</svg>`,
+
+/* 카카오톡 신규 추가 */
+'카카오톡':`
+<svg viewBox="0 0 80 80">
+  <rect width="80" height="80" rx="18" fill="#FEE500"/>
+  <path
+    d="M40 15
+       C21 15 10 26 10 40
+       C10 49 16 56 25 60
+       L22 69
+       C21.5 71 23 72 25 71
+       L37 63
+       C38 63 39 63 40 63
+       C59 63 70 52 70 40
+       C70 26 59 15 40 15Z"
+    fill="#3C1E1E"
+  />
+  <text
+    x="40"
+    y="46"
+    text-anchor="middle"
+    font-family="Arial,sans-serif"
+    font-size="16"
+    font-weight="900"
+    fill="#FEE500"
+  >TALK</text>
 </svg>`,
 
 '전화':`
@@ -611,12 +533,8 @@ const icons={
       <stop offset="1" stop-color="#35c956"/>
     </linearGradient>
   </defs>
-
   <rect width="80" height="80" rx="18" fill="url(#phoneBg)"/>
-  <path
-    d="M24 15Q19 13 15 22Q9 39 29 59Q48 77 62 65Q68 60 63 56L51 47Q48 45 44 50L40 54Q30 49 25 39L30 34Q33 31 30 27Z"
-    fill="#fff"
-  />
+  <path d="M24 15Q19 13 15 22Q9 39 29 59Q48 77 62 65Q68 60 63 56L51 47Q48 45 44 50L40 54Q30 49 25 39L30 34Q33 31 30 27Z" fill="#fff"/>
 </svg>`,
 
 'Safari':`
@@ -636,73 +554,28 @@ const icons={
       <stop offset="1" stop-color="#25c94b"/>
     </linearGradient>
   </defs>
-
   <rect width="80" height="80" rx="18" fill="url(#messageBg)"/>
-  <path
-    d="M17 23Q17 15 29 15H53Q66 15 66 29V45Q66 59 51 59H34L22 68L25 56Q17 52 17 43Z"
-    fill="white"
-  />
+  <path d="M17 23Q17 15 29 15H53Q66 15 66 29V45Q66 59 51 59H34L22 68L25 56Q17 52 17 43Z" fill="white"/>
 </svg>`,
 
-/* 음악 아이콘 수정 완료 */
 '음악':`
-<svg viewBox="0 0 80 80"
-     xmlns="http://www.w3.org/2000/svg">
-
+<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="musicBg"
-      x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="musicBg" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#ff6478"/>
       <stop offset="100%" stop-color="#f52b58"/>
     </linearGradient>
   </defs>
-
-  <rect x="0" y="0" width="80" height="80"
-        rx="18" fill="url(#musicBg)"/>
-
-  <!-- 음표 기둥 -->
-  <path
-    d="M39 22 L39 57"
-    stroke="white"
-    stroke-width="6"
-    stroke-linecap="round"
-  />
-
-  <path
-    d="M61 17 L61 49"
-    stroke="white"
-    stroke-width="6"
-    stroke-linecap="round"
-  />
-
-  <!-- 음표 윗부분 -->
-  <path
-    d="M39 22 L61 17"
-    stroke="white"
-    stroke-width="7"
-    stroke-linecap="round"
-  />
-
-  <!-- 왼쪽 음표 머리 -->
-  <ellipse
-    cx="30" cy="58"
-    rx="11" ry="7"
-    transform="rotate(-20 30 58)"
-    fill="white"
-  />
-
-  <!-- 오른쪽 음표 머리 -->
-  <ellipse
-    cx="52" cy="50"
-    rx="11" ry="7"
-    transform="rotate(-20 52 50)"
-    fill="white"
-  />
-
+  <rect width="80" height="80" rx="18" fill="url(#musicBg)"/>
+  <path d="M39 22 L39 57" stroke="white" stroke-width="6" stroke-linecap="round"/>
+  <path d="M61 17 L61 49" stroke="white" stroke-width="6" stroke-linecap="round"/>
+  <path d="M39 22 L61 17" stroke="white" stroke-width="7" stroke-linecap="round"/>
+  <ellipse cx="30" cy="58" rx="11" ry="7" transform="rotate(-20 30 58)" fill="white"/>
+  <ellipse cx="52" cy="50" rx="11" ry="7" transform="rotate(-20 52 50)" fill="white"/>
 </svg>`
 };
 
-/* 홈 화면 앱 순서 */
+/* 홈 화면: 카카오톡을 세 번째 줄 첫 칸에 추가 */
 const mainApps=[
   '캘린더',
   '사진',
@@ -711,10 +584,11 @@ const mainApps=[
   '메모',
   '날씨',
   '미리알림',
-  '네이버'
+  '네이버',
+  '카카오톡'
 ];
 
-/* Dock 앱 순서 */
+/* Dock 순서 유지 */
 const dockApps=[
   '전화',
   'Safari',
@@ -722,36 +596,27 @@ const dockApps=[
   '음악'
 ];
 
-/* 앱 아이콘 생성: 클릭 기능 없음 */
+/* 모든 앱 터치 비활성화 */
 function makeApp(name){
   const el=document.createElement('div');
-
   el.className='app';
-
   el.innerHTML=`
     <div class="appicon">${icons[name]}</div>
     <div class="appname">${name}</div>
   `;
-
   return el;
 }
 
 mainApps.forEach(name=>{
-  document.getElementById('apps').appendChild(
-    makeApp(name)
-  );
+  document.getElementById('apps').appendChild(makeApp(name));
 });
-
 dockApps.forEach(name=>{
-  document.getElementById('dock').appendChild(
-    makeApp(name)
-  );
+  document.getElementById('dock').appendChild(makeApp(name));
 });
 
 /* 실시간 시계 */
 function updateClock(){
   const now=new Date();
-
   const time=now.toLocaleTimeString('ko-KR',{
     hour:'2-digit',
     minute:'2-digit',
@@ -760,7 +625,6 @@ function updateClock(){
 
   document.getElementById('statusTime').textContent=time;
   document.getElementById('bigTime').textContent=time;
-
   document.getElementById('date').textContent=
     now.toLocaleDateString('ko-KR',{
       month:'long',
@@ -768,28 +632,13 @@ function updateClock(){
       weekday:'long'
     });
 
-  const days=[
-    '일요일',
-    '월요일',
-    '화요일',
-    '수요일',
-    '목요일',
-    '금요일',
-    '토요일'
-  ];
-
+  const days=['일요일','월요일','화요일','수요일','목요일','금요일','토요일'];
   const cal=document.querySelector('#apps #calDay');
   const date=document.querySelector('#apps #calDate');
 
-  if(cal){
-    cal.textContent=days[now.getDay()];
-  }
-
-  if(date){
-    date.textContent=now.getDate();
-  }
+  if(cal)cal.textContent=days[now.getDay()];
+  if(date)date.textContent=now.getDate();
 }
-
 updateClock();
 setInterval(updateClock,1000);
 
@@ -798,11 +647,10 @@ function show(id){
   document.querySelectorAll('.screen').forEach(screen=>{
     screen.classList.remove('active');
   });
-
   document.getElementById(id).classList.add('active');
 }
 
-/* 비밀번호 입력 */
+/* 비밀번호 */
 let pin='';
 let checking=false;
 
@@ -813,9 +661,7 @@ function renderDots(){
 }
 
 function addPin(n){
-  if(checking||pin.length>=4){
-    return;
-  }
+  if(checking||pin.length>=4)return;
 
   pin+=n;
   renderDots();
@@ -827,35 +673,25 @@ function addPin(n){
       if(pin==='0913'){
         pin='';
         renderDots();
-
         document.getElementById('hint').textContent='';
         show('home');
-
       }else if(pin==='0511'){
         pin='';
         renderDots();
-
         document.getElementById('hint').textContent=
           '그건 제 생일인데요, 주임님';
-
       }else{
         pin='';
         renderDots();
-
-        document.getElementById('hint').textContent=
-          '힌트 : 생일';
+        document.getElementById('hint').textContent='힌트 : 생일';
       }
-
       checking=false;
     },220);
   }
 }
 
 function erasePin(){
-  if(checking){
-    return;
-  }
-
+  if(checking)return;
   pin=pin.slice(0,-1);
   renderDots();
 }
@@ -864,22 +700,15 @@ function cancelPin(){
   pin='';
   checking=false;
   renderDots();
-
   document.getElementById('hint').textContent='';
   show('lock');
 }
 
-/* 숫자 키패드 생성 */
+/* 키패드 */
 const keys=document.getElementById('keys');
 
-[
-  '1','2','3',
-  '4','5','6',
-  '7','8','9',
-  '','0',''
-].forEach(n=>{
+['1','2','3','4','5','6','7','8','9','','0',''].forEach(n=>{
   const button=document.createElement('button');
-
   button.className='key';
   button.textContent=n;
 
@@ -888,7 +717,6 @@ const keys=document.getElementById('keys');
   }else{
     button.style.visibility='hidden';
   }
-
   keys.appendChild(button);
 });
 
@@ -897,29 +725,21 @@ let startY=0;
 
 document.getElementById('lock').addEventListener(
   'touchstart',
-  e=>{
-    startY=e.touches[0].clientY;
-  },
+  e=>{startY=e.touches[0].clientY},
   {passive:true}
 );
 
-document.getElementById('lock').addEventListener(
-  'touchend',
-  e=>{
-    if(startY-e.changedTouches[0].clientY>45){
-      show('pass');
-    }
+document.getElementById('lock').addEventListener('touchend',e=>{
+  if(startY-e.changedTouches[0].clientY>45){
+    show('pass');
   }
-);
+});
 
-document.getElementById('lock').addEventListener(
-  'click',
-  e=>{
-    if(!e.target.closest('button')){
-      show('pass');
-    }
+document.getElementById('lock').addEventListener('click',e=>{
+  if(!e.target.closest('button')){
+    show('pass');
   }
-);
+});
 
 /* 홈 인디케이터 */
 document.getElementById('homebar').onclick=()=>{
@@ -933,16 +753,13 @@ document.getElementById('homebar').onclick=()=>{
 /* 가상 손전등 */
 function virtualFlashlight(){
   const lock=document.getElementById('lock');
-
   const enabled=lock.dataset.light==='on';
 
   lock.dataset.light=enabled?'off':'on';
-
   lock.style.background=enabled
     ?''
     :'radial-gradient(circle at 50% 50%,#777,#242424 80%)';
 }
-
 </script>
 </body>
 </html>
