@@ -12,40 +12,50 @@
   box-sizing:border-box;
   -webkit-tap-highlight-color:transparent;
 }
+
 html,body{
   margin:0;
   width:100%;
   height:100%;
   overflow:hidden;
   background:#000;
-  color:white;
+  color:#fff;
   font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;
 }
+
 button,input,textarea{
   font:inherit;
 }
+
 button{
   color:inherit;
   cursor:pointer;
 }
+
 .phone{
   position:relative;
   width:100%;
   height:100vh;
   height:100dvh;
   overflow:hidden;
-  background:radial-gradient(ellipse at 50% 25%,#19191b,#080808 78%);
+  background:radial-gradient(
+    ellipse at 50% 25%,
+    #19191b,
+    #080808 78%
+  );
 }
+
 .screen{
   position:absolute;
   inset:0;
   display:none;
 }
+
 .screen.active{
   display:block;
 }
 
-/* 가상 아이폰 상태바 */
+/* 상단 상태바 */
 .status{
   position:absolute;
   top:0;
@@ -61,6 +71,7 @@ button{
   font-weight:600;
   pointer-events:none;
 }
+
 .island{
   position:absolute;
   left:50%;
@@ -71,35 +82,41 @@ button{
   border-radius:22px;
   background:#000;
 }
+
 .indicators{
   display:flex;
   align-items:center;
   gap:9px;
 }
+
 .signal{
   display:flex;
   align-items:flex-end;
   gap:2px;
   height:15px;
 }
+
 .signal i{
   display:block;
   width:4px;
   background:#fff;
   border-radius:2px;
 }
+
 .signal i:nth-child(1){height:5px}
 .signal i:nth-child(2){height:8px}
 .signal i:nth-child(3){height:12px}
 .signal i:nth-child(4){height:15px}
+
 .battery{
   position:relative;
   width:25px;
   height:13px;
-  border:1.7px solid white;
+  border:1.7px solid #fff;
   border-radius:4px;
   padding:2px;
 }
+
 .battery:after{
   content:"";
   position:absolute;
@@ -107,15 +124,17 @@ button{
   top:3px;
   width:2px;
   height:5px;
-  background:white;
+  background:#fff;
   border-radius:2px;
 }
+
 .battery-fill{
   width:70%;
   height:100%;
-  background:white;
+  background:#fff;
   border-radius:1px;
 }
+
 .homebar{
   position:absolute;
   bottom:9px;
@@ -123,7 +142,7 @@ button{
   transform:translateX(-50%);
   width:130px;
   height:5px;
-  background:white;
+  background:#fff;
   border-radius:10px;
   z-index:15;
   cursor:pointer;
@@ -136,15 +155,18 @@ button{
   width:100%;
   text-align:center;
 }
+
 .bigtime{
   font-size:clamp(68px,20vw,94px);
   font-weight:200;
   letter-spacing:-4px;
 }
+
 .date{
   font-size:20px;
   margin-top:7px;
 }
+
 .locktip{
   position:absolute;
   bottom:110px;
@@ -153,6 +175,7 @@ button{
   color:#aaa;
   font-size:13px;
 }
+
 .lockbottom{
   position:absolute;
   bottom:43px;
@@ -161,6 +184,7 @@ button{
   justify-content:space-between;
   padding:0 34px;
 }
+
 .round{
   border:0;
   width:52px;
@@ -170,6 +194,7 @@ button{
   display:grid;
   place-items:center;
 }
+
 .round svg{
   width:25px;
   height:25px;
@@ -180,44 +205,52 @@ button{
   stroke-linejoin:round;
 }
 
-/* 암호 화면 */
+/* 비밀번호 */
 .passwrap{
   position:absolute;
   top:20%;
   width:100%;
   text-align:center;
 }
+
 .passlabel{
   font-size:21px;
   margin-bottom:20px;
 }
+
 .hint{
-  height:24px;
+  min-height:30px;
   color:#ffce67;
   font-size:15px;
   margin-bottom:12px;
+  padding:0 10px;
 }
+
 .dots{
   display:flex;
   justify-content:center;
   gap:18px;
   margin-bottom:35px;
 }
+
 .dot{
   width:13px;
   height:13px;
-  border:1.5px solid white;
+  border:1.5px solid #fff;
   border-radius:50%;
 }
+
 .dot.filled{
-  background:white;
+  background:#fff;
 }
+
 .keypad{
   display:grid;
   grid-template-columns:repeat(3,72px);
   justify-content:center;
   gap:13px 21px;
 }
+
 .key{
   width:72px;
   height:72px;
@@ -227,15 +260,18 @@ button{
   font-size:30px;
   font-weight:300;
 }
+
 .key:active{
   background:#ffffff55;
 }
+
 .passfooter{
   display:flex;
   justify-content:space-between;
   max-width:270px;
   margin:24px auto;
 }
+
 .passfooter button{
   border:0;
   background:none;
@@ -245,58 +281,70 @@ button{
 /* 홈 화면 */
 .apps{
   position:absolute;
-  top:23%;
+  top:14.5%;
   left:0;
   width:100%;
-  padding:0 7%;
+  padding:0 6%;
   display:grid;
   grid-template-columns:repeat(4,minmax(0,1fr));
   column-gap:13px;
-  row-gap:29px;
+  row-gap:27px;
 }
+
 .app{
   text-align:center;
   min-width:0;
-  cursor:pointer;
 }
+
 .appicon{
-  width:min(100%,66px);
+  width:min(100%,76px);
   aspect-ratio:1;
   margin:auto;
-  border-radius:15px;
+  border-radius:19px;
   overflow:hidden;
   display:grid;
   place-items:center;
   background:#333;
+  box-shadow:0 4px 12px #00000025;
 }
+
 .appicon svg{
   width:100%;
   height:100%;
   display:block;
 }
+
 .appname{
-  font-size:11px;
-  margin-top:7px;
+  font-size:12px;
+  margin-top:8px;
   white-space:nowrap;
+  font-weight:400;
 }
+
+/* 하단 Dock */
 .dock{
   position:absolute;
-  bottom:43px;
-  left:5%;
-  width:90%;
-  padding:12px 8px;
-  border-radius:25px;
-  background:#ffffff24;
+  bottom:34px;
+  left:3%;
+  width:94%;
+  padding:15px 9px;
+  border-radius:34px;
+  background:#ffffff2e;
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(4,minmax(0,1fr));
   gap:8px;
 }
-.dock .appicon{
-  width:min(100%,63px);
+
+.dock .app{
+  cursor:pointer;
 }
+
+.dock .appicon{
+  width:min(100%,76px);
+}
+
 .dock .appname{
-  font-size:11px;
-  margin-top:6px;
+  display:none;
 }
 
 /* 앱 공통 화면 */
@@ -307,10 +355,12 @@ button{
   display:none;
   z-index:12;
 }
+
 .page.open{
   display:flex;
   flex-direction:column;
 }
+
 .pageheader{
   height:60px;
   flex-shrink:0;
@@ -322,34 +372,39 @@ button{
   font-weight:600;
   border-bottom:1px solid #ffffff20;
 }
+
 .back{
   background:none;
   border:0;
   color:#4b9cff;
   font-size:17px;
 }
+
 .pagebody{
   padding:20px;
   overflow:auto;
   flex:1;
   padding-bottom:75px;
 }
+
 .item{
   background:#242427;
   border-radius:12px;
   padding:16px;
   margin-bottom:10px;
 }
+
 .field{
   width:100%;
   padding:12px;
   border-radius:10px;
   border:0;
   background:#303035;
-  color:white;
+  color:#fff;
   font-size:16px;
   margin:8px 0;
 }
+
 .action{
   background:#3289ff;
   border:0;
@@ -357,34 +412,36 @@ button{
   padding:11px 16px;
   margin:6px 4px 6px 0;
 }
+
 textarea.field{
   min-height:170px;
   resize:vertical;
 }
+
 .muted{
   color:#aaa;
   font-size:13px;
 }
+
 .center{
   text-align:center;
 }
+
 .empty{
   color:#999;
   text-align:center;
   padding:30px 10px;
   font-size:14px;
 }
-.danger{
-  background:#d83b45;
-}
 
-/* 가상 전화 앱 */
+/* 가상 전화 */
 .phone-app{
   display:flex;
   flex-direction:column;
   align-items:center;
   padding:12px 0 20px;
 }
+
 .phone-display{
   width:100%;
   height:75px;
@@ -396,12 +453,14 @@ textarea.field{
   justify-content:center;
   overflow:hidden;
 }
+
 .phone-keys{
   display:grid;
   grid-template-columns:repeat(3,72px);
   gap:13px 20px;
   justify-content:center;
 }
+
 .phone-key{
   width:72px;
   height:72px;
@@ -411,9 +470,11 @@ textarea.field{
   font-size:30px;
   font-weight:300;
 }
+
 .phone-key:active{
   background:#555;
 }
+
 .phone-controls{
   display:flex;
   align-items:center;
@@ -421,6 +482,7 @@ textarea.field{
   gap:30px;
   margin-top:23px;
 }
+
 .call-button{
   border:0;
   width:68px;
@@ -431,18 +493,21 @@ textarea.field{
   place-items:center;
   font-size:32px;
 }
+
 .delete-button{
   background:none;
   border:0;
   font-size:25px;
   width:50px;
 }
+
 .phone-tabs{
   display:flex;
   justify-content:space-around;
   gap:5px;
   margin-bottom:15px;
 }
+
 .phone-tab{
   flex:1;
   background:#252528;
@@ -451,9 +516,11 @@ textarea.field{
   border-radius:9px;
   font-size:13px;
 }
+
 .phone-tab.selected{
   background:#367ff4;
 }
+
 .call-screen{
   display:flex;
   flex-direction:column;
@@ -462,14 +529,17 @@ textarea.field{
   min-height:65vh;
   text-align:center;
 }
+
 .call-name{
   font-size:32px;
   margin-top:40px;
 }
+
 .call-state{
   color:#aaa;
   margin-top:12px;
 }
+
 .end-call{
   width:75px;
   height:75px;
@@ -489,83 +559,16 @@ textarea.field{
   margin:10px 0 10px auto;
   overflow-wrap:anywhere;
 }
+
 .chat-compose{
   display:flex;
   gap:8px;
   align-items:center;
 }
+
 .chat-compose .field{
   flex:1;
   min-width:0;
-}
-
-/* 가상 Safari */
-.browser-bar{
-  display:flex;
-  gap:8px;
-  align-items:center;
-}
-.browser-bar .field{
-  flex:1;
-  min-width:0;
-}
-.browser-preview{
-  background:white;
-  color:#222;
-  border-radius:12px;
-  min-height:250px;
-  padding:25px 18px;
-  margin-top:15px;
-}
-.browser-preview h2{
-  font-size:22px;
-  margin-top:0;
-}
-
-/* 가상 사진 */
-.photo-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:6px;
-}
-.photo-tile{
-  aspect-ratio:1;
-  border:0;
-  border-radius:8px;
-  background:#303035;
-  display:grid;
-  place-items:center;
-  font-size:35px;
-}
-.photo-large{
-  font-size:115px;
-  text-align:center;
-  padding:55px 0;
-}
-
-/* 가상 카메라 */
-.camera-view{
-  height:47vh;
-  background:linear-gradient(145deg,#25262d,#0b0c11);
-  border-radius:15px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  gap:14px;
-}
-.camera-scene{
-  font-size:100px;
-}
-.shutter{
-  display:block;
-  width:75px;
-  height:75px;
-  border:6px solid white;
-  background:white;
-  box-shadow:inset 0 0 0 4px #333;
-  border-radius:50%;
-  margin:24px auto;
 }
 
 /* 가상 음악 */
@@ -579,6 +582,7 @@ textarea.field{
   place-items:center;
   font-size:100px;
 }
+
 .music-progress{
   width:100%;
   height:5px;
@@ -587,11 +591,13 @@ textarea.field{
   margin:25px 0;
   overflow:hidden;
 }
+
 .music-progress div{
   width:0%;
   height:100%;
   background:white;
 }
+
 .music-controls{
   display:flex;
   align-items:center;
@@ -599,26 +605,56 @@ textarea.field{
   gap:35px;
   margin-top:25px;
 }
+
 .music-controls button{
   background:none;
   border:0;
   font-size:32px;
 }
 
-/* 가상 X */
-.x-post{
-  background:#1e1e21;
-  border-radius:14px;
-  padding:15px;
-  margin-bottom:12px;
+/* 가상 Safari */
+.browser-bar{
+  display:flex;
+  gap:8px;
+  align-items:center;
 }
-.x-post-header{
-  font-weight:700;
-  margin-bottom:8px;
+
+.browser-bar .field{
+  flex:1;
+  min-width:0;
 }
-.x-post-text{
-  white-space:pre-wrap;
-  overflow-wrap:anywhere;
+
+.browser-preview{
+  background:#fff;
+  color:#222;
+  border-radius:12px;
+  min-height:250px;
+  padding:25px 18px;
+  margin-top:15px;
+}
+
+.browser-preview h2{
+  font-size:22px;
+  margin-top:0;
+}
+
+@media(max-height:650px){
+  .apps{
+    top:17%;
+    row-gap:18px;
+  }
+
+  .appicon{
+    width:min(100%,64px);
+  }
+
+  .dock .appicon{
+    width:min(100%,64px);
+  }
+
+  .dock{
+    padding:10px 8px;
+  }
 }
 </style>
 </head>
@@ -626,13 +662,17 @@ textarea.field{
 <body>
 <div class="phone">
 
+<!-- 상단바 -->
 <div class="status">
   <span id="statusTime">9:41</span>
+
   <div class="island"></div>
+
   <div class="indicators">
     <div class="signal">
       <i></i><i></i><i></i><i></i>
     </div>
+
     <div class="battery">
       <div class="battery-fill"></div>
     </div>
@@ -655,7 +695,7 @@ textarea.field{
       </svg>
     </button>
 
-    <button class="round" onclick="openApp('카메라')" aria-label="카메라">
+    <button class="round" onclick="show('pass')" aria-label="카메라">
       <svg viewBox="0 0 24 24">
         <path d="M3 7h4l2-3h6l2 3h4v13H3z"/>
         <circle cx="12" cy="13" r="4"/>
@@ -664,7 +704,7 @@ textarea.field{
   </div>
 </section>
 
-<!-- 암호 입력 -->
+<!-- 비밀번호 -->
 <section class="screen" id="pass">
   <div class="passwrap">
     <div class="passlabel">암호 입력</div>
@@ -692,13 +732,14 @@ textarea.field{
   <div class="dock" id="dock"></div>
 </section>
 
-<!-- 앱 화면 -->
+<!-- 가상 앱 화면 -->
 <div class="page" id="page">
   <div class="pageheader">
     <button class="back" onclick="closeApp()">‹ 뒤로</button>
     <span id="pageTitle"></span>
     <span style="width:40px"></span>
   </div>
+
   <div class="pagebody" id="pageBody"></div>
 </div>
 
@@ -708,54 +749,201 @@ textarea.field{
 
 <script>
 /*
-  김솔음의 가상 아이폰
+  김솔음의 휴대폰
 
-  모든 앱은 이 웹사이트 안에서만 작동합니다.
+  홈 화면 8개 앱:
+  터치해도 아무 변화 없음
 
-  실제 전화 앱 연결 없음
-  실제 문자 앱 연결 없음
-  실제 카메라 접근 없음
-  실제 사진 보관함 접근 없음
-  실제 연락처 접근 없음
-  실제 음악 파일 접근 없음
-  외부 웹사이트 자동 이동 없음
+  Dock 4개 앱:
+  웹사이트 내부 가상 기능만 사용
 
-  가상 데이터는 이 웹사이트의 localStorage에 저장됩니다.
+  실제 휴대폰 앱 연결 없음
 */
 
-const icons = {
-'메시지':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#30d553"/><path d="M17 23Q17 15 29 15H53Q66 15 66 29V45Q66 59 51 59H34L22 68L25 56Q17 52 17 43Z" fill="white"/></svg>`,
+const icons={
 
-'사진':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#fff"/><g transform="translate(40 40)"><ellipse cy="-19" rx="10" ry="21" fill="#f6b72d"/><ellipse cy="-19" rx="10" ry="21" fill="#f04b51" transform="rotate(45)"/><ellipse cy="-19" rx="10" ry="21" fill="#a64cba" transform="rotate(90)"/><ellipse cy="-19" rx="10" ry="21" fill="#5485d8" transform="rotate(135)"/><ellipse cy="-19" rx="10" ry="21" fill="#48bfc8" transform="rotate(180)"/><ellipse cy="-19" rx="10" ry="21" fill="#63b65b" transform="rotate(225)"/><ellipse cy="-19" rx="10" ry="21" fill="#f5c33b" transform="rotate(270)"/><ellipse cy="-19" rx="10" ry="21" fill="#e66d43" transform="rotate(315)"/><circle r="8" fill="#f7e9ad"/></g></svg>`,
+'캘린더':`
+<svg viewBox="0 0 80 80">
+  <rect width="80" height="80" rx="18" fill="#fafafa"/>
+  <text x="40" y="21" text-anchor="middle"
+    font-size="13" font-weight="600" fill="#e84242"
+    id="calDay">화요일</text>
+  <text x="40" y="65" text-anchor="middle"
+    font-size="46" font-weight="300" fill="#111"
+    id="calDate">27</text>
+</svg>`,
 
-'메모':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#fff"/><path d="M0 0H80V22H0Z" fill="#ffd344"/><path d="M15 35H65M15 46H65M15 57H52" stroke="#ccc" stroke-width="2"/></svg>`,
+'사진':`
+<svg viewBox="0 0 80 80">
+  <rect width="80" height="80" rx="18" fill="#fff"/>
+  <g transform="translate(40 40)">
+    <ellipse cy="-17" rx="10" ry="20" fill="#ff554c" opacity=".9"/>
+    <ellipse cy="-17" rx="10" ry="20" fill="#ff9d20" opacity=".9" transform="rotate(45)"/>
+    <ellipse cy="-17" rx="10" ry="20" fill="#ffd52d" opacity=".9" transform="rotate(90)"/>
+    <ellipse cy="-17" rx="10" ry="20" fill="#42c86a" opacity=".9" transform="rotate(135)"/>
+    <ellipse cy="-17" rx="10" ry="20" fill="#55d0ed" opacity=".9" transform="rotate(180)"/>
+    <ellipse cy="-17" rx="10" ry="20" fill="#2488f4" opacity=".9" transform="rotate(225)"/>
+    <ellipse cy="-17" rx="10" ry="20" fill="#aa49e8" opacity=".9" transform="rotate(270)"/>
+    <ellipse cy="-17" rx="10" ry="20" fill="#f0469c" opacity=".9" transform="rotate(315)"/>
+    <circle r="7" fill="#fff" opacity=".65"/>
+  </g>
+</svg>`,
 
-'캘린더':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="white"/><text x="40" y="22" text-anchor="middle" font-size="12" fill="#f34d54" id="calDay">MON</text><text x="40" y="64" text-anchor="middle" font-size="43" font-weight="300" fill="#111" id="calDate">26</text></svg>`,
+'카메라':`
+<svg viewBox="0 0 80 80">
+  <defs>
+    <linearGradient id="camBg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#ddd"/>
+      <stop offset="1" stop-color="#999"/>
+    </linearGradient>
+    <radialGradient id="camLens">
+      <stop stop-color="#83c8ff"/>
+      <stop offset=".25" stop-color="#14294b"/>
+      <stop offset=".55" stop-color="#070b18"/>
+      <stop offset=".75" stop-color="#465779"/>
+      <stop offset="1" stop-color="#08090e"/>
+    </radialGradient>
+  </defs>
+  <rect width="80" height="80" rx="18" fill="url(#camBg)"/>
+  <circle cx="40" cy="40" r="32" fill="#292929"/>
+  <circle cx="40" cy="40" r="29" fill="#777"/>
+  <circle cx="40" cy="40" r="25" fill="#111"/>
+  <circle cx="40" cy="40" r="22" fill="url(#camLens)"/>
+  <ellipse cx="34" cy="29" rx="10" ry="6" fill="#d8eaff" opacity=".75"/>
+  <circle cx="40" cy="40" r="14" fill="none" stroke="#4668a5" stroke-width="2" opacity=".7"/>
+</svg>`,
 
-'음악':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#fb375e"/><path d="M38 17V55Q33 49 25 53Q15 57 19 65Q23 72 33 66Q38 63 38 56V31L59 26V49Q54 44 47 48Q37 52 41 60Q45 68 55 62Q61 59 61 52V15Z" fill="white"/></svg>`,
+'지도':`
+<svg viewBox="0 0 80 80">
+  <rect width="80" height="80" rx="18" fill="#f7f7f7"/>
+  <path d="M0 20L80 5V80H0Z" fill="#e5e9df"/>
+  <path d="M0 55L80 18" stroke="#fff" stroke-width="13"/>
+  <path d="M20 0L45 80" stroke="#fff" stroke-width="12"/>
+  <path d="M0 40L80 55" stroke="#fff" stroke-width="9"/>
+  <path d="M0 56L80 19" stroke="#f6d75b" stroke-width="4"/>
+  <path d="M20 0L45 80" stroke="#fff" stroke-width="5"/>
+  <path d="M54 0L80 0V27L61 36Z" fill="#a8d9ad"/>
+  <path d="M40 20C27 20 20 29 20 39C20 54 40 69 40 69S60 54 60 39C60 29 53 20 40 20Z" fill="#ef4b48"/>
+  <circle cx="40" cy="39" r="8" fill="white"/>
+</svg>`,
 
-'X':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#101010"/><path d="M19 15H29L61 65H51Z" fill="none" stroke="white" stroke-width="3"/><path d="M59 15L20 65" stroke="white" stroke-width="3"/></svg>`,
+'메모':`
+<svg viewBox="0 0 80 80">
+  <rect width="80" height="80" rx="18" fill="#fff"/>
+  <path d="M0 0H80V23H0Z" fill="#ffd948"/>
+  <path d="M0 23H80" stroke="#ddd" stroke-width="2" stroke-dasharray="2 4"/>
+  <path d="M11 38H69M11 52H69M11 66H69"
+    stroke="#bdbdbd" stroke-width="2"/>
+</svg>`,
 
-'설정':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#aaa"/><g transform="translate(40 40)"><path d="M-7-29H7L10-22L17-20L24-24L31-12L25-6L25 6L31 12L24 24L17 20L10 22L7 29H-7L-10 22L-17 20L-24 24L-31 12L-25 6L-25-6L-31-12L-24-24L-17-20L-10-22Z" fill="#444" stroke="#ddd" stroke-width="2"/><circle r="19" fill="#777" stroke="#222" stroke-width="3"/><circle r="11" fill="#444" stroke="#ccc" stroke-width="3"/></g></svg>`,
+'날씨':`
+<svg viewBox="0 0 80 80">
+  <defs>
+    <linearGradient id="weatherBg" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#4c9cf7"/>
+      <stop offset="1" stop-color="#1b63c8"/>
+    </linearGradient>
+    <linearGradient id="weatherCloud" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#fff"/>
+      <stop offset="1" stop-color="#a9cbe9"/>
+    </linearGradient>
+  </defs>
+  <rect width="80" height="80" rx="18" fill="url(#weatherBg)"/>
+  <circle cx="53" cy="29" r="20" fill="#ffce42"/>
+  <path d="M20 63C10 63 7 55 10 47C13 40 20 38 26 39C28 27 39 22 48 28C55 32 58 38 58 44C68 44 73 51 71 58C69 64 64 66 57 66H22Z"
+    fill="url(#weatherCloud)"/>
+</svg>`,
 
-'비밀 폴더':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#333337"/><rect x="24" y="35" width="32" height="28" rx="5" fill="#e3b94c"/><path d="M30 36V26A10 10 0 0 1 50 26V36" fill="none" stroke="#f7d77c" stroke-width="6"/><circle cx="40" cy="48" r="3" fill="#795c25"/></svg>`,
+'미리알림':`
+<svg viewBox="0 0 80 80">
+  <rect width="80" height="80" rx="18" fill="#fff"/>
+  <circle cx="19" cy="23" r="6" fill="#ffad20"/>
+  <circle cx="19" cy="40" r="6" fill="#168dff"/>
+  <circle cx="19" cy="57" r="6" fill="#ff4949"/>
+  <path d="M32 23H68M32 40H68M32 57H68"
+    stroke="#d4d4d4" stroke-width="3"/>
+</svg>`,
 
-'전화':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#2ed657"/><path d="M24 15Q19 13 15 22Q9 39 29 59Q48 77 62 65Q68 60 63 56L51 47Q48 45 44 50L40 54Q30 49 25 39L30 34Q33 31 30 27Z" fill="white"/></svg>`,
+'네이버':`
+<svg viewBox="0 0 80 80">
+  <defs>
+    <linearGradient id="naverBg" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#39d875"/>
+      <stop offset="1" stop-color="#16b953"/>
+    </linearGradient>
+  </defs>
+  <rect width="80" height="80" rx="18" fill="url(#naverBg)"/>
+  <path d="M20 18H35L48 38V18H62V62H47L33 41V62H20Z"
+    fill="#fff"/>
+</svg>`,
 
-'Safari':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="white"/><circle cx="40" cy="40" r="31" fill="#159fe9" stroke="#d5d5d5" stroke-width="3"/><circle cx="40" cy="40" r="26" fill="none" stroke="#bce9ff" stroke-width="1" stroke-dasharray="1 3"/><path d="M51 24L44 44L28 55L36 35Z" fill="white"/><path d="M51 24L44 44L36 35Z" fill="#f4434d"/></svg>`,
+'전화':`
+<svg viewBox="0 0 80 80">
+  <defs>
+    <linearGradient id="phoneBg" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#72ec77"/>
+      <stop offset="1" stop-color="#35c956"/>
+    </linearGradient>
+  </defs>
+  <rect width="80" height="80" rx="18" fill="url(#phoneBg)"/>
+  <path d="M24 15Q19 13 15 22Q9 39 29 59Q48 77 62 65Q68 60 63 56L51 47Q48 45 44 50L40 54Q30 49 25 39L30 34Q33 31 30 27Z"
+    fill="#fff"/>
+</svg>`,
 
-'카메라':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#a4a4a4"/><rect x="12" y="25" width="56" height="39" rx="8" fill="#333"/><path d="M22 25L28 17H49L56 25" fill="#555"/><circle cx="40" cy="44" r="18" fill="#777"/><circle cx="40" cy="44" r="13" fill="#222" stroke="#aaa" stroke-width="3"/><circle cx="59" cy="32" r="3" fill="#e5b941"/></svg>`,
+'Safari':`
+<svg viewBox="0 0 80 80">
+  <rect width="80" height="80" rx="18" fill="#fff"/>
+  <circle cx="40" cy="40" r="31" fill="#159fe9" stroke="#d5d5d5" stroke-width="3"/>
+  <circle cx="40" cy="40" r="26" fill="none" stroke="#bce9ff" stroke-width="1" stroke-dasharray="1 3"/>
+  <path d="M51 24L44 44L28 55L36 35Z" fill="white"/>
+  <path d="M51 24L44 44L36 35Z" fill="#f4434d"/>
+</svg>`,
 
-'연락처':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#d5d5d1"/><rect x="68" y="12" width="8" height="18" fill="#f0c844"/><rect x="68" y="30" width="8" height="18" fill="#43b8e4"/><rect x="68" y="48" width="8" height="18" fill="#62ad66"/><circle cx="37" cy="29" r="14" fill="#999"/><path d="M13 68Q15 46 37 46Q59 46 61 68" fill="#999"/></svg>`
+'메시지':`
+<svg viewBox="0 0 80 80">
+  <defs>
+    <linearGradient id="messageBg" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#5be66e"/>
+      <stop offset="1" stop-color="#25c94b"/>
+    </linearGradient>
+  </defs>
+  <rect width="80" height="80" rx="18" fill="url(#messageBg)"/>
+  <path d="M17 23Q17 15 29 15H53Q66 15 66 29V45Q66 59 51 59H34L22 68L25 56Q17 52 17 43Z"
+    fill="white"/>
+</svg>`,
+
+'음악':`
+<svg viewBox="0 0 80 80">
+  <defs>
+    <linearGradient id="musicBg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#ff6478"/>
+      <stop offset="1" stop-color="#f12858"/>
+    </linearGradient>
+  </defs>
+  <rect width="80" height="80" rx="18" fill="url(#musicBg)"/>
+  <path d="M38 17V55Q33 49 25 53Q15 57 19 65Q23 72 33 66Q38 63 38 56V31L59 26V49Q54 44 47 48Q37 52 41 60Q45 68 55 62Q61 59 61 52V15Z"
+    fill="white"/>
+</svg>`
 };
 
+/* 지정된 홈 화면 구성 */
 const mainApps=[
-  '메시지','사진','메모','캘린더',
-  '음악','X','설정','비밀 폴더'
+  '캘린더',
+  '사진',
+  '카메라',
+  '지도',
+  '메모',
+  '날씨',
+  '미리알림',
+  '네이버'
 ];
 
+/* 지정된 Dock 구성 */
 const dockApps=[
-  '전화','Safari','카메라','연락처'
+  '전화',
+  'Safari',
+  '메시지',
+  '음악'
 ];
 
 function loadData(key,fallback){
@@ -774,30 +962,6 @@ function saveData(key,value){
   }
 }
 
-let pin='';
-let checking=false;
-let currentApp='';
-let phoneNumber='';
-let phoneTab='키패드';
-let currentCall='';
-let callStart=0;
-let callTimer=null;
-let selectedChat='';
-let cameraScene=0;
-let musicPlaying=false;
-let musicSeconds=0;
-let musicTimer=null;
-let secretOpen=false;
-
-let notes=loadData('solNotes',[]);
-let contacts=loadData('solContacts',[]);
-let messages=loadData('solMessages',[]);
-let events=loadData('solEvents',[]);
-let callHistory=loadData('solCallHistory',[]);
-let photos=loadData('solVirtualPhotos',[]);
-let posts=loadData('solXPosts',[]);
-let secretNotes=loadData('solSecretNotes',[]);
-
 function esc(s){
   return String(s).replace(/[&<>"']/g,c=>({
     '&':'&amp;',
@@ -808,6 +972,24 @@ function esc(s){
   }[c]));
 }
 
+let pin='';
+let checking=false;
+let currentApp='';
+let phoneNumber='';
+let phoneTab='키패드';
+let currentCall='';
+let callStart=0;
+let callTimer=null;
+let selectedChat='';
+let musicPlaying=false;
+let musicSeconds=0;
+let musicTimer=null;
+
+let contacts=loadData('solContacts',[]);
+let messages=loadData('solMessages',[]);
+let callHistory=loadData('solCallHistory',[]);
+
+/* 실시간 시계와 캘린더 아이콘 */
 function updateClock(){
   const now=new Date();
 
@@ -827,7 +1009,10 @@ function updateClock(){
       weekday:'long'
     });
 
-  const days=['SUN','MON','TUE','WED','THU','FRI','SAT'];
+  const days=[
+    '일요일','월요일','화요일','수요일',
+    '목요일','금요일','토요일'
+  ];
 
   const cal=document.querySelector('#apps #calDay');
   const date=document.querySelector('#apps #calDate');
@@ -845,7 +1030,7 @@ function show(id){
   document.getElementById('page').classList.remove('open');
 }
 
-function makeApp(name){
+function makeApp(name,isDock){
   const el=document.createElement('div');
   el.className='app';
 
@@ -854,22 +1039,35 @@ function makeApp(name){
     <div class="appname">${name}</div>
   `;
 
-  el.onclick=()=>openApp(name);
+  /*
+    홈 화면 8개 앱:
+    클릭 이벤트를 등록하지 않음.
+    터치해도 아무 변화 없음.
+  */
+
+  if(isDock){
+    el.onclick=()=>openApp(name);
+  }
+
   return el;
 }
 
 mainApps.forEach(name=>{
-  document.getElementById('apps').appendChild(makeApp(name));
+  document.getElementById('apps').appendChild(
+    makeApp(name,false)
+  );
 });
 
 dockApps.forEach(name=>{
-  document.getElementById('dock').appendChild(makeApp(name));
+  document.getElementById('dock').appendChild(
+    makeApp(name,true)
+  );
 });
 
 updateClock();
 setInterval(updateClock,1000);
 
-/* 잠금 해제 */
+/* 비밀번호 */
 function renderDots(){
   document.querySelectorAll('.dot').forEach((dot,i)=>{
     dot.classList.toggle('filled',i<pin.length);
@@ -891,11 +1089,22 @@ function addPin(n){
         renderDots();
         document.getElementById('hint').textContent='';
         show('home');
+
+      }else if(pin==='0511'){
+        pin='';
+        renderDots();
+
+        document.getElementById('hint').textContent=
+          '그건 제 생일인데요, 주임님';
+
       }else{
         pin='';
         renderDots();
-        document.getElementById('hint').textContent='힌트 : 생일';
+
+        document.getElementById('hint').textContent=
+          '힌트 : 생일';
       }
+
       checking=false;
     },220);
   }
@@ -911,6 +1120,7 @@ function cancelPin(){
   pin='';
   checking=false;
   renderDots();
+
   document.getElementById('hint').textContent='';
   show('lock');
 }
@@ -919,6 +1129,7 @@ const keys=document.getElementById('keys');
 
 ['1','2','3','4','5','6','7','8','9','','0',''].forEach(n=>{
   const button=document.createElement('button');
+
   button.className='key';
   button.textContent=n;
 
@@ -935,7 +1146,9 @@ let startY=0;
 
 document.getElementById('lock').addEventListener(
   'touchstart',
-  e=>{startY=e.touches[0].clientY;},
+  e=>{
+    startY=e.touches[0].clientY;
+  },
   {passive:true}
 );
 
@@ -977,7 +1190,7 @@ function virtualFlashlight(){
     :'radial-gradient(circle at 50% 50%,#777,#242424 80%)';
 }
 
-/* 앱 열기와 닫기 */
+/* 앱 열기 */
 function openApp(name){
   currentApp=name;
 
@@ -999,7 +1212,6 @@ function closeApp(){
     musicPlaying=false;
   }
 
-  secretOpen=false;
   document.getElementById('page').classList.remove('open');
   show('home');
 }
@@ -1011,22 +1223,11 @@ function setBody(html){
 function renderApp(){
   if(currentApp==='전화')renderPhone();
   else if(currentApp==='메시지')renderMessages();
-  else if(currentApp==='연락처')renderContacts();
-  else if(currentApp==='메모')renderNotes();
-  else if(currentApp==='캘린더')renderCalendar();
-  else if(currentApp==='사진')renderPhotos();
-  else if(currentApp==='카메라')renderCamera();
   else if(currentApp==='음악')renderMusic();
   else if(currentApp==='Safari')renderSafari();
-  else if(currentApp==='X')renderX();
-  else if(currentApp==='설정')renderSettings();
-  else if(currentApp==='비밀 폴더')renderSecret();
 }
 
-/* =================================
-   전화: 실제 통화 연결 없음
-================================= */
-
+/* 전화: 가상 통화만 */
 function renderPhone(){
   const tabs=['즐겨찾기','최근 통화','연락처','키패드'];
 
@@ -1067,8 +1268,8 @@ function renderPhone(){
 
   if(phoneTab==='최근 통화'){
     html+=callHistory.length
-      ?callHistory.map(c=>`
-        <div class="item" onclick="callHistoryNumber('${esc(c.number)}')">
+      ?callHistory.map((c,i)=>`
+        <div class="item" onclick="callHistoryNumber(${i})">
           <b>${esc(c.number)}</b>
           <p class="muted">${esc(c.date)}</p>
         </div>
@@ -1115,8 +1316,8 @@ function deletePhoneKey(){
   if(display)display.textContent=phoneNumber;
 }
 
-function callHistoryNumber(number){
-  phoneNumber=number;
+function callHistoryNumber(i){
+  phoneNumber=callHistory[i].number;
   startVirtualCall();
 }
 
@@ -1142,11 +1343,13 @@ function startVirtualCall(){
     <div class="call-screen">
       <div>
         <div class="call-name">${esc(currentCall)}</div>
-        <div class="call-state" id="callState">가상 통화 중 · 00:00</div>
+        <div class="call-state" id="callState">
+          가상 통화 중 · 00:00
+        </div>
       </div>
 
       <div class="muted">
-        이 화면은 웹사이트 안의 가상 통화입니다.
+        실제 전화는 연결되지 않습니다.
       </div>
 
       <button class="end-call" onclick="endVirtualCall()">☎</button>
@@ -1157,11 +1360,15 @@ function startVirtualCall(){
 
   callTimer=setInterval(()=>{
     const seconds=Math.floor((Date.now()-callStart)/1000);
+
     const mm=String(Math.floor(seconds/60)).padStart(2,'0');
     const ss=String(seconds%60).padStart(2,'0');
 
     const state=document.getElementById('callState');
-    if(state)state.textContent=`가상 통화 중 · ${mm}:${ss}`;
+
+    if(state){
+      state.textContent=`가상 통화 중 · ${mm}:${ss}`;
+    }
   },1000);
 }
 
@@ -1176,10 +1383,7 @@ function endVirtualCall(){
   renderPhone();
 }
 
-/* =================================
-   메시지: 가상 대화만 저장
-================================= */
-
+/* 메시지: 가상 대화만 */
 function renderMessages(){
   selectedChat='';
 
@@ -1191,6 +1395,7 @@ function renderMessages(){
     ${people.length
       ?people.map((person,i)=>{
         const count=messages.filter(m=>m.to===person).length;
+
         return `
           <div class="item" onclick="openChatByIndex(${i})">
             <b>${esc(person)}</b>
@@ -1203,10 +1408,14 @@ function renderMessages(){
   `);
 }
 
+let selectedChat='';
+
 function newChat(){
   setBody(`
     <h3>새 메시지</h3>
+
     <input class="field" id="newChatName" placeholder="받는 사람 이름">
+
     <button class="action" onclick="createChat()">대화 시작</button>
   `);
 }
@@ -1221,6 +1430,7 @@ function createChat(){
 
 function openChatByIndex(i){
   const people=[...new Set(messages.map(m=>m.to))];
+
   selectedChat=people[i];
   renderChat();
 }
@@ -1242,12 +1452,9 @@ function renderChat(){
 
     <div class="chat-compose">
       <input class="field" id="chatInput" placeholder="메시지">
+
       <button class="action" onclick="sendVirtualMessage()">전송</button>
     </div>
-
-    <p class="muted center">
-      실제 문자 메시지는 전송되지 않습니다.
-    </p>
 
     <button class="action" onclick="renderMessages()">대화 목록</button>
   `);
@@ -1268,279 +1475,13 @@ function sendVirtualMessage(){
   renderChat();
 }
 
-/* =================================
-   연락처: 가상 연락처만 저장
-================================= */
-
-function renderContacts(){
-  setBody(`
-    <h3>연락처</h3>
-
-    <input class="field" id="contactName" placeholder="이름">
-    <input class="field" id="contactPhone" placeholder="가상 전화번호">
-
-    <button class="action" onclick="addContact()">+ 연락처 추가</button>
-
-    <div style="margin-top:20px">
-      ${contacts.length
-        ?contacts.map((c,i)=>`
-          <div class="item">
-            <b>${esc(c.name)}</b>
-            <p class="muted">${esc(c.phone)}</p>
-
-            <button class="action" onclick="messageContact(${i})">
-              메시지
-            </button>
-
-            <button class="action danger" onclick="deleteContact(${i})">
-              삭제
-            </button>
-          </div>
-        `).join('')
-        :'<div class="empty">연락처가 없습니다.</div>'
-      }
-    </div>
-  `);
-}
-
-function addContact(){
-  const name=document.getElementById('contactName').value.trim();
-  const phone=document.getElementById('contactPhone').value.trim();
-
-  if(!name)return;
-
-  contacts.push({name,phone});
-  saveData('solContacts',contacts);
-  renderContacts();
-}
-
-function deleteContact(i){
-  contacts.splice(i,1);
-  saveData('solContacts',contacts);
-  renderContacts();
-}
-
-function messageContact(i){
-  selectedChat=contacts[i].name;
-  currentApp='메시지';
-  document.getElementById('pageTitle').textContent='메시지';
-  renderChat();
-}
-
-/* =================================
-   메모
-================================= */
-
-function renderNotes(){
-  setBody(`
-    <button class="action" onclick="editNote(-1)">+ 새 메모</button>
-
-    ${notes.length
-      ?notes.map((n,i)=>`
-        <div class="item" onclick="editNote(${i})">
-          ${esc(n.slice(0,80))||'빈 메모'}
-        </div>
-      `).join('')
-      :'<div class="empty">메모가 없습니다.</div>'
-    }
-  `);
-}
-
-function editNote(i){
-  const value=i<0?'':notes[i];
-
-  setBody(`
-    <textarea class="field" id="noteEdit" placeholder="메모 작성">${esc(value)}</textarea>
-
-    <button class="action" onclick="saveNote(${i})">저장</button>
-    <button class="action" onclick="renderNotes()">취소</button>
-
-    ${i>=0
-      ?`<button class="action danger" onclick="deleteNote(${i})">삭제</button>`
-      :''
-    }
-  `);
-}
-
-function saveNote(i){
-  const value=document.getElementById('noteEdit').value;
-
-  if(i<0)notes.unshift(value);
-  else notes[i]=value;
-
-  saveData('solNotes',notes);
-  renderNotes();
-}
-
-function deleteNote(i){
-  notes.splice(i,1);
-  saveData('solNotes',notes);
-  renderNotes();
-}
-
-/* =================================
-   캘린더
-================================= */
-
-function renderCalendar(){
-  const now=new Date();
-
-  setBody(`
-    <div class="item center" style="font-size:23px">
-      ${now.toLocaleDateString('ko-KR',{
-        year:'numeric',
-        month:'long',
-        day:'numeric',
-        weekday:'long'
-      })}
-    </div>
-
-    <input class="field" type="date" id="eventDate">
-    <input class="field" id="eventText" placeholder="가상 일정 입력">
-
-    <button class="action" onclick="addEvent()">일정 추가</button>
-
-    <div style="margin-top:15px">
-      ${events.length
-        ?events.map((e,i)=>`
-          <div class="item">
-            <b>${esc(e.date)}</b>
-            <p>${esc(e.text)}</p>
-            <button class="action danger" onclick="deleteEvent(${i})">
-              삭제
-            </button>
-          </div>
-        `).join('')
-        :'<div class="empty">등록된 일정이 없습니다.</div>'
-      }
-    </div>
-  `);
-}
-
-function addEvent(){
-  const date=document.getElementById('eventDate').value;
-  const text=document.getElementById('eventText').value.trim();
-
-  if(!date||!text)return;
-
-  events.push({date,text});
-  events.sort((a,b)=>a.date.localeCompare(b.date));
-
-  saveData('solEvents',events);
-  renderCalendar();
-}
-
-function deleteEvent(i){
-  events.splice(i,1);
-  saveData('solEvents',events);
-  renderCalendar();
-}
-
-/* =================================
-   사진: 실제 사진 접근 없음
-================================= */
-
-const virtualScenes=['🌅','🌸','🌊','🌙','🌳','☁️','🌷','🌻','🏙️'];
-
-function renderPhotos(){
-  setBody(`
-    <h3>사진 보관함</h3>
-    <p class="muted">가상 카메라로 만든 사진이 표시됩니다.</p>
-
-    ${photos.length
-      ?`<div class="photo-grid">
-        ${photos.map((p,i)=>`
-          <button class="photo-tile" onclick="viewPhoto(${i})">
-            ${esc(p.scene)}
-          </button>
-        `).join('')}
-      </div>`
-      :'<div class="empty">아직 가상 사진이 없습니다.<p>카메라 앱에서 사진을 찍어 보세요.</p></div>'
-    }
-  `);
-}
-
-function viewPhoto(i){
-  const photo=photos[i];
-
-  setBody(`
-    <div class="photo-large">${esc(photo.scene)}</div>
-
-    <p class="center muted">${esc(photo.date)}</p>
-
-    <button class="action" onclick="renderPhotos()">보관함</button>
-
-    <button class="action danger" onclick="deletePhoto(${i})">
-      사진 삭제
-    </button>
-  `);
-}
-
-function deletePhoto(i){
-  photos.splice(i,1);
-  saveData('solVirtualPhotos',photos);
-  renderPhotos();
-}
-
-/* =================================
-   카메라: 실제 카메라 접근 없음
-================================= */
-
-function renderCamera(){
-  setBody(`
-    <div class="camera-view">
-      <div class="camera-scene" id="cameraScene">
-        ${virtualScenes[cameraScene]}
-      </div>
-      <div class="muted">가상 카메라 미리보기</div>
-    </div>
-
-    <div class="center">
-      <button class="action" onclick="changeScene()">장면 변경</button>
-    </div>
-
-    <button class="shutter" onclick="takeVirtualPhoto()" aria-label="사진 찍기"></button>
-
-    <p class="center muted">
-      실제 카메라는 실행되지 않습니다.
-    </p>
-  `);
-}
-
-function changeScene(){
-  cameraScene=(cameraScene+1)%virtualScenes.length;
-
-  const scene=document.getElementById('cameraScene');
-  if(scene)scene.textContent=virtualScenes[cameraScene];
-}
-
-function takeVirtualPhoto(){
-  photos.unshift({
-    scene:virtualScenes[cameraScene],
-    date:new Date().toLocaleString('ko-KR')
-  });
-
-  saveData('solVirtualPhotos',photos);
-
-  const scene=document.getElementById('cameraScene');
-  if(scene){
-    scene.style.opacity='0.2';
-    setTimeout(()=>{
-      if(scene)scene.style.opacity='1';
-    },150);
-  }
-}
-
-/* =================================
-   음악: 가상 플레이어
-================================= */
-
+/* 음악: 가상 플레이어 */
 function renderMusic(){
   setBody(`
     <div class="music-cover">♫</div>
 
     <h2 class="center">김솔음의 플레이리스트</h2>
-    <p class="center muted">가상 음악 플레이어</p>
+    <p class="center muted">가상 Apple Music</p>
 
     <div class="music-progress">
       <div id="musicProgress" style="width:${musicSeconds/180*100}%"></div>
@@ -1552,15 +1493,16 @@ function renderMusic(){
 
     <div class="music-controls">
       <button onclick="resetMusic()">⏮</button>
+
       <button onclick="toggleMusic()" id="musicPlayButton">
         ${musicPlaying?'⏸':'▶'}
       </button>
+
       <button onclick="resetMusic()">⏭</button>
     </div>
 
     <p class="center muted" style="margin-top:30px">
-      실제 음악 파일이나 음악 앱에는 접근하지 않습니다.
-      이 플레이어는 화면만 시뮬레이션합니다.
+      실제 음악 앱이나 음악 파일에는 접근하지 않습니다.
     </p>
   `);
 }
@@ -1568,6 +1510,7 @@ function renderMusic(){
 function formatMusicTime(seconds){
   const mm=String(Math.floor(seconds/60)).padStart(2,'0');
   const ss=String(seconds%60).padStart(2,'0');
+
   return `${mm}:${ss}`;
 }
 
@@ -1586,6 +1529,7 @@ function toggleMusic(){
       if(musicSeconds>=180){
         musicSeconds=0;
         musicPlaying=false;
+
         clearInterval(musicTimer);
         musicTimer=null;
       }
@@ -1595,13 +1539,22 @@ function toggleMusic(){
       const button=document.getElementById('musicPlayButton');
 
       if(bar)bar.style.width=(musicSeconds/180*100)+'%';
-      if(time)time.textContent=formatMusicTime(musicSeconds)+' / 03:00';
-      if(button)button.textContent=musicPlaying?'⏸':'▶';
+
+      if(time){
+        time.textContent=formatMusicTime(musicSeconds)+' / 03:00';
+      }
+
+      if(button){
+        button.textContent=musicPlaying?'⏸':'▶';
+      }
     },1000);
   }
 
   const button=document.getElementById('musicPlayButton');
-  if(button)button.textContent=musicPlaying?'⏸':'▶';
+
+  if(button){
+    button.textContent=musicPlaying?'⏸':'▶';
+  }
 }
 
 function resetMusic(){
@@ -1616,26 +1569,19 @@ function resetMusic(){
   renderMusic();
 }
 
-/* =================================
-   Safari: 외부 사이트 이동 없음
-================================= */
-
+/* Safari: 웹사이트 내부 가상 화면 */
 function renderSafari(){
   setBody(`
     <div class="browser-bar">
       <input class="field" id="virtualAddress" placeholder="검색어 입력">
+
       <button class="action" onclick="virtualSearch()">검색</button>
     </div>
 
     <div class="browser-preview" id="browserPreview">
       <h2>Safari</h2>
       <p>김솔음의 가상 브라우저</p>
-      <p>이 화면은 웹사이트 내부에서만 작동합니다.</p>
     </div>
-
-    <p class="muted center">
-      실제 Safari 앱이나 외부 웹사이트는 열리지 않습니다.
-    </p>
   `);
 }
 
@@ -1646,186 +1592,8 @@ function virtualSearch(){
   document.getElementById('browserPreview').innerHTML=`
     <h2>검색 결과</h2>
     <p><b>${esc(query)}</b></p>
-    <p>가상 Safari에서 검색한 내용입니다.</p>
-    <p>실제 인터넷 검색이나 외부 사이트 연결은 하지 않습니다.</p>
+    <p>가상 Safari 검색 화면입니다.</p>
   `;
-}
-
-/* =================================
-   X: 실제 X 연결 없음
-================================= */
-
-function renderX(){
-  setBody(`
-    <div class="center" style="font-size:36px;margin-bottom:20px">𝕏</div>
-
-    <textarea class="field" id="xPostInput" placeholder="무슨 일이 일어나고 있나요?"></textarea>
-
-    <button class="action" onclick="addXPost()">게시하기</button>
-
-    <h3>가상 타임라인</h3>
-
-    ${posts.length
-      ?posts.map((p,i)=>`
-        <div class="x-post">
-          <div class="x-post-header">김솔음</div>
-          <div class="x-post-text">${esc(p.text)}</div>
-          <p class="muted">${esc(p.date)}</p>
-          <button class="action danger" onclick="deleteXPost(${i})">
-            삭제
-          </button>
-        </div>
-      `).join('')
-      :'<div class="empty">아직 게시물이 없습니다.</div>'
-    }
-
-    <p class="muted center">
-      실제 X 계정이나 서비스에는 연결되지 않습니다.
-    </p>
-  `);
-}
-
-function addXPost(){
-  const text=document.getElementById('xPostInput').value.trim();
-  if(!text)return;
-
-  posts.unshift({
-    text,
-    date:new Date().toLocaleString('ko-KR')
-  });
-
-  saveData('solXPosts',posts);
-  renderX();
-}
-
-function deleteXPost(i){
-  posts.splice(i,1);
-  saveData('solXPosts',posts);
-  renderX();
-}
-
-/* =================================
-   설정: 가상 아이폰 설정
-================================= */
-
-function renderSettings(){
-  setBody(`
-    <div class="item">
-      <b>김솔음의 휴대폰</b>
-      <p class="muted">가상 아이폰</p>
-    </div>
-
-    <div class="item">
-      <b>화면 모드</b>
-      <p class="muted">다크 모드</p>
-    </div>
-
-    <div class="item">
-      <b>잠금 방식</b>
-      <p class="muted">4자리 암호</p>
-    </div>
-
-    <div class="item">
-      <b>앱 연결</b>
-      <p class="muted">
-        실제 휴대폰 앱과 연결되지 않습니다.
-      </p>
-    </div>
-
-    <button class="action" onclick="lockVirtualPhone()">
-      화면 잠그기
-    </button>
-  `);
-}
-
-function lockVirtualPhone(){
-  closeApp();
-  show('lock');
-}
-
-/* =================================
-   비밀 폴더
-================================= */
-
-function renderSecret(){
-  if(!secretOpen){
-    setBody(`
-      <div class="center" style="font-size:55px;margin:30px 0">
-        🔒
-      </div>
-
-      <h3 class="center">비밀 폴더</h3>
-
-      <input
-        class="field"
-        id="secretPin"
-        type="password"
-        inputmode="numeric"
-        maxlength="4"
-        placeholder="비밀번호 4자리"
-      >
-
-      <button class="action" onclick="unlockSecret()">열기</button>
-
-      <div id="secretError" class="hint center"></div>
-    `);
-
-    return;
-  }
-
-  setBody(`
-    <h3>비밀 폴더</h3>
-
-    <textarea class="field" id="secretNoteInput" placeholder="비밀 메모 작성"></textarea>
-
-    <button class="action" onclick="addSecretNote()">저장</button>
-    <button class="action" onclick="lockSecret()">폴더 잠그기</button>
-
-    <div style="margin-top:20px">
-      ${secretNotes.length
-        ?secretNotes.map((n,i)=>`
-          <div class="item">
-            <p>${esc(n)}</p>
-            <button class="action danger" onclick="deleteSecretNote(${i})">
-              삭제
-            </button>
-          </div>
-        `).join('')
-        :'<div class="empty">저장된 비밀 메모가 없습니다.</div>'
-      }
-    </div>
-  `);
-}
-
-function unlockSecret(){
-  const value=document.getElementById('secretPin').value;
-
-  if(value==='0913'){
-    secretOpen=true;
-    renderSecret();
-  }else{
-    document.getElementById('secretError').textContent='힌트 : 생일';
-  }
-}
-
-function lockSecret(){
-  secretOpen=false;
-  renderSecret();
-}
-
-function addSecretNote(){
-  const text=document.getElementById('secretNoteInput').value.trim();
-  if(!text)return;
-
-  secretNotes.unshift(text);
-  saveData('solSecretNotes',secretNotes);
-  renderSecret();
-}
-
-function deleteSecretNote(i){
-  secretNotes.splice(i,1);
-  saveData('solSecretNotes',secretNotes);
-  renderSecret();
 }
 
 </script>
