@@ -6,493 +6,1828 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="theme-color" content="#000000">
 <title>김솔음의 휴대폰</title>
+
 <style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
 html,body{
-margin:0;width:100%;height:100%;overflow:hidden;
-background:#000;color:white;
-font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:#000;
+  color:white;
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;
 }
-button,input,textarea{font:inherit}
-button{color:inherit;cursor:pointer}
+button,input,textarea{
+  font:inherit;
+}
+button{
+  color:inherit;
+  cursor:pointer;
+}
 .phone{
-position:relative;width:100%;height:100vh;height:100dvh;
-overflow:hidden;
-background:radial-gradient(ellipse at 50% 25%,#19191b,#080808 78%)
+  position:relative;
+  width:100%;
+  height:100vh;
+  height:100dvh;
+  overflow:hidden;
+  background:radial-gradient(ellipse at 50% 25%,#19191b,#080808 78%);
 }
-.screen{position:absolute;inset:0;display:none}
-.screen.active{display:block}
+.screen{
+  position:absolute;
+  inset:0;
+  display:none;
+}
+.screen.active{
+  display:block;
+}
+
+/* 가상 아이폰 상태바 */
 .status{
-position:absolute;top:0;left:0;width:100%;height:55px;
-display:flex;align-items:center;justify-content:space-between;
-padding:0 7%;z-index:10;font-size:15px;font-weight:600;
-pointer-events:none
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:55px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 7%;
+  z-index:10;
+  font-size:15px;
+  font-weight:600;
+  pointer-events:none;
 }
 .island{
-position:absolute;left:50%;top:11px;
-transform:translateX(-50%);
-width:110px;height:31px;border-radius:22px;background:#000
+  position:absolute;
+  left:50%;
+  top:11px;
+  transform:translateX(-50%);
+  width:110px;
+  height:31px;
+  border-radius:22px;
+  background:#000;
 }
-.indicators{display:flex;align-items:center;gap:9px}
-.signal{display:flex;align-items:flex-end;gap:2px;height:15px}
-.signal i{display:block;width:4px;background:#fff;border-radius:2px}
+.indicators{
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+.signal{
+  display:flex;
+  align-items:flex-end;
+  gap:2px;
+  height:15px;
+}
+.signal i{
+  display:block;
+  width:4px;
+  background:#fff;
+  border-radius:2px;
+}
 .signal i:nth-child(1){height:5px}
 .signal i:nth-child(2){height:8px}
 .signal i:nth-child(3){height:12px}
 .signal i:nth-child(4){height:15px}
 .battery{
-position:relative;width:25px;height:13px;
-border:1.7px solid #fff;border-radius:4px;padding:2px
+  position:relative;
+  width:25px;
+  height:13px;
+  border:1.7px solid white;
+  border-radius:4px;
+  padding:2px;
 }
 .battery:after{
-content:"";position:absolute;right:-4px;top:3px;
-width:2px;height:5px;background:#fff;border-radius:2px
+  content:"";
+  position:absolute;
+  right:-4px;
+  top:3px;
+  width:2px;
+  height:5px;
+  background:white;
+  border-radius:2px;
 }
-.battery-fill{width:70%;height:100%;background:#fff;border-radius:1px}
+.battery-fill{
+  width:70%;
+  height:100%;
+  background:white;
+  border-radius:1px;
+}
 .homebar{
-position:absolute;bottom:9px;left:50%;
-transform:translateX(-50%);width:130px;height:5px;
-background:#fff;border-radius:10px;z-index:15
+  position:absolute;
+  bottom:9px;
+  left:50%;
+  transform:translateX(-50%);
+  width:130px;
+  height:5px;
+  background:white;
+  border-radius:10px;
+  z-index:15;
+  cursor:pointer;
 }
+
+/* 잠금화면 */
 .lockclock{
-position:absolute;top:17%;width:100%;text-align:center
+  position:absolute;
+  top:17%;
+  width:100%;
+  text-align:center;
 }
 .bigtime{
-font-size:clamp(68px,20vw,94px);
-font-weight:200;letter-spacing:-4px
+  font-size:clamp(68px,20vw,94px);
+  font-weight:200;
+  letter-spacing:-4px;
 }
-.date{font-size:20px;margin-top:7px}
+.date{
+  font-size:20px;
+  margin-top:7px;
+}
 .locktip{
-position:absolute;bottom:110px;width:100%;
-text-align:center;color:#aaa;font-size:13px
+  position:absolute;
+  bottom:110px;
+  width:100%;
+  text-align:center;
+  color:#aaa;
+  font-size:13px;
 }
 .lockbottom{
-position:absolute;bottom:43px;width:100%;
-display:flex;justify-content:space-between;padding:0 34px
+  position:absolute;
+  bottom:43px;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  padding:0 34px;
 }
 .round{
-border:0;width:52px;height:52px;border-radius:50%;
-background:#292929;display:grid;place-items:center
+  border:0;
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  background:#292929;
+  display:grid;
+  place-items:center;
 }
 .round svg{
-width:25px;height:25px;stroke:white;fill:none;
-stroke-width:2;stroke-linecap:round;stroke-linejoin:round
+  width:25px;
+  height:25px;
+  stroke:white;
+  fill:none;
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
 }
+
+/* 암호 화면 */
 .passwrap{
-position:absolute;top:20%;width:100%;text-align:center
+  position:absolute;
+  top:20%;
+  width:100%;
+  text-align:center;
 }
-.passlabel{font-size:21px;margin-bottom:20px}
-.hint{height:24px;color:#ffce67;font-size:15px;margin-bottom:12px}
-.dots{display:flex;justify-content:center;gap:18px;margin-bottom:35px}
-.dot{width:13px;height:13px;border:1.5px solid white;border-radius:50%}
-.dot.filled{background:white}
+.passlabel{
+  font-size:21px;
+  margin-bottom:20px;
+}
+.hint{
+  height:24px;
+  color:#ffce67;
+  font-size:15px;
+  margin-bottom:12px;
+}
+.dots{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  margin-bottom:35px;
+}
+.dot{
+  width:13px;
+  height:13px;
+  border:1.5px solid white;
+  border-radius:50%;
+}
+.dot.filled{
+  background:white;
+}
 .keypad{
-display:grid;grid-template-columns:repeat(3,72px);
-justify-content:center;gap:13px 21px
+  display:grid;
+  grid-template-columns:repeat(3,72px);
+  justify-content:center;
+  gap:13px 21px;
 }
 .key{
-width:72px;height:72px;border:0;border-radius:50%;
-background:#ffffff25;font-size:30px;font-weight:300
+  width:72px;
+  height:72px;
+  border:0;
+  border-radius:50%;
+  background:#ffffff25;
+  font-size:30px;
+  font-weight:300;
 }
-.key:active{background:#ffffff55}
+.key:active{
+  background:#ffffff55;
+}
 .passfooter{
-display:flex;justify-content:space-between;
-max-width:270px;margin:24px auto
+  display:flex;
+  justify-content:space-between;
+  max-width:270px;
+  margin:24px auto;
 }
-.passfooter button{border:0;background:none;font-size:15px}
+.passfooter button{
+  border:0;
+  background:none;
+  font-size:15px;
+}
+
+/* 홈 화면 */
 .apps{
-position:absolute;top:23%;left:0;width:100%;
-padding:0 7%;
-display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
-column-gap:13px;row-gap:29px
+  position:absolute;
+  top:23%;
+  left:0;
+  width:100%;
+  padding:0 7%;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  column-gap:13px;
+  row-gap:29px;
 }
-.app{text-align:center;min-width:0;cursor:pointer}
+.app{
+  text-align:center;
+  min-width:0;
+  cursor:pointer;
+}
 .appicon{
-width:min(100%,66px);aspect-ratio:1;
-margin:auto;border-radius:15px;overflow:hidden;
-display:grid;place-items:center;background:#333
+  width:min(100%,66px);
+  aspect-ratio:1;
+  margin:auto;
+  border-radius:15px;
+  overflow:hidden;
+  display:grid;
+  place-items:center;
+  background:#333;
 }
-.appicon svg{width:100%;height:100%;display:block}
-.appname{font-size:11px;margin-top:7px;white-space:nowrap}
+.appicon svg{
+  width:100%;
+  height:100%;
+  display:block;
+}
+.appname{
+  font-size:11px;
+  margin-top:7px;
+  white-space:nowrap;
+}
 .dock{
-position:absolute;bottom:43px;left:5%;width:90%;
-padding:12px 8px;border-radius:25px;
-background:#ffffff24;
-display:grid;grid-template-columns:repeat(4,1fr);gap:8px
+  position:absolute;
+  bottom:43px;
+  left:5%;
+  width:90%;
+  padding:12px 8px;
+  border-radius:25px;
+  background:#ffffff24;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
 }
-.dock .appicon{width:min(100%,63px)}
-.dock .appname{font-size:11px;margin-top:6px}
+.dock .appicon{
+  width:min(100%,63px);
+}
+.dock .appname{
+  font-size:11px;
+  margin-top:6px;
+}
+
+/* 앱 공통 화면 */
 .page{
-position:absolute;inset:55px 0 0;background:#101012;
-display:none;z-index:12
+  position:absolute;
+  inset:55px 0 0;
+  background:#101012;
+  display:none;
+  z-index:12;
 }
-.page.open{display:flex;flex-direction:column}
+.page.open{
+  display:flex;
+  flex-direction:column;
+}
 .pageheader{
-height:60px;display:flex;align-items:center;
-justify-content:space-between;padding:0 20px;
-font-size:20px;font-weight:600;
-border-bottom:1px solid #ffffff20
+  height:60px;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 20px;
+  font-size:20px;
+  font-weight:600;
+  border-bottom:1px solid #ffffff20;
 }
-.back{background:none;border:0;color:#4b9cff;font-size:17px}
-.pagebody{padding:20px;overflow:auto;flex:1;padding-bottom:65px}
-.item{background:#242427;border-radius:12px;padding:16px;margin-bottom:10px}
+.back{
+  background:none;
+  border:0;
+  color:#4b9cff;
+  font-size:17px;
+}
+.pagebody{
+  padding:20px;
+  overflow:auto;
+  flex:1;
+  padding-bottom:75px;
+}
+.item{
+  background:#242427;
+  border-radius:12px;
+  padding:16px;
+  margin-bottom:10px;
+}
 .field{
-width:100%;padding:12px;border-radius:10px;border:0;
-background:#303035;color:white;font-size:16px;margin:8px 0
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:0;
+  background:#303035;
+  color:white;
+  font-size:16px;
+  margin:8px 0;
 }
 .action{
-background:#3289ff;border:0;border-radius:10px;
-padding:11px 16px;margin:6px 4px 6px 0
+  background:#3289ff;
+  border:0;
+  border-radius:10px;
+  padding:11px 16px;
+  margin:6px 4px 6px 0;
 }
-textarea.field{min-height:170px;resize:vertical}
-.muted{color:#aaa;font-size:13px}
+textarea.field{
+  min-height:170px;
+  resize:vertical;
+}
+.muted{
+  color:#aaa;
+  font-size:13px;
+}
+.center{
+  text-align:center;
+}
+.empty{
+  color:#999;
+  text-align:center;
+  padding:30px 10px;
+  font-size:14px;
+}
+.danger{
+  background:#d83b45;
+}
+
+/* 가상 전화 앱 */
+.phone-app{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:12px 0 20px;
+}
+.phone-display{
+  width:100%;
+  height:75px;
+  text-align:center;
+  font-size:32px;
+  font-weight:300;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+.phone-keys{
+  display:grid;
+  grid-template-columns:repeat(3,72px);
+  gap:13px 20px;
+  justify-content:center;
+}
+.phone-key{
+  width:72px;
+  height:72px;
+  border:0;
+  border-radius:50%;
+  background:#29292b;
+  font-size:30px;
+  font-weight:300;
+}
+.phone-key:active{
+  background:#555;
+}
+.phone-controls{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:30px;
+  margin-top:23px;
+}
+.call-button{
+  border:0;
+  width:68px;
+  height:68px;
+  border-radius:50%;
+  background:#34c759;
+  display:grid;
+  place-items:center;
+  font-size:32px;
+}
+.delete-button{
+  background:none;
+  border:0;
+  font-size:25px;
+  width:50px;
+}
+.phone-tabs{
+  display:flex;
+  justify-content:space-around;
+  gap:5px;
+  margin-bottom:15px;
+}
+.phone-tab{
+  flex:1;
+  background:#252528;
+  border:0;
+  padding:10px 3px;
+  border-radius:9px;
+  font-size:13px;
+}
+.phone-tab.selected{
+  background:#367ff4;
+}
+.call-screen{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-around;
+  min-height:65vh;
+  text-align:center;
+}
+.call-name{
+  font-size:32px;
+  margin-top:40px;
+}
+.call-state{
+  color:#aaa;
+  margin-top:12px;
+}
+.end-call{
+  width:75px;
+  height:75px;
+  border:0;
+  border-radius:50%;
+  background:#ff3b30;
+  font-size:32px;
+  margin-bottom:45px;
+}
+
+/* 가상 메시지 */
+.chat-bubble{
+  max-width:82%;
+  background:#34c759;
+  border-radius:18px;
+  padding:12px 15px;
+  margin:10px 0 10px auto;
+  overflow-wrap:anywhere;
+}
+.chat-compose{
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+.chat-compose .field{
+  flex:1;
+  min-width:0;
+}
+
+/* 가상 Safari */
+.browser-bar{
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+.browser-bar .field{
+  flex:1;
+  min-width:0;
+}
+.browser-preview{
+  background:white;
+  color:#222;
+  border-radius:12px;
+  min-height:250px;
+  padding:25px 18px;
+  margin-top:15px;
+}
+.browser-preview h2{
+  font-size:22px;
+  margin-top:0;
+}
+
+/* 가상 사진 */
+.photo-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:6px;
+}
+.photo-tile{
+  aspect-ratio:1;
+  border:0;
+  border-radius:8px;
+  background:#303035;
+  display:grid;
+  place-items:center;
+  font-size:35px;
+}
+.photo-large{
+  font-size:115px;
+  text-align:center;
+  padding:55px 0;
+}
+
+/* 가상 카메라 */
+.camera-view{
+  height:47vh;
+  background:linear-gradient(145deg,#25262d,#0b0c11);
+  border-radius:15px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:14px;
+}
+.camera-scene{
+  font-size:100px;
+}
+.shutter{
+  display:block;
+  width:75px;
+  height:75px;
+  border:6px solid white;
+  background:white;
+  box-shadow:inset 0 0 0 4px #333;
+  border-radius:50%;
+  margin:24px auto;
+}
+
+/* 가상 음악 */
+.music-cover{
+  width:min(75vw,250px);
+  aspect-ratio:1;
+  margin:20px auto;
+  border-radius:20px;
+  background:linear-gradient(135deg,#f04b76,#7426b8);
+  display:grid;
+  place-items:center;
+  font-size:100px;
+}
+.music-progress{
+  width:100%;
+  height:5px;
+  border-radius:5px;
+  background:#444;
+  margin:25px 0;
+  overflow:hidden;
+}
+.music-progress div{
+  width:0%;
+  height:100%;
+  background:white;
+}
+.music-controls{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:35px;
+  margin-top:25px;
+}
+.music-controls button{
+  background:none;
+  border:0;
+  font-size:32px;
+}
+
+/* 가상 X */
+.x-post{
+  background:#1e1e21;
+  border-radius:14px;
+  padding:15px;
+  margin-bottom:12px;
+}
+.x-post-header{
+  font-weight:700;
+  margin-bottom:8px;
+}
+.x-post-text{
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+}
 </style>
 </head>
+
 <body>
 <div class="phone">
 
 <div class="status">
-<span id="statusTime">9:41</span>
-<div class="island"></div>
-<div class="indicators">
-<div class="signal"><i></i><i></i><i></i><i></i></div>
-<div class="battery"><div class="battery-fill"></div></div>
-</div>
+  <span id="statusTime">9:41</span>
+  <div class="island"></div>
+  <div class="indicators">
+    <div class="signal">
+      <i></i><i></i><i></i><i></i>
+    </div>
+    <div class="battery">
+      <div class="battery-fill"></div>
+    </div>
+  </div>
 </div>
 
+<!-- 잠금화면 -->
 <section class="screen active" id="lock">
-<div class="lockclock">
-<div class="bigtime" id="bigTime">9:41</div>
-<div class="date" id="date"></div>
-</div>
-<div class="locktip">위로 쓸어올려 잠금 해제</div>
-<div class="lockbottom">
-<button class="round" onclick="flashlight()" aria-label="손전등">
-<svg viewBox="0 0 24 24">
-<path d="M8 3h8v5l-2 3v9h-4v-9L8 8zM10 14h4"/>
-</svg>
-</button>
-<button class="round" onclick="openCamera()" aria-label="카메라">
-<svg viewBox="0 0 24 24">
-<path d="M3 7h4l2-3h6l2 3h4v13H3z"/>
-<circle cx="12" cy="13" r="4"/>
-</svg>
-</button>
-</div>
+  <div class="lockclock">
+    <div class="bigtime" id="bigTime">9:41</div>
+    <div class="date" id="date"></div>
+  </div>
+
+  <div class="locktip">위로 쓸어올려 잠금 해제</div>
+
+  <div class="lockbottom">
+    <button class="round" onclick="virtualFlashlight()" aria-label="손전등">
+      <svg viewBox="0 0 24 24">
+        <path d="M8 3h8v5l-2 3v9h-4v-9L8 8zM10 14h4"/>
+      </svg>
+    </button>
+
+    <button class="round" onclick="openApp('카메라')" aria-label="카메라">
+      <svg viewBox="0 0 24 24">
+        <path d="M3 7h4l2-3h6l2 3h4v13H3z"/>
+        <circle cx="12" cy="13" r="4"/>
+      </svg>
+    </button>
+  </div>
 </section>
 
+<!-- 암호 입력 -->
 <section class="screen" id="pass">
-<div class="passwrap">
-<div class="passlabel">암호 입력</div>
-<div class="hint" id="hint"></div>
-<div class="dots" id="dots">
-<div class="dot"></div><div class="dot"></div>
-<div class="dot"></div><div class="dot"></div>
-</div>
-<div class="keypad" id="keys"></div>
-<div class="passfooter">
-<button onclick="cancelPin()">취소</button>
-<button onclick="erasePin()">삭제</button>
-</div>
-</div>
+  <div class="passwrap">
+    <div class="passlabel">암호 입력</div>
+    <div class="hint" id="hint"></div>
+
+    <div class="dots">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+
+    <div class="keypad" id="keys"></div>
+
+    <div class="passfooter">
+      <button onclick="cancelPin()">취소</button>
+      <button onclick="erasePin()">삭제</button>
+    </div>
+  </div>
 </section>
 
+<!-- 홈 화면 -->
 <section class="screen" id="home">
-<div class="apps" id="apps"></div>
-<div class="dock" id="dock"></div>
+  <div class="apps" id="apps"></div>
+  <div class="dock" id="dock"></div>
 </section>
 
+<!-- 앱 화면 -->
 <div class="page" id="page">
-<div class="pageheader">
-<button class="back" onclick="closeApp()">‹ 뒤로</button>
-<span id="pageTitle"></span>
-<span style="width:40px"></span>
-</div>
-<div class="pagebody" id="pageBody"></div>
+  <div class="pageheader">
+    <button class="back" onclick="closeApp()">‹ 뒤로</button>
+    <span id="pageTitle"></span>
+    <span style="width:40px"></span>
+  </div>
+  <div class="pagebody" id="pageBody"></div>
 </div>
 
 <div class="homebar" id="homebar"></div>
+
 </div>
 
 <script>
-const icons={
+/*
+  김솔음의 가상 아이폰
+
+  모든 앱은 이 웹사이트 안에서만 작동합니다.
+
+  실제 전화 앱 연결 없음
+  실제 문자 앱 연결 없음
+  실제 카메라 접근 없음
+  실제 사진 보관함 접근 없음
+  실제 연락처 접근 없음
+  실제 음악 파일 접근 없음
+  외부 웹사이트 자동 이동 없음
+
+  가상 데이터는 이 웹사이트의 localStorage에 저장됩니다.
+*/
+
+const icons = {
 '메시지':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#30d553"/><path d="M17 23Q17 15 29 15H53Q66 15 66 29V45Q66 59 51 59H34L22 68L25 56Q17 52 17 43Z" fill="white"/></svg>`,
+
 '사진':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#fff"/><g transform="translate(40 40)"><ellipse cy="-19" rx="10" ry="21" fill="#f6b72d"/><ellipse cy="-19" rx="10" ry="21" fill="#f04b51" transform="rotate(45)"/><ellipse cy="-19" rx="10" ry="21" fill="#a64cba" transform="rotate(90)"/><ellipse cy="-19" rx="10" ry="21" fill="#5485d8" transform="rotate(135)"/><ellipse cy="-19" rx="10" ry="21" fill="#48bfc8" transform="rotate(180)"/><ellipse cy="-19" rx="10" ry="21" fill="#63b65b" transform="rotate(225)"/><ellipse cy="-19" rx="10" ry="21" fill="#f5c33b" transform="rotate(270)"/><ellipse cy="-19" rx="10" ry="21" fill="#e66d43" transform="rotate(315)"/><circle r="8" fill="#f7e9ad"/></g></svg>`,
+
 '메모':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#fff"/><path d="M0 0H80V22H0Z" fill="#ffd344"/><path d="M15 35H65M15 46H65M15 57H52" stroke="#ccc" stroke-width="2"/></svg>`,
+
 '캘린더':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="white"/><text x="40" y="22" text-anchor="middle" font-size="12" fill="#f34d54" id="calDay">MON</text><text x="40" y="64" text-anchor="middle" font-size="43" font-weight="300" fill="#111" id="calDate">26</text></svg>`,
+
 '음악':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#fb375e"/><path d="M38 17V55Q33 49 25 53Q15 57 19 65Q23 72 33 66Q38 63 38 56V31L59 26V49Q54 44 47 48Q37 52 41 60Q45 68 55 62Q61 59 61 52V15Z" fill="white"/></svg>`,
+
 'X':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#101010"/><path d="M19 15H29L61 65H51Z" fill="none" stroke="white" stroke-width="3"/><path d="M59 15L20 65" stroke="white" stroke-width="3"/></svg>`,
+
 '설정':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#aaa"/><g transform="translate(40 40)"><path d="M-7-29H7L10-22L17-20L24-24L31-12L25-6L25 6L31 12L24 24L17 20L10 22L7 29H-7L-10 22L-17 20L-24 24L-31 12L-25 6L-25-6L-31-12L-24-24L-17-20L-10-22Z" fill="#444" stroke="#ddd" stroke-width="2"/><circle r="19" fill="#777" stroke="#222" stroke-width="3"/><circle r="11" fill="#444" stroke="#ccc" stroke-width="3"/></g></svg>`,
+
 '비밀 폴더':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#333337"/><rect x="24" y="35" width="32" height="28" rx="5" fill="#e3b94c"/><path d="M30 36V26A10 10 0 0 1 50 26V36" fill="none" stroke="#f7d77c" stroke-width="6"/><circle cx="40" cy="48" r="3" fill="#795c25"/></svg>`,
+
 '전화':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#2ed657"/><path d="M24 15Q19 13 15 22Q9 39 29 59Q48 77 62 65Q68 60 63 56L51 47Q48 45 44 50L40 54Q30 49 25 39L30 34Q33 31 30 27Z" fill="white"/></svg>`,
+
 'Safari':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="white"/><circle cx="40" cy="40" r="31" fill="#159fe9" stroke="#d5d5d5" stroke-width="3"/><circle cx="40" cy="40" r="26" fill="none" stroke="#bce9ff" stroke-width="1" stroke-dasharray="1 3"/><path d="M51 24L44 44L28 55L36 35Z" fill="white"/><path d="M51 24L44 44L36 35Z" fill="#f4434d"/></svg>`,
+
 '카메라':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#a4a4a4"/><rect x="12" y="25" width="56" height="39" rx="8" fill="#333"/><path d="M22 25L28 17H49L56 25" fill="#555"/><circle cx="40" cy="44" r="18" fill="#777"/><circle cx="40" cy="44" r="13" fill="#222" stroke="#aaa" stroke-width="3"/><circle cx="59" cy="32" r="3" fill="#e5b941"/></svg>`,
+
 '연락처':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="17" fill="#d5d5d1"/><rect x="68" y="12" width="8" height="18" fill="#f0c844"/><rect x="68" y="30" width="8" height="18" fill="#43b8e4"/><rect x="68" y="48" width="8" height="18" fill="#62ad66"/><circle cx="37" cy="29" r="14" fill="#999"/><path d="M13 68Q15 46 37 46Q59 46 61 68" fill="#999"/></svg>`
 };
 
-const mainApps=['메시지','사진','메모','캘린더','음악','X','설정','비밀 폴더'];
-const dockApps=['전화','Safari','카메라','연락처'];
-let pin='',checking=false,currentApp='';
-let notes=JSON.parse(localStorage.getItem('solNotes')||'[]');
-let contacts=JSON.parse(localStorage.getItem('solContacts')||'[]');
-let messages=JSON.parse(localStorage.getItem('solMessages')||'[]');
+const mainApps=[
+  '메시지','사진','메모','캘린더',
+  '음악','X','설정','비밀 폴더'
+];
+
+const dockApps=[
+  '전화','Safari','카메라','연락처'
+];
+
+function loadData(key,fallback){
+  try{
+    return JSON.parse(localStorage.getItem(key)) ?? fallback;
+  }catch(e){
+    return fallback;
+  }
+}
+
+function saveData(key,value){
+  try{
+    localStorage.setItem(key,JSON.stringify(value));
+  }catch(e){
+    alert('가상 데이터를 저장할 수 없습니다.');
+  }
+}
+
+let pin='';
+let checking=false;
+let currentApp='';
+let phoneNumber='';
+let phoneTab='키패드';
+let currentCall='';
+let callStart=0;
+let callTimer=null;
+let selectedChat='';
+let cameraScene=0;
+let musicPlaying=false;
+let musicSeconds=0;
+let musicTimer=null;
+let secretOpen=false;
+
+let notes=loadData('solNotes',[]);
+let contacts=loadData('solContacts',[]);
+let messages=loadData('solMessages',[]);
+let events=loadData('solEvents',[]);
+let callHistory=loadData('solCallHistory',[]);
+let photos=loadData('solVirtualPhotos',[]);
+let posts=loadData('solXPosts',[]);
+let secretNotes=loadData('solSecretNotes',[]);
+
+function esc(s){
+  return String(s).replace(/[&<>"']/g,c=>({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;',
+    "'":'&#39;'
+  }[c]));
+}
 
 function updateClock(){
-const now=new Date();
-const time=now.toLocaleTimeString('ko-KR',{
-hour:'2-digit',minute:'2-digit',hour12:false
-});
-document.getElementById('statusTime').textContent=time;
-document.getElementById('bigTime').textContent=time;
-document.getElementById('date').textContent=
-now.toLocaleDateString('ko-KR',{
-month:'long',day:'numeric',weekday:'long'
-});
-const day=['SUN','MON','TUE','WED','THU','FRI','SAT'][now.getDay()];
-const cal=document.querySelector('#apps #calDay');
-const date=document.querySelector('#apps #calDate');
-if(cal)cal.textContent=day;
-if(date)date.textContent=now.getDate();
+  const now=new Date();
+
+  const time=now.toLocaleTimeString('ko-KR',{
+    hour:'2-digit',
+    minute:'2-digit',
+    hour12:false
+  });
+
+  document.getElementById('statusTime').textContent=time;
+  document.getElementById('bigTime').textContent=time;
+
+  document.getElementById('date').textContent=
+    now.toLocaleDateString('ko-KR',{
+      month:'long',
+      day:'numeric',
+      weekday:'long'
+    });
+
+  const days=['SUN','MON','TUE','WED','THU','FRI','SAT'];
+
+  const cal=document.querySelector('#apps #calDay');
+  const date=document.querySelector('#apps #calDate');
+
+  if(cal)cal.textContent=days[now.getDay()];
+  if(date)date.textContent=now.getDate();
 }
+
 function show(id){
-document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-document.getElementById(id).classList.add('active');
-document.getElementById('page').classList.remove('open');
+  document.querySelectorAll('.screen').forEach(s=>{
+    s.classList.remove('active');
+  });
+
+  document.getElementById(id).classList.add('active');
+  document.getElementById('page').classList.remove('open');
 }
+
 function makeApp(name){
-const el=document.createElement('div');
-el.className='app';
-el.innerHTML=`<div class="appicon">${icons[name]}</div><div class="appname">${name}</div>`;
-el.onclick=()=>openApp(name);
-return el;
+  const el=document.createElement('div');
+  el.className='app';
+
+  el.innerHTML=`
+    <div class="appicon">${icons[name]}</div>
+    <div class="appname">${name}</div>
+  `;
+
+  el.onclick=()=>openApp(name);
+  return el;
 }
-mainApps.forEach(n=>document.getElementById('apps').appendChild(makeApp(n)));
-dockApps.forEach(n=>document.getElementById('dock').appendChild(makeApp(n)));
+
+mainApps.forEach(name=>{
+  document.getElementById('apps').appendChild(makeApp(name));
+});
+
+dockApps.forEach(name=>{
+  document.getElementById('dock').appendChild(makeApp(name));
+});
+
 updateClock();
 setInterval(updateClock,1000);
 
+/* 잠금 해제 */
 function renderDots(){
-document.querySelectorAll('.dot').forEach((d,i)=>{
-d.classList.toggle('filled',i<pin.length);
-});
+  document.querySelectorAll('.dot').forEach((dot,i)=>{
+    dot.classList.toggle('filled',i<pin.length);
+  });
 }
+
 function addPin(n){
-if(checking||pin.length>=4)return;
-pin+=n;
-renderDots();
-if(pin.length===4){
-checking=true;
-setTimeout(()=>{
-if(pin==='0913'){
-pin='';
-renderDots();
-document.getElementById('hint').textContent='';
-show('home');
-}else{
-document.getElementById('hint').textContent='힌트 : 생일';
-pin='';
-renderDots();
+  if(checking||pin.length>=4)return;
+
+  pin+=n;
+  renderDots();
+
+  if(pin.length===4){
+    checking=true;
+
+    setTimeout(()=>{
+      if(pin==='0913'){
+        pin='';
+        renderDots();
+        document.getElementById('hint').textContent='';
+        show('home');
+      }else{
+        pin='';
+        renderDots();
+        document.getElementById('hint').textContent='힌트 : 생일';
+      }
+      checking=false;
+    },220);
+  }
 }
-checking=false;
-},220);
-}
-}
+
 function erasePin(){
-if(checking)return;
-pin=pin.slice(0,-1);
-renderDots();
+  if(checking)return;
+  pin=pin.slice(0,-1);
+  renderDots();
 }
+
 function cancelPin(){
-pin='';
-checking=false;
-renderDots();
-document.getElementById('hint').textContent='';
-show('lock');
+  pin='';
+  checking=false;
+  renderDots();
+  document.getElementById('hint').textContent='';
+  show('lock');
 }
+
 const keys=document.getElementById('keys');
+
 ['1','2','3','4','5','6','7','8','9','','0',''].forEach(n=>{
-const b=document.createElement('button');
-b.className='key';
-b.textContent=n;
-if(n)b.onclick=()=>addPin(n);
-else b.style.visibility='hidden';
-keys.appendChild(b);
+  const button=document.createElement('button');
+  button.className='key';
+  button.textContent=n;
+
+  if(n){
+    button.onclick=()=>addPin(n);
+  }else{
+    button.style.visibility='hidden';
+  }
+
+  keys.appendChild(button);
 });
 
 let startY=0;
-document.getElementById('lock').addEventListener('touchstart',e=>{
-startY=e.touches[0].clientY;
-},{passive:true});
-document.getElementById('lock').addEventListener('touchend',e=>{
-if(startY-e.changedTouches[0].clientY>45)show('pass');
-});
-document.getElementById('lock').addEventListener('click',e=>{
-if(!e.target.closest('button'))show('pass');
-});
-document.getElementById('homebar').onclick=()=>{
-if(document.getElementById('page').classList.contains('open'))closeApp();
-else if(document.getElementById('lock').classList.contains('active'))show('pass');
-else if(document.getElementById('pass').classList.contains('active'))cancelPin();
-else show('home');
-};
-function flashlight(){
-alert('웹사이트에서는 실제 손전등을 켤 수 없어요.');
-}
-function openCamera(){openApp('카메라')}
 
-function openApp(name){
-currentApp=name;
-document.getElementById('pageTitle').textContent=name;
-document.getElementById('page').classList.add('open');
-renderApp();
-}
-function closeApp(){
-document.getElementById('page').classList.remove('open');
-show('home');
-}
-function escapeHTML(s){
-return String(s).replace(/[&<>"']/g,c=>({
-'&':'&amp;','<':'&lt;','>':'&gt;',
-'"':'&quot;',"'":'&#39;'
-}[c]));
-}
-function renderApp(){
-const body=document.getElementById('pageBody');
-if(currentApp==='메모'){
-body.innerHTML=`<button class="action" onclick="newNote()">+ 새 메모</button><div id="noteList"></div>`;
-document.getElementById('noteList').innerHTML=notes.map((n,i)=>
-`<div class="item" onclick="editNote(${i})">${escapeHTML(n.slice(0,70))||'빈 메모'}</div>`
-).join('');
-}else if(currentApp==='캘린더'){
-const d=new Date();
-body.innerHTML=`<div class="item" style="text-align:center;font-size:23px">${d.toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric',weekday:'long'})}</div><input class="field" type="date" id="eventDate"><input class="field" id="eventText" placeholder="일정 입력"><button class="action" onclick="addEvent()">일정 추가</button><div id="events"></div>`;
-renderEvents();
-}else if(currentApp==='연락처'){
-body.innerHTML=`<input class="field" id="contactName" placeholder="이름"><input class="field" id="contactPhone" placeholder="전화번호"><button class="action" onclick="addContact()">연락처 추가</button><div id="contactList"></div>`;
-renderContacts();
-}else if(currentApp==='메시지'){
-body.innerHTML=`<input class="field" id="msgTo" placeholder="받는 사람"><textarea class="field" id="msgText" placeholder="메시지 입력"></textarea><button class="action" onclick="addMessage()">가상 메시지 저장</button><div id="messageList"></div>`;
-renderMessages();
-}else if(currentApp==='비밀 폴더'){
-body.innerHTML=`<div class="item" style="text-align:center">🔒 비밀 폴더</div><input class="field" type="password" inputmode="numeric" id="secretPin" placeholder="비밀번호 4자리"><button class="action" onclick="unlockSecret()">열기</button><div id="secretContent"></div>`;
-}else if(currentApp==='사진'){
-body.innerHTML=`<div class="item">사진 보관함</div><input class="field" type="file" accept="image/*" multiple id="photoInput"><div id="photoGallery" style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px"></div>`;
-document.getElementById('photoInput').onchange=e=>{
-const gallery=document.getElementById('photoGallery');
-Array.from(e.target.files).forEach(f=>{
-const img=document.createElement('img');
-img.src=URL.createObjectURL(f);
-img.style.cssText='width:100%;aspect-ratio:1;object-fit:cover';
-gallery.appendChild(img);
+document.getElementById('lock').addEventListener(
+  'touchstart',
+  e=>{startY=e.touches[0].clientY;},
+  {passive:true}
+);
+
+document.getElementById('lock').addEventListener(
+  'touchend',
+  e=>{
+    if(startY-e.changedTouches[0].clientY>45){
+      show('pass');
+    }
+  }
+);
+
+document.getElementById('lock').addEventListener('click',e=>{
+  if(!e.target.closest('button')){
+    show('pass');
+  }
 });
+
+document.getElementById('homebar').onclick=()=>{
+  if(document.getElementById('page').classList.contains('open')){
+    closeApp();
+  }else if(document.getElementById('lock').classList.contains('active')){
+    show('pass');
+  }else if(document.getElementById('pass').classList.contains('active')){
+    cancelPin();
+  }else{
+    show('home');
+  }
 };
-}else if(currentApp==='Safari'){
-body.innerHTML=`<input class="field" id="urlInput" placeholder="웹사이트 주소"><button class="action" onclick="visitSite()">이동</button><p class="muted">새 탭에서 웹사이트가 열립니다.</p>`;
-}else if(currentApp==='전화'){
-body.innerHTML=`<input class="field" id="dialNumber" type="tel" placeholder="전화번호"><button class="action" onclick="dial()">전화 걸기</button><p class="muted">실제 통화는 기기의 전화 앱을 사용합니다.</p>`;
-}else if(currentApp==='카메라'){
-body.innerHTML=`<input class="field" type="file" accept="image/*" capture="environment" id="cameraInput"><div id="cameraPreview"></div>`;
-document.getElementById('cameraInput').onchange=e=>{
-const f=e.target.files[0];
-if(!f)return;
-const img=document.createElement('img');
-img.src=URL.createObjectURL(f);
-img.style.width='100%';
-document.getElementById('cameraPreview').replaceChildren(img);
-};
-}else if(currentApp==='설정'){
-body.innerHTML=`<div class="item">김솔음의 휴대폰</div><div class="item">화면 모드: 다크</div><div class="item">잠금 방식: 4자리 암호</div><button class="action" onclick="show('lock')">화면 잠그기</button>`;
-}else if(currentApp==='음악'){
-body.innerHTML=`<div class="item">음악 플레이어</div><input class="field" type="file" accept="audio/*" id="musicFile"><audio id="player" controls style="width:100%;margin-top:20px"></audio>`;
-document.getElementById('musicFile').onchange=e=>{
-const f=e.target.files[0];
-if(f)document.getElementById('player').src=URL.createObjectURL(f);
-};
-}else if(currentApp==='X'){
-body.innerHTML=`<div class="item" style="text-align:center;font-size:34px">𝕏</div><button class="action" onclick="window.open('https://x.com','_blank')">X 열기</button>`;
+
+function virtualFlashlight(){
+  const lock=document.getElementById('lock');
+  const enabled=lock.dataset.light==='on';
+
+  lock.dataset.light=enabled?'off':'on';
+
+  lock.style.background=enabled
+    ?''
+    :'radial-gradient(circle at 50% 50%,#777,#242424 80%)';
 }
+
+/* 앱 열기와 닫기 */
+function openApp(name){
+  currentApp=name;
+
+  document.getElementById('pageTitle').textContent=name;
+  document.getElementById('page').classList.add('open');
+
+  renderApp();
 }
-function newNote(){editNote(-1)}
-function editNote(i){
-const value=i<0?'':notes[i];
-document.getElementById('pageBody').innerHTML=`<textarea class="field" id="noteEdit" placeholder="메모 작성">${escapeHTML(value)}</textarea><button class="action" onclick="saveNote(${i})">저장</button><button class="action" onclick="renderApp()">취소</button>${i>=0?`<button class="action" onclick="deleteNote(${i})">삭제</button>`:''}`;
+
+function closeApp(){
+  if(callTimer){
+    clearInterval(callTimer);
+    callTimer=null;
+  }
+
+  if(musicTimer){
+    clearInterval(musicTimer);
+    musicTimer=null;
+    musicPlaying=false;
+  }
+
+  secretOpen=false;
+  document.getElementById('page').classList.remove('open');
+  show('home');
 }
-function saveNote(i){
-const v=document.getElementById('noteEdit').value;
-if(i<0)notes.unshift(v);
-else notes[i]=v;
-localStorage.setItem('solNotes',JSON.stringify(notes));
-renderApp();
+
+function setBody(html){
+  document.getElementById('pageBody').innerHTML=html;
 }
-function deleteNote(i){
-notes.splice(i,1);
-localStorage.setItem('solNotes',JSON.stringify(notes));
-renderApp();
+
+function renderApp(){
+  if(currentApp==='전화')renderPhone();
+  else if(currentApp==='메시지')renderMessages();
+  else if(currentApp==='연락처')renderContacts();
+  else if(currentApp==='메모')renderNotes();
+  else if(currentApp==='캘린더')renderCalendar();
+  else if(currentApp==='사진')renderPhotos();
+  else if(currentApp==='카메라')renderCamera();
+  else if(currentApp==='음악')renderMusic();
+  else if(currentApp==='Safari')renderSafari();
+  else if(currentApp==='X')renderX();
+  else if(currentApp==='설정')renderSettings();
+  else if(currentApp==='비밀 폴더')renderSecret();
 }
-function addEvent(){
-const d=document.getElementById('eventDate').value;
-const t=document.getElementById('eventText').value.trim();
-if(!d||!t)return;
-const a=JSON.parse(localStorage.getItem('solEvents')||'[]');
-a.push({date:d,text:t});
-localStorage.setItem('solEvents',JSON.stringify(a));
-renderEvents();
+
+/* =================================
+   전화: 실제 통화 연결 없음
+================================= */
+
+function renderPhone(){
+  const tabs=['즐겨찾기','최근 통화','연락처','키패드'];
+
+  let html=`
+    <div class="phone-tabs">
+      ${tabs.map(t=>`
+        <button
+          class="phone-tab ${phoneTab===t?'selected':''}"
+          onclick="changePhoneTab('${t}')"
+        >${t}</button>
+      `).join('')}
+    </div>
+  `;
+
+  if(phoneTab==='키패드'){
+    html+=`
+      <div class="phone-app">
+        <div class="phone-display" id="phoneDisplay">
+          ${esc(phoneNumber)}
+        </div>
+
+        <div class="phone-keys">
+          ${['1','2','3','4','5','6','7','8','9','*','0','#'].map(n=>`
+            <button class="phone-key" onclick="pressPhoneKey('${n}')">
+              ${n}
+            </button>
+          `).join('')}
+        </div>
+
+        <div class="phone-controls">
+          <button class="delete-button" onclick="deletePhoneKey()">⌫</button>
+          <button class="call-button" onclick="startVirtualCall()">☎</button>
+          <span style="width:50px"></span>
+        </div>
+      </div>
+    `;
+  }
+
+  if(phoneTab==='최근 통화'){
+    html+=callHistory.length
+      ?callHistory.map(c=>`
+        <div class="item" onclick="callHistoryNumber('${esc(c.number)}')">
+          <b>${esc(c.number)}</b>
+          <p class="muted">${esc(c.date)}</p>
+        </div>
+      `).join('')
+      :'<div class="empty">최근 통화가 없습니다.</div>';
+  }
+
+  if(phoneTab==='연락처'){
+    html+=contacts.length
+      ?contacts.map((c,i)=>`
+        <div class="item" onclick="callContact(${i})">
+          <b>${esc(c.name)}</b>
+          <p class="muted">${esc(c.phone)}</p>
+        </div>
+      `).join('')
+      :'<div class="empty">저장된 가상 연락처가 없습니다.</div>';
+  }
+
+  if(phoneTab==='즐겨찾기'){
+    html+='<div class="empty">즐겨찾기가 없습니다.</div>';
+  }
+
+  setBody(html);
 }
-function renderEvents(){
-const a=JSON.parse(localStorage.getItem('solEvents')||'[]');
-document.getElementById('events').innerHTML=a.map(x=>
-`<div class="item">${escapeHTML(x.date)} · ${escapeHTML(x.text)}</div>`
-).join('');
+
+function changePhoneTab(tab){
+  phoneTab=tab;
+  renderPhone();
 }
-function addContact(){
-const name=document.getElementById('contactName').value.trim();
-const phone=document.getElementById('contactPhone').value.trim();
-if(!name)return;
-contacts.push({name,phone});
-localStorage.setItem('solContacts',JSON.stringify(contacts));
-renderApp();
+
+function pressPhoneKey(n){
+  if(phoneNumber.length>=20)return;
+
+  phoneNumber+=n;
+
+  const display=document.getElementById('phoneDisplay');
+  if(display)display.textContent=phoneNumber;
 }
-function renderContacts(){
-document.getElementById('contactList').innerHTML=contacts.map(c=>
-`<div class="item">${escapeHTML(c.name)}<p class="muted">${escapeHTML(c.phone)}</p></div>`
-).join('');
+
+function deletePhoneKey(){
+  phoneNumber=phoneNumber.slice(0,-1);
+
+  const display=document.getElementById('phoneDisplay');
+  if(display)display.textContent=phoneNumber;
 }
-function addMessage(){
-const to=document.getElementById('msgTo').value.trim();
-const msg=document.getElementById('msgText').value.trim();
-if(!msg)return;
-messages.unshift({to,msg});
-localStorage.setItem('solMessages',JSON.stringify(messages));
-renderApp();
+
+function callHistoryNumber(number){
+  phoneNumber=number;
+  startVirtualCall();
 }
+
+function callContact(i){
+  phoneNumber=contacts[i].phone;
+  startVirtualCall();
+}
+
+function startVirtualCall(){
+  if(!phoneNumber)return;
+
+  currentCall=phoneNumber;
+  callStart=Date.now();
+
+  callHistory.unshift({
+    number:currentCall,
+    date:new Date().toLocaleString('ko-KR')
+  });
+
+  saveData('solCallHistory',callHistory);
+
+  setBody(`
+    <div class="call-screen">
+      <div>
+        <div class="call-name">${esc(currentCall)}</div>
+        <div class="call-state" id="callState">가상 통화 중 · 00:00</div>
+      </div>
+
+      <div class="muted">
+        이 화면은 웹사이트 안의 가상 통화입니다.
+      </div>
+
+      <button class="end-call" onclick="endVirtualCall()">☎</button>
+    </div>
+  `);
+
+  if(callTimer)clearInterval(callTimer);
+
+  callTimer=setInterval(()=>{
+    const seconds=Math.floor((Date.now()-callStart)/1000);
+    const mm=String(Math.floor(seconds/60)).padStart(2,'0');
+    const ss=String(seconds%60).padStart(2,'0');
+
+    const state=document.getElementById('callState');
+    if(state)state.textContent=`가상 통화 중 · ${mm}:${ss}`;
+  },1000);
+}
+
+function endVirtualCall(){
+  if(callTimer){
+    clearInterval(callTimer);
+    callTimer=null;
+  }
+
+  phoneNumber='';
+  phoneTab='키패드';
+  renderPhone();
+}
+
+/* =================================
+   메시지: 가상 대화만 저장
+================================= */
+
 function renderMessages(){
-document.getElementById('messageList').innerHTML=messages.map(m=>
-`<div class="item"><b>${escapeHTML(m.to)}</b><p>${escapeHTML(m.msg)}</p></div>`
-).join('');
+  selectedChat='';
+
+  const people=[...new Set(messages.map(m=>m.to))];
+
+  setBody(`
+    <button class="action" onclick="newChat()">+ 새 메시지</button>
+
+    ${people.length
+      ?people.map((person,i)=>{
+        const count=messages.filter(m=>m.to===person).length;
+        return `
+          <div class="item" onclick="openChatByIndex(${i})">
+            <b>${esc(person)}</b>
+            <p class="muted">가상 메시지 ${count}개</p>
+          </div>
+        `;
+      }).join('')
+      :'<div class="empty">메시지가 없습니다.</div>'
+    }
+  `);
 }
+
+function newChat(){
+  setBody(`
+    <h3>새 메시지</h3>
+    <input class="field" id="newChatName" placeholder="받는 사람 이름">
+    <button class="action" onclick="createChat()">대화 시작</button>
+  `);
+}
+
+function createChat(){
+  const name=document.getElementById('newChatName').value.trim();
+  if(!name)return;
+
+  selectedChat=name;
+  renderChat();
+}
+
+function openChatByIndex(i){
+  const people=[...new Set(messages.map(m=>m.to))];
+  selectedChat=people[i];
+  renderChat();
+}
+
+function renderChat(){
+  const conversation=messages.filter(m=>m.to===selectedChat);
+
+  setBody(`
+    <h3 class="center">${esc(selectedChat)}</h3>
+
+    <div>
+      ${conversation.length
+        ?conversation.map(m=>`
+          <div class="chat-bubble">${esc(m.msg)}</div>
+        `).join('')
+        :'<div class="empty">새로운 가상 대화입니다.</div>'
+      }
+    </div>
+
+    <div class="chat-compose">
+      <input class="field" id="chatInput" placeholder="메시지">
+      <button class="action" onclick="sendVirtualMessage()">전송</button>
+    </div>
+
+    <p class="muted center">
+      실제 문자 메시지는 전송되지 않습니다.
+    </p>
+
+    <button class="action" onclick="renderMessages()">대화 목록</button>
+  `);
+}
+
+function sendVirtualMessage(){
+  const input=document.getElementById('chatInput');
+  const text=input.value.trim();
+
+  if(!text)return;
+
+  messages.push({
+    to:selectedChat,
+    msg:text
+  });
+
+  saveData('solMessages',messages);
+  renderChat();
+}
+
+/* =================================
+   연락처: 가상 연락처만 저장
+================================= */
+
+function renderContacts(){
+  setBody(`
+    <h3>연락처</h3>
+
+    <input class="field" id="contactName" placeholder="이름">
+    <input class="field" id="contactPhone" placeholder="가상 전화번호">
+
+    <button class="action" onclick="addContact()">+ 연락처 추가</button>
+
+    <div style="margin-top:20px">
+      ${contacts.length
+        ?contacts.map((c,i)=>`
+          <div class="item">
+            <b>${esc(c.name)}</b>
+            <p class="muted">${esc(c.phone)}</p>
+
+            <button class="action" onclick="messageContact(${i})">
+              메시지
+            </button>
+
+            <button class="action danger" onclick="deleteContact(${i})">
+              삭제
+            </button>
+          </div>
+        `).join('')
+        :'<div class="empty">연락처가 없습니다.</div>'
+      }
+    </div>
+  `);
+}
+
+function addContact(){
+  const name=document.getElementById('contactName').value.trim();
+  const phone=document.getElementById('contactPhone').value.trim();
+
+  if(!name)return;
+
+  contacts.push({name,phone});
+  saveData('solContacts',contacts);
+  renderContacts();
+}
+
+function deleteContact(i){
+  contacts.splice(i,1);
+  saveData('solContacts',contacts);
+  renderContacts();
+}
+
+function messageContact(i){
+  selectedChat=contacts[i].name;
+  currentApp='메시지';
+  document.getElementById('pageTitle').textContent='메시지';
+  renderChat();
+}
+
+/* =================================
+   메모
+================================= */
+
+function renderNotes(){
+  setBody(`
+    <button class="action" onclick="editNote(-1)">+ 새 메모</button>
+
+    ${notes.length
+      ?notes.map((n,i)=>`
+        <div class="item" onclick="editNote(${i})">
+          ${esc(n.slice(0,80))||'빈 메모'}
+        </div>
+      `).join('')
+      :'<div class="empty">메모가 없습니다.</div>'
+    }
+  `);
+}
+
+function editNote(i){
+  const value=i<0?'':notes[i];
+
+  setBody(`
+    <textarea class="field" id="noteEdit" placeholder="메모 작성">${esc(value)}</textarea>
+
+    <button class="action" onclick="saveNote(${i})">저장</button>
+    <button class="action" onclick="renderNotes()">취소</button>
+
+    ${i>=0
+      ?`<button class="action danger" onclick="deleteNote(${i})">삭제</button>`
+      :''
+    }
+  `);
+}
+
+function saveNote(i){
+  const value=document.getElementById('noteEdit').value;
+
+  if(i<0)notes.unshift(value);
+  else notes[i]=value;
+
+  saveData('solNotes',notes);
+  renderNotes();
+}
+
+function deleteNote(i){
+  notes.splice(i,1);
+  saveData('solNotes',notes);
+  renderNotes();
+}
+
+/* =================================
+   캘린더
+================================= */
+
+function renderCalendar(){
+  const now=new Date();
+
+  setBody(`
+    <div class="item center" style="font-size:23px">
+      ${now.toLocaleDateString('ko-KR',{
+        year:'numeric',
+        month:'long',
+        day:'numeric',
+        weekday:'long'
+      })}
+    </div>
+
+    <input class="field" type="date" id="eventDate">
+    <input class="field" id="eventText" placeholder="가상 일정 입력">
+
+    <button class="action" onclick="addEvent()">일정 추가</button>
+
+    <div style="margin-top:15px">
+      ${events.length
+        ?events.map((e,i)=>`
+          <div class="item">
+            <b>${esc(e.date)}</b>
+            <p>${esc(e.text)}</p>
+            <button class="action danger" onclick="deleteEvent(${i})">
+              삭제
+            </button>
+          </div>
+        `).join('')
+        :'<div class="empty">등록된 일정이 없습니다.</div>'
+      }
+    </div>
+  `);
+}
+
+function addEvent(){
+  const date=document.getElementById('eventDate').value;
+  const text=document.getElementById('eventText').value.trim();
+
+  if(!date||!text)return;
+
+  events.push({date,text});
+  events.sort((a,b)=>a.date.localeCompare(b.date));
+
+  saveData('solEvents',events);
+  renderCalendar();
+}
+
+function deleteEvent(i){
+  events.splice(i,1);
+  saveData('solEvents',events);
+  renderCalendar();
+}
+
+/* =================================
+   사진: 실제 사진 접근 없음
+================================= */
+
+const virtualScenes=['🌅','🌸','🌊','🌙','🌳','☁️','🌷','🌻','🏙️'];
+
+function renderPhotos(){
+  setBody(`
+    <h3>사진 보관함</h3>
+    <p class="muted">가상 카메라로 만든 사진이 표시됩니다.</p>
+
+    ${photos.length
+      ?`<div class="photo-grid">
+        ${photos.map((p,i)=>`
+          <button class="photo-tile" onclick="viewPhoto(${i})">
+            ${esc(p.scene)}
+          </button>
+        `).join('')}
+      </div>`
+      :'<div class="empty">아직 가상 사진이 없습니다.<p>카메라 앱에서 사진을 찍어 보세요.</p></div>'
+    }
+  `);
+}
+
+function viewPhoto(i){
+  const photo=photos[i];
+
+  setBody(`
+    <div class="photo-large">${esc(photo.scene)}</div>
+
+    <p class="center muted">${esc(photo.date)}</p>
+
+    <button class="action" onclick="renderPhotos()">보관함</button>
+
+    <button class="action danger" onclick="deletePhoto(${i})">
+      사진 삭제
+    </button>
+  `);
+}
+
+function deletePhoto(i){
+  photos.splice(i,1);
+  saveData('solVirtualPhotos',photos);
+  renderPhotos();
+}
+
+/* =================================
+   카메라: 실제 카메라 접근 없음
+================================= */
+
+function renderCamera(){
+  setBody(`
+    <div class="camera-view">
+      <div class="camera-scene" id="cameraScene">
+        ${virtualScenes[cameraScene]}
+      </div>
+      <div class="muted">가상 카메라 미리보기</div>
+    </div>
+
+    <div class="center">
+      <button class="action" onclick="changeScene()">장면 변경</button>
+    </div>
+
+    <button class="shutter" onclick="takeVirtualPhoto()" aria-label="사진 찍기"></button>
+
+    <p class="center muted">
+      실제 카메라는 실행되지 않습니다.
+    </p>
+  `);
+}
+
+function changeScene(){
+  cameraScene=(cameraScene+1)%virtualScenes.length;
+
+  const scene=document.getElementById('cameraScene');
+  if(scene)scene.textContent=virtualScenes[cameraScene];
+}
+
+function takeVirtualPhoto(){
+  photos.unshift({
+    scene:virtualScenes[cameraScene],
+    date:new Date().toLocaleString('ko-KR')
+  });
+
+  saveData('solVirtualPhotos',photos);
+
+  const scene=document.getElementById('cameraScene');
+  if(scene){
+    scene.style.opacity='0.2';
+    setTimeout(()=>{
+      if(scene)scene.style.opacity='1';
+    },150);
+  }
+}
+
+/* =================================
+   음악: 가상 플레이어
+================================= */
+
+function renderMusic(){
+  setBody(`
+    <div class="music-cover">♫</div>
+
+    <h2 class="center">김솔음의 플레이리스트</h2>
+    <p class="center muted">가상 음악 플레이어</p>
+
+    <div class="music-progress">
+      <div id="musicProgress" style="width:${musicSeconds/180*100}%"></div>
+    </div>
+
+    <div class="center muted" id="musicTime">
+      ${formatMusicTime(musicSeconds)} / 03:00
+    </div>
+
+    <div class="music-controls">
+      <button onclick="resetMusic()">⏮</button>
+      <button onclick="toggleMusic()" id="musicPlayButton">
+        ${musicPlaying?'⏸':'▶'}
+      </button>
+      <button onclick="resetMusic()">⏭</button>
+    </div>
+
+    <p class="center muted" style="margin-top:30px">
+      실제 음악 파일이나 음악 앱에는 접근하지 않습니다.
+      이 플레이어는 화면만 시뮬레이션합니다.
+    </p>
+  `);
+}
+
+function formatMusicTime(seconds){
+  const mm=String(Math.floor(seconds/60)).padStart(2,'0');
+  const ss=String(seconds%60).padStart(2,'0');
+  return `${mm}:${ss}`;
+}
+
+function toggleMusic(){
+  musicPlaying=!musicPlaying;
+
+  if(musicTimer){
+    clearInterval(musicTimer);
+    musicTimer=null;
+  }
+
+  if(musicPlaying){
+    musicTimer=setInterval(()=>{
+      musicSeconds++;
+
+      if(musicSeconds>=180){
+        musicSeconds=0;
+        musicPlaying=false;
+        clearInterval(musicTimer);
+        musicTimer=null;
+      }
+
+      const bar=document.getElementById('musicProgress');
+      const time=document.getElementById('musicTime');
+      const button=document.getElementById('musicPlayButton');
+
+      if(bar)bar.style.width=(musicSeconds/180*100)+'%';
+      if(time)time.textContent=formatMusicTime(musicSeconds)+' / 03:00';
+      if(button)button.textContent=musicPlaying?'⏸':'▶';
+    },1000);
+  }
+
+  const button=document.getElementById('musicPlayButton');
+  if(button)button.textContent=musicPlaying?'⏸':'▶';
+}
+
+function resetMusic(){
+  musicSeconds=0;
+  musicPlaying=false;
+
+  if(musicTimer){
+    clearInterval(musicTimer);
+    musicTimer=null;
+  }
+
+  renderMusic();
+}
+
+/* =================================
+   Safari: 외부 사이트 이동 없음
+================================= */
+
+function renderSafari(){
+  setBody(`
+    <div class="browser-bar">
+      <input class="field" id="virtualAddress" placeholder="검색어 입력">
+      <button class="action" onclick="virtualSearch()">검색</button>
+    </div>
+
+    <div class="browser-preview" id="browserPreview">
+      <h2>Safari</h2>
+      <p>김솔음의 가상 브라우저</p>
+      <p>이 화면은 웹사이트 내부에서만 작동합니다.</p>
+    </div>
+
+    <p class="muted center">
+      실제 Safari 앱이나 외부 웹사이트는 열리지 않습니다.
+    </p>
+  `);
+}
+
+function virtualSearch(){
+  const query=document.getElementById('virtualAddress').value.trim();
+  if(!query)return;
+
+  document.getElementById('browserPreview').innerHTML=`
+    <h2>검색 결과</h2>
+    <p><b>${esc(query)}</b></p>
+    <p>가상 Safari에서 검색한 내용입니다.</p>
+    <p>실제 인터넷 검색이나 외부 사이트 연결은 하지 않습니다.</p>
+  `;
+}
+
+/* =================================
+   X: 실제 X 연결 없음
+================================= */
+
+function renderX(){
+  setBody(`
+    <div class="center" style="font-size:36px;margin-bottom:20px">𝕏</div>
+
+    <textarea class="field" id="xPostInput" placeholder="무슨 일이 일어나고 있나요?"></textarea>
+
+    <button class="action" onclick="addXPost()">게시하기</button>
+
+    <h3>가상 타임라인</h3>
+
+    ${posts.length
+      ?posts.map((p,i)=>`
+        <div class="x-post">
+          <div class="x-post-header">김솔음</div>
+          <div class="x-post-text">${esc(p.text)}</div>
+          <p class="muted">${esc(p.date)}</p>
+          <button class="action danger" onclick="deleteXPost(${i})">
+            삭제
+          </button>
+        </div>
+      `).join('')
+      :'<div class="empty">아직 게시물이 없습니다.</div>'
+    }
+
+    <p class="muted center">
+      실제 X 계정이나 서비스에는 연결되지 않습니다.
+    </p>
+  `);
+}
+
+function addXPost(){
+  const text=document.getElementById('xPostInput').value.trim();
+  if(!text)return;
+
+  posts.unshift({
+    text,
+    date:new Date().toLocaleString('ko-KR')
+  });
+
+  saveData('solXPosts',posts);
+  renderX();
+}
+
+function deleteXPost(i){
+  posts.splice(i,1);
+  saveData('solXPosts',posts);
+  renderX();
+}
+
+/* =================================
+   설정: 가상 아이폰 설정
+================================= */
+
+function renderSettings(){
+  setBody(`
+    <div class="item">
+      <b>김솔음의 휴대폰</b>
+      <p class="muted">가상 아이폰</p>
+    </div>
+
+    <div class="item">
+      <b>화면 모드</b>
+      <p class="muted">다크 모드</p>
+    </div>
+
+    <div class="item">
+      <b>잠금 방식</b>
+      <p class="muted">4자리 암호</p>
+    </div>
+
+    <div class="item">
+      <b>앱 연결</b>
+      <p class="muted">
+        실제 휴대폰 앱과 연결되지 않습니다.
+      </p>
+    </div>
+
+    <button class="action" onclick="lockVirtualPhone()">
+      화면 잠그기
+    </button>
+  `);
+}
+
+function lockVirtualPhone(){
+  closeApp();
+  show('lock');
+}
+
+/* =================================
+   비밀 폴더
+================================= */
+
+function renderSecret(){
+  if(!secretOpen){
+    setBody(`
+      <div class="center" style="font-size:55px;margin:30px 0">
+        🔒
+      </div>
+
+      <h3 class="center">비밀 폴더</h3>
+
+      <input
+        class="field"
+        id="secretPin"
+        type="password"
+        inputmode="numeric"
+        maxlength="4"
+        placeholder="비밀번호 4자리"
+      >
+
+      <button class="action" onclick="unlockSecret()">열기</button>
+
+      <div id="secretError" class="hint center"></div>
+    `);
+
+    return;
+  }
+
+  setBody(`
+    <h3>비밀 폴더</h3>
+
+    <textarea class="field" id="secretNoteInput" placeholder="비밀 메모 작성"></textarea>
+
+    <button class="action" onclick="addSecretNote()">저장</button>
+    <button class="action" onclick="lockSecret()">폴더 잠그기</button>
+
+    <div style="margin-top:20px">
+      ${secretNotes.length
+        ?secretNotes.map((n,i)=>`
+          <div class="item">
+            <p>${esc(n)}</p>
+            <button class="action danger" onclick="deleteSecretNote(${i})">
+              삭제
+            </button>
+          </div>
+        `).join('')
+        :'<div class="empty">저장된 비밀 메모가 없습니다.</div>'
+      }
+    </div>
+  `);
+}
+
 function unlockSecret(){
-const v=document.getElementById('secretPin').value;
-document.getElementById('secretContent').innerHTML=
-v==='0913'
-?'<div class="item">비밀 폴더가 열렸습니다.</div>'
-:'<div class="item">비밀번호가 틀렸습니다.</div>';
+  const value=document.getElementById('secretPin').value;
+
+  if(value==='0913'){
+    secretOpen=true;
+    renderSecret();
+  }else{
+    document.getElementById('secretError').textContent='힌트 : 생일';
+  }
 }
-function visitSite(){
-let url=document.getElementById('urlInput').value.trim();
-if(!url)return;
-if(!/^https?:\/\//i.test(url))url='https://'+url;
-try{
-const u=new URL(url);
-if(!['http:','https:'].includes(u.protocol))return;
-window.open(u.href,'_blank','noopener');
-}catch(e){alert('주소를 확인해 주세요.')}
+
+function lockSecret(){
+  secretOpen=false;
+  renderSecret();
 }
-function dial(){
-const n=document.getElementById('dialNumber').value;
-if(/^[0-9+*# -]{2,25}$/.test(n)){
-location.href='tel:'+n.replace(/[^0-9+*#]/g,'');
+
+function addSecretNote(){
+  const text=document.getElementById('secretNoteInput').value.trim();
+  if(!text)return;
+
+  secretNotes.unshift(text);
+  saveData('solSecretNotes',secretNotes);
+  renderSecret();
 }
+
+function deleteSecretNote(i){
+  secretNotes.splice(i,1);
+  saveData('solSecretNotes',secretNotes);
+  renderSecret();
 }
+
 </script>
 </body>
 </html>
