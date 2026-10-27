@@ -6,40 +6,183 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#000000">
 <title>김솔음의 휴대폰</title>
+
 <style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif}
-button,input{font:inherit}
-button{color:inherit;cursor:pointer}
-.phone{position:relative;width:100%;height:100vh;height:100dvh;overflow:hidden;background:radial-gradient(ellipse at 50% 25%,#19191b,#080808 78%)}
-.screen{position:absolute;inset:0;display:none}
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:#000;
+  color:#fff;
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;
+}
+button{font:inherit;color:inherit;cursor:pointer}
+.phone{
+  position:relative;
+  width:100%;
+  height:100vh;
+  height:100dvh;
+  overflow:hidden;
+  background:radial-gradient(ellipse at 50% 25%,#19191b,#080808 78%);
+}
+.screen{
+  position:absolute;
+  inset:0;
+  display:none;
+}
 .screen.active{display:block}
-.status{position:absolute;top:0;left:0;right:0;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 7%;z-index:20;font-size:15px;font-weight:600;pointer-events:none}
-.island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:110px;height:31px;border-radius:22px;background:#000}
-.indicators{display:flex;align-items:center;gap:10px}
-.signal{display:flex;align-items:flex-end;gap:2px;height:15px}
-.signal i{display:block;width:4px;background:#fff;border-radius:2px}
+
+/* 상단 상태바 */
+.status{
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:54px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 7%;
+  z-index:20;
+  font-size:15px;
+  font-weight:600;
+  pointer-events:none;
+}
+.island{
+  position:absolute;
+  top:11px;
+  left:50%;
+  transform:translateX(-50%);
+  width:110px;
+  height:31px;
+  border-radius:22px;
+  background:#000;
+}
+.indicators{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.signal{
+  display:flex;
+  align-items:flex-end;
+  gap:2px;
+  height:15px;
+}
+.signal i{
+  display:block;
+  width:4px;
+  background:#fff;
+  border-radius:2px;
+}
 .signal i:nth-child(1){height:5px}
 .signal i:nth-child(2){height:8px}
 .signal i:nth-child(3){height:12px}
 .signal i:nth-child(4){height:15px}
-.battery{position:relative;width:25px;height:13px;border:1.7px solid #fff;border-radius:4px;padding:2px}
-.battery:after{content:"";position:absolute;right:-4px;top:3px;width:2px;height:5px;background:#fff;border-radius:2px}
-.battery-fill{width:70%;height:100%;background:#fff;border-radius:1px}
-.homebar{position:absolute;bottom:9px;left:50%;transform:translateX(-50%);width:130px;height:5px;background:#fff;border-radius:10px;z-index:30;cursor:pointer}
+.battery{
+  position:relative;
+  width:25px;
+  height:13px;
+  border:1.7px solid #fff;
+  border-radius:4px;
+  padding:2px;
+}
+.battery:after{
+  content:"";
+  position:absolute;
+  right:-4px;
+  top:3px;
+  width:2px;
+  height:5px;
+  background:#fff;
+  border-radius:2px;
+}
+.battery-fill{
+  width:70%;
+  height:100%;
+  background:#fff;
+  border-radius:1px;
+}
+.homebar{
+  position:absolute;
+  bottom:9px;
+  left:50%;
+  transform:translateX(-50%);
+  width:130px;
+  height:5px;
+  background:#fff;
+  border-radius:10px;
+  z-index:30;
+  cursor:pointer;
+}
 
 /* 잠금화면 */
 #lock{touch-action:pan-y}
-.lockclock{position:absolute;top:clamp(100px,16%,155px);left:0;right:0;text-align:center}
-.bigtime{font-size:clamp(66px,19vw,92px);font-weight:200;letter-spacing:-3px;line-height:1.12}
-.date{font-size:19px;margin-top:10px}
-.locktip{position:absolute;bottom:112px;left:0;right:0;text-align:center;color:#bbb;font-size:13px}
-.lockbottom{position:absolute;bottom:42px;left:0;right:0;display:flex;justify-content:space-between;padding:0 34px}
-.round{width:49px;height:49px;border:0;border-radius:50%;background:#ffffff24;display:grid;place-items:center}
-.round svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lockclock{
+  position:absolute;
+  top:clamp(100px,16%,155px);
+  left:0;
+  right:0;
+  text-align:center;
+}
+.bigtime{
+  font-size:clamp(66px,19vw,92px);
+  font-weight:200;
+  letter-spacing:-3px;
+  line-height:1.12;
+}
+.date{
+  font-size:19px;
+  margin-top:10px;
+}
+.locktip{
+  position:absolute;
+  bottom:112px;
+  left:0;
+  right:0;
+  text-align:center;
+  color:#bbb;
+  font-size:13px;
+}
+.lockbottom{
+  position:absolute;
+  bottom:42px;
+  left:0;
+  right:0;
+  display:flex;
+  justify-content:space-between;
+  padding:0 34px;
+}
+.round{
+  width:49px;
+  height:49px;
+  border:0;
+  border-radius:50%;
+  background:#ffffff24;
+  display:grid;
+  place-items:center;
+}
+.round svg{
+  width:24px;
+  height:24px;
+  stroke:#fff;
+  fill:none;
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
 
-/* 암호 입력: 화면 높이에 맞춰 조절 */
-#pass{overflow:hidden}
+/* 비밀번호 */
+#pass{
+  overflow:hidden;
+  --key-size:clamp(48px,8.3vh,72px);
+  --key-gap-y:clamp(5px,1.5vh,13px);
+}
 .passwrap{
   position:absolute;
   top:56px;
@@ -52,114 +195,209 @@ button{color:inherit;cursor:pointer}
   justify-content:center;
   padding:8px 12px;
 }
-.passlabel{font-size:21px;margin-bottom:12px}
-.hint{min-height:24px;margin-bottom:8px;color:#ffce67;font-size:14px;text-align:center}
-.dots{display:flex;justify-content:center;gap:18px;margin-bottom:clamp(12px,3vh,30px)}
-.dot{width:13px;height:13px;border:1.5px solid #fff;border-radius:50%}
+.passlabel{
+  font-size:21px;
+  margin-bottom:12px;
+}
+.hint{
+  min-height:24px;
+  margin-bottom:8px;
+  color:#ffce67;
+  font-size:14px;
+  text-align:center;
+}
+.dots{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  margin-bottom:clamp(12px,3vh,30px);
+}
+.dot{
+  width:13px;
+  height:13px;
+  border:1.5px solid #fff;
+  border-radius:50%;
+}
 .dot.filled{background:#fff}
-.keypad{display:grid;grid-template-columns:repeat(3,var(--key-size));gap:var(--key-gap-y) 19px;justify-content:center}
-#pass{--key-size:clamp(48px,8.3vh,72px);--key-gap-y:clamp(5px,1.5vh,13px)}
-.key{width:var(--key-size);height:var(--key-size);border:0;border-radius:50%;background:#ffffff25;font-size:clamp(22px,4vh,30px);font-weight:300}
+.keypad{
+  display:grid;
+  grid-template-columns:repeat(3,var(--key-size));
+  gap:var(--key-gap-y) 19px;
+  justify-content:center;
+}
+.key{
+  width:var(--key-size);
+  height:var(--key-size);
+  border:0;
+  border-radius:50%;
+  background:#ffffff25;
+  font-size:clamp(22px,4vh,30px);
+  font-weight:300;
+}
 .key:active{background:#ffffff55}
-.passfooter{width:calc(var(--key-size) * 3 + 38px);display:flex;justify-content:space-between;margin-top:clamp(10px,2vh,23px)}
-.passfooter button{border:0;background:none;font-size:15px}
+.passfooter{
+  width:calc(var(--key-size) * 3 + 38px);
+  display:flex;
+  justify-content:space-between;
+  margin-top:clamp(10px,2vh,23px);
+}
+.passfooter button{
+  border:0;
+  background:none;
+  font-size:15px;
+}
+
+/* 홈 화면: 아이콘 크기 축소 */
+.apps{
+  position:absolute;
+  top:14.5%;
+  left:0;
+  right:0;
+  padding:0 6%;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  column-gap:12px;
+  row-gap:29px;
+}
+.app{
+  text-align:center;
+  min-width:0;
+}
+.appicon{
+  width:min(100%,62px);
+  aspect-ratio:1;
+  margin:auto;
+  border-radius:15px;
+  overflow:hidden;
+  display:grid;
+  place-items:center;
+  background:#333;
+  box-shadow:0 3px 9px #00000025;
+}
+.appicon svg{
+  display:block;
+  width:100%;
+  height:100%;
+}
+.appname{
+  font-size:12px;
+  margin-top:8px;
+  white-space:nowrap;
+}
+
+/* Dock: 아이콘 크기 축소, 터치 기능 없음 */
+.dock{
+  position:absolute;
+  bottom:34px;
+  left:3%;
+  width:94%;
+  padding:14px 9px;
+  border-radius:32px;
+  background:#ffffff2e;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:8px;
+}
+.dock .appicon{
+  width:min(100%,62px);
+}
+.dock .appname{
+  display:none;
+}
+
+@media(max-height:650px){
+  .apps{
+    top:17%;
+    row-gap:17px;
+  }
+  .apps .appicon,
+  .dock .appicon{
+    width:min(100%,56px);
+  }
+  .dock{
+    padding:10px 8px;
+  }
+}
 @media(max-height:580px){
-  #pass{--key-size:clamp(39px,7.5vh,52px);--key-gap-y:4px}
-  .passwrap{top:45px;bottom:18px}
-  .passlabel{font-size:18px;margin-bottom:5px}
-  .hint{min-height:20px;margin-bottom:4px}
+  #pass{
+    --key-size:clamp(39px,7.5vh,52px);
+    --key-gap-y:4px;
+  }
+  .passwrap{
+    top:45px;
+    bottom:18px;
+  }
+  .passlabel{
+    font-size:18px;
+    margin-bottom:5px;
+  }
+  .hint{
+    min-height:20px;
+    margin-bottom:4px;
+  }
   .dots{margin-bottom:9px}
   .passfooter{margin-top:7px}
 }
-
-/* 홈 화면 */
-.apps{position:absolute;top:14.5%;left:0;right:0;padding:0 6%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:12px;row-gap:27px}
-.app{text-align:center;min-width:0}
-.appicon{width:min(100%,76px);aspect-ratio:1;margin:auto;border-radius:19px;overflow:hidden;display:grid;place-items:center;background:#333;box-shadow:0 4px 12px #00000025}
-.appicon svg{display:block;width:100%;height:100%}
-.appname{font-size:12px;margin-top:8px;white-space:nowrap}
-.dock{position:absolute;bottom:34px;left:3%;width:94%;padding:15px 9px;border-radius:34px;background:#ffffff2e;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
-.dock .app{cursor:pointer}
-.dock .appicon{width:min(100%,76px)}
-.dock .appname{display:none}
-@media(max-height:650px){
-  .apps{top:17%;row-gap:17px}
-  .apps .appicon,.dock .appicon{width:min(100%,62px)}
-  .dock{padding:10px 8px}
-}
-
-/* 가상 앱 */
-.page{position:absolute;inset:54px 0 0;background:#101012;display:none;z-index:12}
-.page.open{display:flex;flex-direction:column}
-.pageheader{height:57px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid #ffffff20;font-size:19px;font-weight:600}
-.back{border:0;background:none;color:#4b9cff;font-size:17px}
-.pagebody{flex:1;overflow:auto;padding:18px 20px 75px}
-.item{background:#242427;border-radius:12px;padding:16px;margin-bottom:10px}
-.field{width:100%;padding:12px;border:0;border-radius:10px;background:#303035;color:#fff;font-size:16px;margin:8px 0}
-.action{background:#3289ff;border:0;border-radius:10px;padding:11px 16px;margin:6px 4px 6px 0}
-.muted{color:#aaa;font-size:13px}
-.center{text-align:center}
-.empty{color:#999;text-align:center;padding:25px 10px;font-size:14px}
-.phone-tabs{display:flex;gap:5px;margin-bottom:12px}
-.phone-tab{flex:1;border:0;border-radius:9px;padding:10px 2px;background:#252528;font-size:12px}
-.phone-tab.selected{background:#367ff4}
-.phone-display{height:65px;display:grid;place-items:center;font-size:30px;font-weight:300}
-.phone-keys{display:grid;grid-template-columns:repeat(3,70px);gap:12px 20px;justify-content:center}
-.phone-key{width:70px;height:70px;border:0;border-radius:50%;background:#29292b;font-size:29px}
-.phone-controls{display:flex;align-items:center;justify-content:center;gap:30px;margin-top:20px}
-.call-button{width:65px;height:65px;border:0;border-radius:50%;background:#34c759;font-size:30px}
-.delete-button{width:50px;border:0;background:none;font-size:25px}
-.call-screen{min-height:55vh;display:flex;flex-direction:column;align-items:center;justify-content:space-around;text-align:center}
-.call-name{font-size:30px}
-.end-call{width:75px;height:75px;border:0;border-radius:50%;background:#ff3b30;font-size:30px}
-.chat-bubble{max-width:82%;margin:10px 0 10px auto;padding:12px 15px;border-radius:18px;background:#34c759;overflow-wrap:anywhere}
-.chat-compose{display:flex;gap:8px;align-items:center}
-.chat-compose .field{flex:1;min-width:0}
-.music-cover{width:min(75vw,240px);aspect-ratio:1;margin:20px auto;border-radius:20px;background:linear-gradient(135deg,#f04b76,#7426b8);display:grid;place-items:center;font-size:95px}
-.music-progress{height:5px;border-radius:5px;background:#444;margin:25px 0;overflow:hidden}
-.music-progress div{height:100%;background:#fff}
-.music-controls{display:flex;align-items:center;justify-content:center;gap:35px;margin-top:25px}
-.music-controls button{border:0;background:none;font-size:32px}
-.browser-preview{background:#fff;color:#222;border-radius:12px;min-height:220px;padding:24px 18px;margin-top:15px}
 </style>
 </head>
+
 <body>
 <div class="phone">
 
+<!-- 상단바 -->
 <div class="status">
   <span id="statusTime">9:41</span>
   <div class="island"></div>
   <div class="indicators">
-    <div class="signal"><i></i><i></i><i></i><i></i></div>
-    <div class="battery"><div class="battery-fill"></div></div>
+    <div class="signal">
+      <i></i><i></i><i></i><i></i>
+    </div>
+    <div class="battery">
+      <div class="battery-fill"></div>
+    </div>
   </div>
 </div>
 
+<!-- 잠금화면 -->
 <section class="screen active" id="lock">
   <div class="lockclock">
     <div class="bigtime" id="bigTime">9:41</div>
     <div class="date" id="date"></div>
   </div>
+
   <div class="locktip">위로 쓸어올려 잠금 해제</div>
+
   <div class="lockbottom">
     <button class="round" onclick="virtualFlashlight()" aria-label="손전등">
-      <svg viewBox="0 0 24 24"><path d="M8 3h8v5l-2 3v9h-4v-9L8 8zM10 14h4"/></svg>
+      <svg viewBox="0 0 24 24">
+        <path d="M8 3h8v5l-2 3v9h-4v-9L8 8zM10 14h4"/>
+      </svg>
     </button>
+
     <button class="round" onclick="show('pass')" aria-label="카메라">
-      <svg viewBox="0 0 24 24"><path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/></svg>
+      <svg viewBox="0 0 24 24">
+        <path d="M3 7h4l2-3h6l2 3h4v13H3z"/>
+        <circle cx="12" cy="13" r="4"/>
+      </svg>
     </button>
   </div>
 </section>
 
+<!-- 비밀번호 화면 -->
 <section class="screen" id="pass">
   <div class="passwrap">
     <div class="passlabel">암호 입력</div>
     <div class="hint" id="hint"></div>
+
     <div class="dots">
-      <div class="dot"></div><div class="dot"></div>
-      <div class="dot"></div><div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
     </div>
+
     <div class="keypad" id="keys"></div>
+
     <div class="passfooter">
       <button onclick="cancelPin()">취소</button>
       <button onclick="erasePin()">삭제</button>
@@ -167,306 +405,415 @@ button{color:inherit;cursor:pointer}
   </div>
 </section>
 
+<!-- 홈 화면 -->
 <section class="screen" id="home">
   <div class="apps" id="apps"></div>
   <div class="dock" id="dock"></div>
 </section>
 
-<div class="page" id="page">
-  <div class="pageheader">
-    <button class="back" onclick="closeApp()">‹ 뒤로</button>
-    <span id="pageTitle"></span>
-    <span style="width:40px"></span>
-  </div>
-  <div class="pagebody" id="pageBody"></div>
-</div>
-
 <div class="homebar" id="homebar"></div>
+
 </div>
 
 <script>
+/*
+  홈 화면 8개 앱과 Dock 4개 앱 모두
+  터치해도 아무 변화가 없도록 설정.
+*/
+
 const icons={
-'캘린더':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#fafafa"/><text x="40" y="21" text-anchor="middle" font-size="13" font-weight="600" fill="#e84242" id="calDay">화요일</text><text x="40" y="65" text-anchor="middle" font-size="46" font-weight="300" fill="#111" id="calDate">27</text></svg>`,
-'사진':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#fff"/><g transform="translate(40 40)"><ellipse cy="-17" rx="10" ry="20" fill="#ff554c" opacity=".9"/><ellipse cy="-17" rx="10" ry="20" fill="#ff9d20" opacity=".9" transform="rotate(45)"/><ellipse cy="-17" rx="10" ry="20" fill="#ffd52d" opacity=".9" transform="rotate(90)"/><ellipse cy="-17" rx="10" ry="20" fill="#42c86a" opacity=".9" transform="rotate(135)"/><ellipse cy="-17" rx="10" ry="20" fill="#55d0ed" opacity=".9" transform="rotate(180)"/><ellipse cy="-17" rx="10" ry="20" fill="#2488f4" opacity=".9" transform="rotate(225)"/><ellipse cy="-17" rx="10" ry="20" fill="#aa49e8" opacity=".9" transform="rotate(270)"/><ellipse cy="-17" rx="10" ry="20" fill="#f0469c" opacity=".9" transform="rotate(315)"/><circle r="7" fill="#fff" opacity=".65"/></g></svg>`,
-'카메라':`<svg viewBox="0 0 80 80"><defs><linearGradient id="camBg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ddd"/><stop offset="1" stop-color="#999"/></linearGradient><radialGradient id="camLens"><stop stop-color="#83c8ff"/><stop offset=".25" stop-color="#14294b"/><stop offset=".55" stop-color="#070b18"/><stop offset=".75" stop-color="#465779"/><stop offset="1" stop-color="#08090e"/></radialGradient></defs><rect width="80" height="80" rx="18" fill="url(#camBg)"/><circle cx="40" cy="40" r="32" fill="#292929"/><circle cx="40" cy="40" r="29" fill="#777"/><circle cx="40" cy="40" r="25" fill="#111"/><circle cx="40" cy="40" r="22" fill="url(#camLens)"/><ellipse cx="34" cy="29" rx="10" ry="6" fill="#d8eaff" opacity=".75"/><circle cx="40" cy="40" r="14" fill="none" stroke="#4668a5" stroke-width="2" opacity=".7"/></svg>`,
-'지도':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#f7f7f7"/><path d="M0 20L80 5V80H0Z" fill="#e5e9df"/><path d="M0 55L80 18" stroke="#fff" stroke-width="13"/><path d="M20 0L45 80" stroke="#fff" stroke-width="12"/><path d="M0 40L80 55" stroke="#fff" stroke-width="9"/><path d="M0 56L80 19" stroke="#f6d75b" stroke-width="4"/><path d="M54 0L80 0V27L61 36Z" fill="#a8d9ad"/><path d="M40 20C27 20 20 29 20 39C20 54 40 69 40 69S60 54 60 39C60 29 53 20 40 20Z" fill="#ef4b48"/><circle cx="40" cy="39" r="8" fill="white"/></svg>`,
-'메모':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#fff"/><path d="M0 0H80V23H0Z" fill="#ffd948"/><path d="M0 23H80" stroke="#ddd" stroke-width="2" stroke-dasharray="2 4"/><path d="M11 38H69M11 52H69M11 66H69" stroke="#bdbdbd" stroke-width="2"/></svg>`,
-'날씨':`<svg viewBox="0 0 80 80"><defs><linearGradient id="weatherBg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#4c9cf7"/><stop offset="1" stop-color="#1b63c8"/></linearGradient><linearGradient id="weatherCloud" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#a9cbe9"/></linearGradient></defs><rect width="80" height="80" rx="18" fill="url(#weatherBg)"/><circle cx="53" cy="29" r="20" fill="#ffce42"/><path d="M20 63C10 63 7 55 10 47C13 40 20 38 26 39C28 27 39 22 48 28C55 32 58 38 58 44C68 44 73 51 71 58C69 64 64 66 57 66H22Z" fill="url(#weatherCloud)"/></svg>`,
-'미리알림':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#fff"/><circle cx="19" cy="23" r="6" fill="#ffad20"/><circle cx="19" cy="40" r="6" fill="#168dff"/><circle cx="19" cy="57" r="6" fill="#ff4949"/><path d="M32 23H68M32 40H68M32 57H68" stroke="#d4d4d4" stroke-width="3"/></svg>`,
-'네이버':`<svg viewBox="0 0 80 80"><defs><linearGradient id="naverBg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#39d875"/><stop offset="1" stop-color="#16b953"/></linearGradient></defs><rect width="80" height="80" rx="18" fill="url(#naverBg)"/><path d="M20 18H35L48 38V18H62V62H47L33 41V62H20Z" fill="#fff"/></svg>`,
-'전화':`<svg viewBox="0 0 80 80"><defs><linearGradient id="phoneBg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#72ec77"/><stop offset="1" stop-color="#35c956"/></linearGradient></defs><rect width="80" height="80" rx="18" fill="url(#phoneBg)"/><path d="M24 15Q19 13 15 22Q9 39 29 59Q48 77 62 65Q68 60 63 56L51 47Q48 45 44 50L40 54Q30 49 25 39L30 34Q33 31 30 27Z" fill="#fff"/></svg>`,
-'Safari':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#fff"/><circle cx="40" cy="40" r="31" fill="#159fe9" stroke="#d5d5d5" stroke-width="3"/><circle cx="40" cy="40" r="26" fill="none" stroke="#bce9ff" stroke-width="1" stroke-dasharray="1 3"/><path d="M51 24L44 44L28 55L36 35Z" fill="white"/><path d="M51 24L44 44L36 35Z" fill="#f4434d"/></svg>`,
-'메시지':`<svg viewBox="0 0 80 80"><defs><linearGradient id="messageBg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#5be66e"/><stop offset="1" stop-color="#25c94b"/></linearGradient></defs><rect width="80" height="80" rx="18" fill="url(#messageBg)"/><path d="M17 23Q17 15 29 15H53Q66 15 66 29V45Q66 59 51 59H34L22 68L25 56Q17 52 17 43Z" fill="white"/></svg>`,
-'음악':`<svg viewBox="0 0 80 80"><defs><linearGradient id="musicBg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff6478"/><stop offset="1" stop-color="#f12858"/></linearGradient></defs><rect width="80" height="80" rx="18" fill="url(#musicBg)"/><path d="M38 17V55Q33 49 25 53Q15 57 19 65Q23 72 33 66Q38 63 38 56V31L59 26V49Q54 44 47 48Q37 52 41 60Q45 68 55 62Q61 59 61 52V15Z" fill="white"/></svg>`
+
+'캘린더':`
+<svg viewBox="0 0 80 80">
+  <rect width="80" height="80" rx="18" fill="#fafafa"/>
+  <text x="40" y="21" text-anchor="middle"
+    font-size="13" font-weight="600" fill="#e84242"
+    id="calDay">화요일</text>
+  <text x="40" y="65" text-anchor="middle"
+    font-size="46" font-weight="300" fill="#111"
+    id="calDate">27</text>
+</svg>`,
+
+'사진':`
+<svg viewBox="0 0 80 80">
+  <rect width="80" height="80" rx="18" fill="#fff"/>
+  <g transform="translate(40 40)">
+    <ellipse cy="-17" rx="10" ry="20" fill="#ff554c" opacity=".9"/>
+    <ellipse cy="-17" rx="10" ry="20" fill="#ff9d20" opacity=".9" transform="rotate(45)"/>
+    <ellipse cy="-17" rx="10" ry="20" fill="#ffd52d" opacity=".9" transform="rotate(90)"/>
+    <ellipse cy="-17" rx="10" ry="20" fill="#42c86a" opacity=".9" transform="rotate(135)"/>
+    <ellipse cy="-17" rx="10" ry="20" fill="#55d0ed" opacity=".9" transform="rotate(180)"/>
+    <ellipse cy="-17" rx="10" ry="20" fill="#2488f4" opacity=".9" transform="rotate(225)"/>
+    <ellipse cy="-17" rx="10" ry="20" fill="#aa49e8" opacity=".9" transform="rotate(270)"/>
+    <ellipse cy="-17" rx="10" ry="20" fill="#f0469c" opacity=".9" transform="rotate(315)"/>
+    <circle r="7" fill="#fff" opacity=".65"/>
+  </g>
+</svg>`,
+
+'카메라':`
+<svg viewBox="0 0 80 80">
+  <defs>
+    <linearGradient id="camBg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#ddd"/>
+      <stop offset="1" stop-color="#999"/>
+    </linearGradient>
+    <radialGradient id="camLens">
+      <stop stop-color="#83c8ff"/>
+      <stop offset=".25" stop-color="#14294b"/>
+      <stop offset=".55" stop-color="#070b18"/>
+      <stop offset=".75" stop-color="#465779"/>
+      <stop offset="1" stop-color="#08090e"/>
+    </radialGradient>
+  </defs>
+  <rect width="80" height="80" rx="18" fill="url(#camBg)"/>
+  <circle cx="40" cy="40" r="32" fill="#292929"/>
+  <circle cx="40" cy="40" r="29" fill="#777"/>
+  <circle cx="40" cy="40" r="25" fill="#111"/>
+  <circle cx="40" cy="40" r="22" fill="url(#camLens)"/>
+  <ellipse cx="34" cy="29" rx="10" ry="6" fill="#d8eaff" opacity=".75"/>
+  <circle cx="40" cy="40" r="14" fill="none" stroke="#4668a5" stroke-width="2" opacity=".7"/>
+</svg>`,
+
+'지도':`
+<svg viewBox="0 0 80 80">
+  <rect width="80" height="80" rx="18" fill="#f7f7f7"/>
+  <path d="M0 20L80 5V80H0Z" fill="#e5e9df"/>
+  <path d="M0 55L80 18" stroke="#fff" stroke-width="13"/>
+  <path d="M20 0L45 80" stroke="#fff" stroke-width="12"/>
+  <path d="M0 40L80 55" stroke="#fff" stroke-width="9"/>
+  <path d="M0 56L80 19" stroke="#f6d75b" stroke-width="4"/>
+  <path d="M54 0L80 0V27L61 36Z" fill="#a8d9ad"/>
+  <path d="M40 20C27 20 20 29 20 39C20 54 40 69 40 69S60 54 60 39C60 29 53 20 40 20Z" fill="#ef4b48"/>
+  <circle cx="40" cy="39" r="8" fill="white"/>
+</svg>`,
+
+'메모':`
+<svg viewBox="0 0 80 80">
+  <rect width="80" height="80" rx="18" fill="#fff"/>
+  <path d="M0 0H80V23H0Z" fill="#ffd948"/>
+  <path d="M0 23H80" stroke="#ddd" stroke-width="2" stroke-dasharray="2 4"/>
+  <path d="M11 38H69M11 52H69M11 66H69"
+    stroke="#bdbdbd" stroke-width="2"/>
+</svg>`,
+
+'날씨':`
+<svg viewBox="0 0 80 80">
+  <defs>
+    <linearGradient id="weatherBg" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#4c9cf7"/>
+      <stop offset="1" stop-color="#1b63c8"/>
+    </linearGradient>
+    <linearGradient id="weatherCloud" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#fff"/>
+      <stop offset="1" stop-color="#a9cbe9"/>
+    </linearGradient>
+  </defs>
+  <rect width="80" height="80" rx="18" fill="url(#weatherBg)"/>
+  <circle cx="53" cy="29" r="20" fill="#ffce42"/>
+  <path d="M20 63C10 63 7 55 10 47C13 40 20 38 26 39C28 27 39 22 48 28C55 32 58 38 58 44C68 44 73 51 71 58C69 64 64 66 57 66H22Z"
+    fill="url(#weatherCloud)"/>
+</svg>`,
+
+'미리알림':`
+<svg viewBox="0 0 80 80">
+  <rect width="80" height="80" rx="18" fill="#fff"/>
+  <circle cx="19" cy="23" r="6" fill="#ffad20"/>
+  <circle cx="19" cy="40" r="6" fill="#168dff"/>
+  <circle cx="19" cy="57" r="6" fill="#ff4949"/>
+  <path d="M32 23H68M32 40H68M32 57H68"
+    stroke="#d4d4d4" stroke-width="3"/>
+</svg>`,
+
+'네이버':`
+<svg viewBox="0 0 80 80">
+  <defs>
+    <linearGradient id="naverBg" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#39d875"/>
+      <stop offset="1" stop-color="#16b953"/>
+    </linearGradient>
+  </defs>
+  <rect width="80" height="80" rx="18" fill="url(#naverBg)"/>
+  <path d="M20 18H35L48 38V18H62V62H47L33 41V62H20Z"
+    fill="#fff"/>
+</svg>`,
+
+'전화':`
+<svg viewBox="0 0 80 80">
+  <defs>
+    <linearGradient id="phoneBg" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#72ec77"/>
+      <stop offset="1" stop-color="#35c956"/>
+    </linearGradient>
+  </defs>
+  <rect width="80" height="80" rx="18" fill="url(#phoneBg)"/>
+  <path d="M24 15Q19 13 15 22Q9 39 29 59Q48 77 62 65Q68 60 63 56L51 47Q48 45 44 50L40 54Q30 49 25 39L30 34Q33 31 30 27Z"
+    fill="#fff"/>
+</svg>`,
+
+'Safari':`
+<svg viewBox="0 0 80 80">
+  <rect width="80" height="80" rx="18" fill="#fff"/>
+  <circle cx="40" cy="40" r="31" fill="#159fe9" stroke="#d5d5d5" stroke-width="3"/>
+  <circle cx="40" cy="40" r="26" fill="none" stroke="#bce9ff" stroke-width="1" stroke-dasharray="1 3"/>
+  <path d="M51 24L44 44L28 55L36 35Z" fill="white"/>
+  <path d="M51 24L44 44L36 35Z" fill="#f4434d"/>
+</svg>`,
+
+'메시지':`
+<svg viewBox="0 0 80 80">
+  <defs>
+    <linearGradient id="messageBg" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#5be66e"/>
+      <stop offset="1" stop-color="#25c94b"/>
+    </linearGradient>
+  </defs>
+  <rect width="80" height="80" rx="18" fill="url(#messageBg)"/>
+  <path d="M17 23Q17 15 29 15H53Q66 15 66 29V45Q66 59 51 59H34L22 68L25 56Q17 52 17 43Z"
+    fill="white"/>
+</svg>`,
+
+/* 음악 아이콘: 음표 곡선 수정 */
+'음악':`
+<svg viewBox="0 0 80 80">
+  <defs>
+    <linearGradient id="musicBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ff657c"/>
+      <stop offset="1" stop-color="#f52b58"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="80" height="80" rx="18" fill="url(#musicBg)"/>
+
+  <path
+    d="M38 20
+       L61 15
+       L61 51
+       C61 58 56 63 49 64
+       C42 65 37 62 37 57
+       C37 52 42 48 49 47
+       C52 46.5 55 47 57 48
+       L57 28
+       L42 31
+       L42 59
+       C42 66 36 71 29 72
+       C22 73 17 70 17 65
+       C17 60 22 56 29 55
+       C32 54.5 35 55 38 56
+       Z"
+    fill="#fff"
+    transform="translate(0 -4)"
+  />
+</svg>`
 };
 
-const mainApps=['캘린더','사진','카메라','지도','메모','날씨','미리알림','네이버'];
-const dockApps=['전화','Safari','메시지','음악'];
+/* 홈 화면 */
+const mainApps=[
+  '캘린더',
+  '사진',
+  '카메라',
+  '지도',
+  '메모',
+  '날씨',
+  '미리알림',
+  '네이버'
+];
 
-function loadData(key,fallback){
-  try{return JSON.parse(localStorage.getItem(key))??fallback}
-  catch(e){return fallback}
-}
-function saveData(key,value){
-  try{localStorage.setItem(key,JSON.stringify(value))}
-  catch(e){alert('가상 데이터를 저장할 수 없습니다.')}
-}
-function esc(s){
-  return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+/* Dock */
+const dockApps=[
+  '전화',
+  'Safari',
+  '메시지',
+  '음악'
+];
+
+/* 아이콘만 생성, 클릭 기능 없음 */
+function makeApp(name){
+  const el=document.createElement('div');
+  el.className='app';
+
+  el.innerHTML=`
+    <div class="appicon">${icons[name]}</div>
+    <div class="appname">${name}</div>
+  `;
+
+  return el;
 }
 
-let pin='',checking=false,currentApp='',phoneNumber='',phoneTab='키패드',currentCall='',callStart=0,callTimer=null,selectedChat='',musicPlaying=false,musicSeconds=0,musicTimer=null;
-let contacts=loadData('solContacts',[]);
-let messages=loadData('solMessages',[]);
-let callHistory=loadData('solCallHistory',[]);
+mainApps.forEach(name=>{
+  document.getElementById('apps').appendChild(makeApp(name));
+});
 
+dockApps.forEach(name=>{
+  document.getElementById('dock').appendChild(makeApp(name));
+});
+
+/* 시계 */
 function updateClock(){
   const now=new Date();
-  const time=now.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',hour12:false});
+
+  const time=now.toLocaleTimeString('ko-KR',{
+    hour:'2-digit',
+    minute:'2-digit',
+    hour12:false
+  });
+
   document.getElementById('statusTime').textContent=time;
   document.getElementById('bigTime').textContent=time;
-  document.getElementById('date').textContent=now.toLocaleDateString('ko-KR',{month:'long',day:'numeric',weekday:'long'});
-  const days=['일요일','월요일','화요일','수요일','목요일','금요일','토요일'];
+
+  document.getElementById('date').textContent=
+    now.toLocaleDateString('ko-KR',{
+      month:'long',
+      day:'numeric',
+      weekday:'long'
+    });
+
+  const days=[
+    '일요일','월요일','화요일','수요일',
+    '목요일','금요일','토요일'
+  ];
+
   const cal=document.querySelector('#apps #calDay');
   const date=document.querySelector('#apps #calDate');
+
   if(cal)cal.textContent=days[now.getDay()];
   if(date)date.textContent=now.getDate();
 }
 
-function show(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.getElementById('page').classList.remove('open');
-}
-function makeApp(name,isDock){
-  const el=document.createElement('div');
-  el.className='app';
-  el.innerHTML=`<div class="appicon">${icons[name]}</div><div class="appname">${name}</div>`;
-  if(isDock)el.onclick=()=>openApp(name);
-  return el;
-}
-mainApps.forEach(n=>document.getElementById('apps').appendChild(makeApp(n,false)));
-dockApps.forEach(n=>document.getElementById('dock').appendChild(makeApp(n,true)));
 updateClock();
 setInterval(updateClock,1000);
 
-function renderDots(){
-  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('filled',i<pin.length));
+/* 화면 전환 */
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>{
+    s.classList.remove('active');
+  });
+
+  document.getElementById(id).classList.add('active');
 }
+
+/* 비밀번호 */
+let pin='';
+let checking=false;
+
+function renderDots(){
+  document.querySelectorAll('.dot').forEach((dot,i)=>{
+    dot.classList.toggle('filled',i<pin.length);
+  });
+}
+
 function addPin(n){
   if(checking||pin.length>=4)return;
+
   pin+=n;
   renderDots();
+
   if(pin.length===4){
     checking=true;
+
     setTimeout(()=>{
       if(pin==='0913'){
         pin='';
         renderDots();
         document.getElementById('hint').textContent='';
         show('home');
+
       }else if(pin==='0511'){
         pin='';
         renderDots();
-        document.getElementById('hint').textContent='그건 제 생일인데요, 주임님';
+        document.getElementById('hint').textContent=
+          '그건 제 생일인데요, 주임님';
+
       }else{
         pin='';
         renderDots();
-        document.getElementById('hint').textContent='힌트 : 생일';
+        document.getElementById('hint').textContent=
+          '힌트 : 생일';
       }
+
       checking=false;
     },220);
   }
 }
+
 function erasePin(){
   if(checking)return;
+
   pin=pin.slice(0,-1);
   renderDots();
 }
+
 function cancelPin(){
   pin='';
   checking=false;
   renderDots();
+
   document.getElementById('hint').textContent='';
   show('lock');
 }
+
+/* 숫자 키패드 */
+const keys=document.getElementById('keys');
+
 ['1','2','3','4','5','6','7','8','9','','0',''].forEach(n=>{
-  const b=document.createElement('button');
-  b.className='key';
-  b.textContent=n;
-  if(n)b.onclick=()=>addPin(n);
-  else b.style.visibility='hidden';
-  document.getElementById('keys').appendChild(b);
+  const button=document.createElement('button');
+
+  button.className='key';
+  button.textContent=n;
+
+  if(n){
+    button.onclick=()=>addPin(n);
+  }else{
+    button.style.visibility='hidden';
+  }
+
+  keys.appendChild(button);
 });
 
+/* 잠금화면 위로 쓸기 */
 let startY=0;
-document.getElementById('lock').addEventListener('touchstart',e=>{startY=e.touches[0].clientY},{passive:true});
-document.getElementById('lock').addEventListener('touchend',e=>{
-  if(startY-e.changedTouches[0].clientY>45)show('pass');
-});
+
+document.getElementById('lock').addEventListener(
+  'touchstart',
+  e=>{
+    startY=e.touches[0].clientY;
+  },
+  {passive:true}
+);
+
+document.getElementById('lock').addEventListener(
+  'touchend',
+  e=>{
+    if(startY-e.changedTouches[0].clientY>45){
+      show('pass');
+    }
+  }
+);
+
 document.getElementById('lock').addEventListener('click',e=>{
-  if(!e.target.closest('button'))show('pass');
+  if(!e.target.closest('button')){
+    show('pass');
+  }
 });
+
+/* 홈 인디케이터 */
 document.getElementById('homebar').onclick=()=>{
-  if(document.getElementById('page').classList.contains('open'))closeApp();
-  else if(document.getElementById('lock').classList.contains('active'))show('pass');
-  else if(document.getElementById('pass').classList.contains('active'))cancelPin();
-  else show('home');
+  if(document.getElementById('lock').classList.contains('active')){
+    show('pass');
+  }else if(document.getElementById('pass').classList.contains('active')){
+    cancelPin();
+  }
 };
+
+/* 잠금화면 손전등 모양 버튼 */
 function virtualFlashlight(){
   const lock=document.getElementById('lock');
   const enabled=lock.dataset.light==='on';
+
   lock.dataset.light=enabled?'off':'on';
-  lock.style.background=enabled?'':'radial-gradient(circle at 50% 50%,#777,#242424 80%)';
-}
 
-function openApp(name){
-  currentApp=name;
-  document.getElementById('pageTitle').textContent=name;
-  document.getElementById('page').classList.add('open');
-  renderApp();
-}
-function closeApp(){
-  if(callTimer){clearInterval(callTimer);callTimer=null}
-  if(musicTimer){clearInterval(musicTimer);musicTimer=null;musicPlaying=false}
-  document.getElementById('page').classList.remove('open');
-  show('home');
-}
-function setBody(html){document.getElementById('pageBody').innerHTML=html}
-function renderApp(){
-  if(currentApp==='전화')renderPhone();
-  else if(currentApp==='메시지')renderMessages();
-  else if(currentApp==='음악')renderMusic();
-  else if(currentApp==='Safari')renderSafari();
-}
-
-/* 가상 전화 */
-function renderPhone(){
-  const tabs=['즐겨찾기','최근 통화','연락처','키패드'];
-  let html=`<div class="phone-tabs">${tabs.map(t=>`<button class="phone-tab ${phoneTab===t?'selected':''}" onclick="changePhoneTab('${t}')">${t}</button>`).join('')}</div>`;
-  if(phoneTab==='키패드'){
-    html+=`<div class="phone-display" id="phoneDisplay">${esc(phoneNumber)}</div>
-    <div class="phone-keys">${['1','2','3','4','5','6','7','8','9','*','0','#'].map(n=>`<button class="phone-key" onclick="pressPhoneKey('${n}')">${n}</button>`).join('')}</div>
-    <div class="phone-controls"><button class="delete-button" onclick="deletePhoneKey()">⌫</button><button class="call-button" onclick="startVirtualCall()">☎</button><span style="width:50px"></span></div>`;
-  }
-  if(phoneTab==='최근 통화'){
-    html+=callHistory.length?callHistory.map((c,i)=>`<div class="item" onclick="callHistoryNumber(${i})"><b>${esc(c.number)}</b><p class="muted">${esc(c.date)}</p></div>`).join(''):'<div class="empty">최근 통화가 없습니다.</div>';
-  }
-  if(phoneTab==='연락처'){
-    html+=contacts.length?contacts.map((c,i)=>`<div class="item" onclick="callContact(${i})"><b>${esc(c.name)}</b><p class="muted">${esc(c.phone)}</p></div>`).join(''):'<div class="empty">저장된 가상 연락처가 없습니다.</div>';
-  }
-  if(phoneTab==='즐겨찾기')html+='<div class="empty">즐겨찾기가 없습니다.</div>';
-  setBody(html);
-}
-function changePhoneTab(t){phoneTab=t;renderPhone()}
-function pressPhoneKey(n){
-  if(phoneNumber.length>=20)return;
-  phoneNumber+=n;
-  document.getElementById('phoneDisplay').textContent=phoneNumber;
-}
-function deletePhoneKey(){
-  phoneNumber=phoneNumber.slice(0,-1);
-  document.getElementById('phoneDisplay').textContent=phoneNumber;
-}
-function callHistoryNumber(i){phoneNumber=callHistory[i].number;startVirtualCall()}
-function callContact(i){phoneNumber=contacts[i].phone;startVirtualCall()}
-function startVirtualCall(){
-  if(!phoneNumber)return;
-  currentCall=phoneNumber;
-  callStart=Date.now();
-  callHistory.unshift({number:currentCall,date:new Date().toLocaleString('ko-KR')});
-  saveData('solCallHistory',callHistory);
-  setBody(`<div class="call-screen"><div><div class="call-name">${esc(currentCall)}</div><div class="muted" id="callState">가상 통화 중 · 00:00</div></div><div class="muted">실제 전화는 연결되지 않습니다.</div><button class="end-call" onclick="endVirtualCall()">☎</button></div>`);
-  if(callTimer)clearInterval(callTimer);
-  callTimer=setInterval(()=>{
-    const s=Math.floor((Date.now()-callStart)/1000);
-    const el=document.getElementById('callState');
-    if(el)el.textContent=`가상 통화 중 · ${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
-  },1000);
-}
-function endVirtualCall(){
-  if(callTimer){clearInterval(callTimer);callTimer=null}
-  phoneNumber='';
-  phoneTab='키패드';
-  renderPhone();
-}
-
-/* 가상 메시지 */
-function renderMessages(){
-  selectedChat='';
-  const people=[...new Set(messages.map(m=>m.to))];
-  setBody(`<button class="action" onclick="newChat()">+ 새 메시지</button>${people.length?people.map((p,i)=>`<div class="item" onclick="openChatByIndex(${i})"><b>${esc(p)}</b><p class="muted">가상 메시지 ${messages.filter(m=>m.to===p).length}개</p></div>`).join(''):'<div class="empty">메시지가 없습니다.</div>'}`);
-}
-function newChat(){
-  setBody('<h3>새 메시지</h3><input class="field" id="newChatName" placeholder="받는 사람 이름"><button class="action" onclick="createChat()">대화 시작</button>');
-}
-function createChat(){
-  const name=document.getElementById('newChatName').value.trim();
-  if(!name)return;
-  selectedChat=name;
-  renderChat();
-}
-function openChatByIndex(i){
-  selectedChat=[...new Set(messages.map(m=>m.to))][i];
-  renderChat();
-}
-function renderChat(){
-  const conversation=messages.filter(m=>m.to===selectedChat);
-  setBody(`<h3 class="center">${esc(selectedChat)}</h3>${conversation.length?conversation.map(m=>`<div class="chat-bubble">${esc(m.msg)}</div>`).join(''):'<div class="empty">새로운 가상 대화입니다.</div>'}<div class="chat-compose"><input class="field" id="chatInput" placeholder="메시지"><button class="action" onclick="sendVirtualMessage()">전송</button></div><button class="action" onclick="renderMessages()">대화 목록</button>`);
-}
-function sendVirtualMessage(){
-  const text=document.getElementById('chatInput').value.trim();
-  if(!text)return;
-  messages.push({to:selectedChat,msg:text});
-  saveData('solMessages',messages);
-  renderChat();
-}
-
-/* 가상 음악 */
-function formatMusicTime(s){
-  return `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
-}
-function renderMusic(){
-  setBody(`<div class="music-cover">♫</div><h2 class="center">김솔음의 플레이리스트</h2><p class="center muted">가상 Apple Music</p><div class="music-progress"><div id="musicProgress" style="width:${musicSeconds/180*100}%"></div></div><div class="center muted" id="musicTime">${formatMusicTime(musicSeconds)} / 03:00</div><div class="music-controls"><button onclick="resetMusic()">⏮</button><button onclick="toggleMusic()" id="musicPlayButton">${musicPlaying?'⏸':'▶'}</button><button onclick="resetMusic()">⏭</button></div><p class="center muted" style="margin-top:30px">실제 음악 앱이나 음악 파일에는 접근하지 않습니다.</p>`);
-}
-function toggleMusic(){
-  musicPlaying=!musicPlaying;
-  if(musicTimer){clearInterval(musicTimer);musicTimer=null}
-  if(musicPlaying){
-    musicTimer=setInterval(()=>{
-      musicSeconds++;
-      if(musicSeconds>=180){
-        musicSeconds=0;
-        musicPlaying=false;
-        clearInterval(musicTimer);
-        musicTimer=null;
-      }
-      const bar=document.getElementById('musicProgress');
-      const time=document.getElementById('musicTime');
-      const button=document.getElementById('musicPlayButton');
-      if(bar)bar.style.width=(musicSeconds/180*100)+'%';
-      if(time)time.textContent=formatMusicTime(musicSeconds)+' / 03:00';
-      if(button)button.textContent=musicPlaying?'⏸':'▶';
-    },1000);
-  }
-  const button=document.getElementById('musicPlayButton');
-  if(button)button.textContent=musicPlaying?'⏸':'▶';
-}
-function resetMusic(){
-  musicSeconds=0;
-  musicPlaying=false;
-  if(musicTimer){clearInterval(musicTimer);musicTimer=null}
-  renderMusic();
-}
-
-/* 가상 Safari */
-function renderSafari(){
-  setBody('<div style="display:flex;gap:8px"><input class="field" id="virtualAddress" placeholder="검색어 입력" style="flex:1;min-width:0"><button class="action" onclick="virtualSearch()">검색</button></div><div class="browser-preview" id="browserPreview"><h2>Safari</h2><p>김솔음의 가상 브라우저</p></div>');
-}
-function virtualSearch(){
-  const q=document.getElementById('virtualAddress').value.trim();
-  if(!q)return;
-  document.getElementById('browserPreview').innerHTML=`<h2>검색 결과</h2><p><b>${esc(q)}</b></p><p>가상 Safari 검색 화면입니다.</p>`;
+  lock.style.background=enabled
+    ?''
+    :'radial-gradient(circle at 50% 50%,#777,#242424 80%)';
 }
 </script>
 </body>
