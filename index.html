@@ -6,11 +6,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#000000">
 <title>김솔음의 휴대폰</title>
+
 <style>
 *{
   box-sizing:border-box;
   -webkit-tap-highlight-color:transparent;
 }
+
 html,body{
   margin:0;
   width:100%;
@@ -20,27 +22,38 @@ html,body{
   color:#fff;
   font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;
 }
+
 button{
   font:inherit;
   color:inherit;
   cursor:pointer;
 }
+
 .phone{
   position:relative;
   width:100%;
   height:100vh;
   height:100dvh;
   overflow:hidden;
-  background:radial-gradient(ellipse at 50% 25%,#19191b,#080808 78%);
+  background:radial-gradient(
+    ellipse at 50% 25%,
+    #19191b,
+    #080808 78%
+  );
 }
+
 .screen{
   position:absolute;
   inset:0;
   display:none;
 }
-.screen.active{display:block}
+
+.screen.active{
+  display:block;
+}
 
 /* 상단 상태바 */
+
 .status{
   position:absolute;
   top:0;
@@ -56,6 +69,7 @@ button{
   font-weight:600;
   pointer-events:none;
 }
+
 .island{
   position:absolute;
   top:11px;
@@ -66,27 +80,32 @@ button{
   border-radius:22px;
   background:#000;
 }
+
 .indicators{
   display:flex;
   align-items:flex-end;
   gap:10px;
 }
+
 .signal{
   display:flex;
   align-items:flex-end;
   gap:2px;
   height:15px;
 }
+
 .signal i{
   display:block;
   width:4px;
   background:#fff;
   border-radius:2px;
 }
+
 .signal i:nth-child(1){height:5px}
 .signal i:nth-child(2){height:8px}
 .signal i:nth-child(3){height:12px}
 .signal i:nth-child(4){height:15px}
+
 .battery{
   position:relative;
   width:25px;
@@ -95,6 +114,7 @@ button{
   border-radius:4px;
   padding:2px;
 }
+
 .battery:after{
   content:"";
   position:absolute;
@@ -105,12 +125,14 @@ button{
   background:#fff;
   border-radius:2px;
 }
+
 .battery-fill{
   width:70%;
   height:100%;
   background:#fff;
   border-radius:1px;
 }
+
 .homebar{
   position:absolute;
   bottom:9px;
@@ -125,7 +147,11 @@ button{
 }
 
 /* 잠금화면 */
-#lock{touch-action:pan-y}
+
+#lock{
+  touch-action:pan-y;
+}
+
 .lockclock{
   position:absolute;
   top:clamp(100px,16%,155px);
@@ -133,16 +159,19 @@ button{
   right:0;
   text-align:center;
 }
+
 .bigtime{
   font-size:clamp(66px,19vw,92px);
   font-weight:200;
   letter-spacing:-3px;
   line-height:1.12;
 }
+
 .date{
   font-size:19px;
   margin-top:10px;
 }
+
 .locktip{
   position:absolute;
   bottom:112px;
@@ -152,6 +181,7 @@ button{
   color:#bbb;
   font-size:13px;
 }
+
 .lockbottom{
   position:absolute;
   bottom:42px;
@@ -161,6 +191,7 @@ button{
   justify-content:space-between;
   padding:0 34px;
 }
+
 .round{
   width:49px;
   height:49px;
@@ -170,6 +201,7 @@ button{
   display:grid;
   place-items:center;
 }
+
 .round svg{
   width:24px;
   height:24px;
@@ -181,11 +213,13 @@ button{
 }
 
 /* 비밀번호 화면 */
+
 #pass{
   overflow:hidden;
   --key-size:clamp(48px,8.3vh,72px);
   --key-gap-y:clamp(5px,1.5vh,13px);
 }
+
 .passwrap{
   position:absolute;
   top:56px;
@@ -198,10 +232,12 @@ button{
   justify-content:center;
   padding:8px 12px;
 }
+
 .passlabel{
   font-size:21px;
   margin-bottom:12px;
 }
+
 .hint{
   min-height:24px;
   margin-bottom:8px;
@@ -209,25 +245,32 @@ button{
   font-size:14px;
   text-align:center;
 }
+
 .dots{
   display:flex;
   justify-content:center;
   gap:18px;
   margin-bottom:clamp(12px,3vh,30px);
 }
+
 .dot{
   width:13px;
   height:13px;
   border:1.5px solid #fff;
   border-radius:50%;
 }
-.dot.filled{background:#fff}
+
+.dot.filled{
+  background:#fff;
+}
+
 .keypad{
   display:grid;
   grid-template-columns:repeat(3,var(--key-size));
   gap:var(--key-gap-y) 19px;
   justify-content:center;
 }
+
 .key{
   width:var(--key-size);
   height:var(--key-size);
@@ -237,13 +280,18 @@ button{
   font-size:clamp(22px,4vh,30px);
   font-weight:300;
 }
-.key:active{background:#ffffff55}
+
+.key:active{
+  background:#ffffff55;
+}
+
 .passfooter{
   width:calc(var(--key-size) * 3 + 38px);
   display:flex;
   justify-content:space-between;
   margin-top:clamp(10px,2vh,23px);
 }
+
 .passfooter button{
   border:0;
   background:none;
@@ -251,6 +299,7 @@ button{
 }
 
 /* 홈 화면 */
+
 .apps{
   position:absolute;
   top:14.5%;
@@ -262,10 +311,12 @@ button{
   column-gap:12px;
   row-gap:29px;
 }
+
 .app{
   text-align:center;
   min-width:0;
 }
+
 .appicon{
   width:min(100%,62px);
   aspect-ratio:1;
@@ -277,11 +328,13 @@ button{
   background:#333;
   box-shadow:0 3px 9px #00000025;
 }
+
 .appicon svg{
   display:block;
   width:100%;
   height:100%;
 }
+
 .appname{
   font-size:12px;
   margin-top:8px;
@@ -289,6 +342,7 @@ button{
 }
 
 /* Dock */
+
 .dock{
   position:absolute;
   bottom:34px;
@@ -301,30 +355,145 @@ button{
   grid-template-columns:repeat(4,minmax(0,1fr));
   gap:8px;
 }
-.dock .appicon{width:min(100%,62px)}
-.dock .appname{display:none}
+
+.dock .appicon{
+  width:min(100%,62px);
+}
+
+.dock .appname{
+  display:none;
+}
+
+/* 카카오톡 채팅 목록 화면 */
+
+.kakao-screen{
+  position:absolute;
+  inset:0;
+  display:none;
+  z-index:12;
+  background:#ffffff;
+  color:#191919;
+}
+
+.kakao-screen.active{
+  display:flex;
+  flex-direction:column;
+}
+
+.kakao-header{
+  padding:65px 21px 15px;
+  flex-shrink:0;
+  background:#fff;
+}
+
+.kakao-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  min-height:35px;
+}
+
+.kakao-title{
+  font-size:25px;
+  font-weight:750;
+  letter-spacing:-0.7px;
+}
+
+.kakao-close{
+  border:0;
+  background:none;
+  color:#222;
+  font-size:16px;
+  padding:7px 0 7px 14px;
+}
+
+.kakao-list{
+  flex:1;
+  overflow-y:auto;
+  padding:10px 0 70px;
+}
+
+.kakao-chat{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  width:100%;
+  padding:13px 19px;
+  background:#fff;
+}
+
+.kakao-avatar{
+  width:54px;
+  height:54px;
+  border-radius:20px;
+  background:#e5e5e5;
+  flex-shrink:0;
+  display:grid;
+  place-items:center;
+  color:#777;
+}
+
+.kakao-avatar svg{
+  width:32px;
+  height:32px;
+}
+
+.kakao-chat-name{
+  font-size:16px;
+  font-weight:600;
+  letter-spacing:-0.3px;
+  line-height:1.4;
+  word-break:keep-all;
+}
+
+.kakao-screen .homebar{
+  background:#222;
+}
 
 @media(max-height:650px){
   .apps{
     top:17%;
     row-gap:17px;
   }
+
   .apps .appicon,
   .dock .appicon{
     width:min(100%,56px);
   }
-  .dock{padding:10px 8px}
+
+  .dock{
+    padding:10px 8px;
+  }
 }
+
 @media(max-height:580px){
   #pass{
     --key-size:clamp(39px,7.5vh,52px);
     --key-gap-y:4px;
   }
-  .passwrap{top:45px;bottom:18px}
-  .passlabel{font-size:18px;margin-bottom:5px}
-  .hint{min-height:20px;margin-bottom:4px}
-  .dots{margin-bottom:9px}
-  .passfooter{margin-top:7px}
+
+  .passwrap{
+    top:45px;
+    bottom:18px;
+  }
+
+  .passlabel{
+    font-size:18px;
+    margin-bottom:5px;
+  }
+
+  .hint{
+    min-height:20px;
+    margin-bottom:4px;
+  }
+
+  .dots{
+    margin-bottom:9px;
+  }
+
+  .passfooter{
+    margin-top:7px;
+  }
 }
 </style>
 </head>
@@ -332,51 +501,82 @@ button{
 <body>
 <div class="phone">
 
+<!-- 상단 상태바 -->
 <div class="status">
   <span id="statusTime">9:41</span>
+
   <div class="island"></div>
+
   <div class="indicators">
-    <div class="signal"><i></i><i></i><i></i><i></i></div>
-    <div class="battery"><div class="battery-fill"></div></div>
+    <div class="signal">
+      <i></i><i></i><i></i><i></i>
+    </div>
+
+    <div class="battery">
+      <div class="battery-fill"></div>
+    </div>
   </div>
 </div>
 
 <!-- 잠금화면 -->
 <section class="screen active" id="lock">
+
   <div class="lockclock">
     <div class="bigtime" id="bigTime">9:41</div>
     <div class="date" id="date"></div>
   </div>
-  <div class="locktip">위로 쓸어올려 잠금 해제</div>
+
+  <div class="locktip">
+    위로 쓸어올려 잠금 해제
+  </div>
+
   <div class="lockbottom">
-    <button class="round" onclick="virtualFlashlight()" aria-label="손전등">
+    <button
+      class="round"
+      onclick="virtualFlashlight()"
+      aria-label="손전등"
+    >
       <svg viewBox="0 0 24 24">
         <path d="M8 3h8v5l-2 3v9h-4v-9L8 8zM10 14h4"/>
       </svg>
     </button>
-    <button class="round" onclick="show('pass')" aria-label="카메라">
+
+    <button
+      class="round"
+      onclick="show('pass')"
+      aria-label="카메라"
+    >
       <svg viewBox="0 0 24 24">
         <path d="M3 7h4l2-3h6l2 3h4v13H3z"/>
         <circle cx="12" cy="13" r="4"/>
       </svg>
     </button>
   </div>
+
 </section>
 
 <!-- 비밀번호 화면 -->
 <section class="screen" id="pass">
   <div class="passwrap">
+
     <div class="passlabel">암호 입력</div>
+
     <div class="hint" id="hint"></div>
+
     <div class="dots">
-      <div class="dot"></div><div class="dot"></div>
-      <div class="dot"></div><div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
     </div>
+
     <div class="keypad" id="keys"></div>
+
     <div class="passfooter">
       <button onclick="cancelPin()">취소</button>
       <button onclick="erasePin()">삭제</button>
     </div>
+
   </div>
 </section>
 
@@ -386,7 +586,65 @@ button{
   <div class="dock" id="dock"></div>
 </section>
 
+<!-- 카카오톡 채팅 목록 -->
+<section class="kakao-screen" id="kakaoScreen">
+
+  <div class="kakao-header">
+    <div class="kakao-top">
+      <div class="kakao-title">채팅</div>
+      <button class="kakao-close" onclick="closeKakao()">
+        닫기
+      </button>
+    </div>
+  </div>
+
+  <div class="kakao-list">
+
+    <div class="kakao-chat">
+      <div class="kakao-avatar">
+        <svg viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="14" r="8" fill="#aaa"/>
+          <path d="M5 36C5 26 11 22 20 22C29 22 35 26 35 36" fill="#aaa"/>
+        </svg>
+      </div>
+      <div class="kakao-chat-name">백사헌</div>
+    </div>
+
+    <div class="kakao-chat">
+      <div class="kakao-avatar">
+        <svg viewBox="0 0 40 40" fill="none">
+          <circle cx="15" cy="14" r="7" fill="#aaa"/>
+          <circle cx="27" cy="17" r="6" fill="#aaa"/>
+          <path d="M2 35C2 26 7 22 15 22C23 22 28 26 28 35" fill="#aaa"/>
+          <path d="M21 35C21 29 25 25 29 25C34 25 38 29 38 35" fill="#aaa"/>
+        </svg>
+      </div>
+      <div class="kakao-chat-name">
+        백일몽주식회사 동기 단톡방
+      </div>
+    </div>
+
+    <div class="kakao-chat">
+      <div class="kakao-avatar">
+        <svg viewBox="0 0 40 40" fill="none">
+          <circle cx="15" cy="14" r="7" fill="#aaa"/>
+          <circle cx="27" cy="17" r="6" fill="#aaa"/>
+          <path d="M2 35C2 26 7 22 15 22C23 22 28 26 28 35" fill="#aaa"/>
+          <path d="M21 35C21 29 25 25 29 25C34 25 38 29 38 35" fill="#aaa"/>
+        </svg>
+      </div>
+      <div class="kakao-chat-name">
+        현장탐사팀 D조
+      </div>
+    </div>
+
+  </div>
+
+  <div class="homebar" onclick="closeKakao()"></div>
+</section>
+
 <div class="homebar" id="homebar"></div>
+
 </div>
 
 <script>
@@ -395,8 +653,12 @@ const icons={
 '캘린더':`
 <svg viewBox="0 0 80 80">
   <rect width="80" height="80" rx="18" fill="#fafafa"/>
-  <text x="40" y="21" text-anchor="middle" font-size="13" font-weight="600" fill="#e84242" id="calDay">화요일</text>
-  <text x="40" y="65" text-anchor="middle" font-size="46" font-weight="300" fill="#111" id="calDate">27</text>
+  <text x="40" y="21" text-anchor="middle"
+    font-size="13" font-weight="600"
+    fill="#e84242" id="calDay">화요일</text>
+  <text x="40" y="65" text-anchor="middle"
+    font-size="46" font-weight="300"
+    fill="#111" id="calDate">27</text>
 </svg>`,
 
 '사진':`
@@ -457,24 +719,41 @@ const icons={
   <rect width="80" height="80" rx="18" fill="#fff"/>
   <path d="M0 0H80V23H0Z" fill="#ffd948"/>
   <path d="M0 23H80" stroke="#ddd" stroke-width="2" stroke-dasharray="2 4"/>
-  <path d="M11 38H69M11 52H69M11 66H69" stroke="#bdbdbd" stroke-width="2"/>
+  <path d="M11 38H69M11 52H69M11 66H69"
+    stroke="#bdbdbd" stroke-width="2"/>
 </svg>`,
 
+/* 날씨 아이콘 수정 */
 '날씨':`
 <svg viewBox="0 0 80 80">
   <defs>
     <linearGradient id="weatherBg" x1="0" y1="0" x2="0" y2="1">
-      <stop stop-color="#4c9cf7"/>
-      <stop offset="1" stop-color="#1b63c8"/>
+      <stop offset="0" stop-color="#4aa6ff"/>
+      <stop offset="1" stop-color="#1675df"/>
     </linearGradient>
     <linearGradient id="weatherCloud" x1="0" y1="0" x2="0" y2="1">
-      <stop stop-color="#fff"/>
-      <stop offset="1" stop-color="#a9cbe9"/>
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#e7f1fa"/>
     </linearGradient>
   </defs>
+
   <rect width="80" height="80" rx="18" fill="url(#weatherBg)"/>
-  <circle cx="53" cy="29" r="20" fill="#ffce42"/>
-  <path d="M20 63C10 63 7 55 10 47C13 40 20 38 26 39C28 27 39 22 48 28C55 32 58 38 58 44C68 44 73 51 71 58C69 64 64 66 57 66H22Z" fill="url(#weatherCloud)"/>
+
+  <circle cx="51" cy="29" r="19" fill="#ffd54b"/>
+
+  <path
+    d="M19 62
+       C11 62 7 57 7 50
+       C7 43 13 38 20 38
+       C23 38 26 39 28 40
+       C31 31 39 27 47 29
+       C55 31 60 38 60 45
+       C67 45 73 50 73 56
+       C73 62 68 66 61 66
+       H20
+       C19.5 66 19 64 19 62Z"
+    fill="url(#weatherCloud)"
+  />
 </svg>`,
 
 '미리알림':`
@@ -483,7 +762,8 @@ const icons={
   <circle cx="19" cy="23" r="6" fill="#ffad20"/>
   <circle cx="19" cy="40" r="6" fill="#168dff"/>
   <circle cx="19" cy="57" r="6" fill="#ff4949"/>
-  <path d="M32 23H68M32 40H68M32 57H68" stroke="#d4d4d4" stroke-width="3"/>
+  <path d="M32 23H68M32 40H68M32 57H68"
+    stroke="#d4d4d4" stroke-width="3"/>
 </svg>`,
 
 '네이버':`
@@ -495,10 +775,10 @@ const icons={
     </linearGradient>
   </defs>
   <rect width="80" height="80" rx="18" fill="url(#naverBg)"/>
-  <path d="M20 18H35L48 38V18H62V62H47L33 41V62H20Z" fill="#fff"/>
+  <path d="M20 18H35L48 38V18H62V62H47L33 41V62H20Z"
+    fill="#fff"/>
 </svg>`,
 
-/* 카카오톡 신규 추가 */
 '카카오톡':`
 <svg viewBox="0 0 80 80">
   <rect width="80" height="80" rx="18" fill="#FEE500"/>
@@ -514,15 +794,12 @@ const icons={
        C70 26 59 15 40 15Z"
     fill="#3C1E1E"
   />
-  <text
-    x="40"
-    y="46"
+  <text x="40" y="46"
     text-anchor="middle"
     font-family="Arial,sans-serif"
     font-size="16"
     font-weight="900"
-    fill="#FEE500"
-  >TALK</text>
+    fill="#FEE500">TALK</text>
 </svg>`,
 
 '전화':`
@@ -546,6 +823,7 @@ const icons={
   <path d="M51 24L44 44L36 35Z" fill="#f4434d"/>
 </svg>`,
 
+/* 메시지 아이콘: 둥근 말풍선 */
 '메시지':`
 <svg viewBox="0 0 80 80">
   <defs>
@@ -554,28 +832,37 @@ const icons={
       <stop offset="1" stop-color="#25c94b"/>
     </linearGradient>
   </defs>
+
   <rect width="80" height="80" rx="18" fill="url(#messageBg)"/>
-  <path d="M17 23Q17 15 29 15H53Q66 15 66 29V45Q66 59 51 59H34L22 68L25 56Q17 52 17 43Z" fill="white"/>
+
+  <ellipse cx="40" cy="38" rx="28" ry="22" fill="#fff"/>
+
+  <path
+    d="M23 51 L19 65 L36 58"
+    fill="#fff"
+  />
 </svg>`,
 
-'음악':`
-<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="musicBg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#ff6478"/>
-      <stop offset="100%" stop-color="#f52b58"/>
-    </linearGradient>
-  </defs>
-  <rect width="80" height="80" rx="18" fill="url(#musicBg)"/>
-  <path d="M39 22 L39 57" stroke="white" stroke-width="6" stroke-linecap="round"/>
-  <path d="M61 17 L61 49" stroke="white" stroke-width="6" stroke-linecap="round"/>
-  <path d="M39 22 L61 17" stroke="white" stroke-width="7" stroke-linecap="round"/>
-  <ellipse cx="30" cy="58" rx="11" ry="7" transform="rotate(-20 30 58)" fill="white"/>
-  <ellipse cx="52" cy="50" rx="11" ry="7" transform="rotate(-20 52 50)" fill="white"/>
+/* 유튜브 아이콘 */
+'유튜브':`
+<svg viewBox="0 0 80 80">
+  <rect width="80" height="80" rx="18" fill="#ffffff"/>
+
+  <rect
+    x="9" y="22"
+    width="62" height="37"
+    rx="12"
+    fill="#FF0033"
+  />
+
+  <path
+    d="M35 31 L35 50 L51 40.5 Z"
+    fill="#ffffff"
+  />
 </svg>`
 };
 
-/* 홈 화면: 카카오톡을 세 번째 줄 첫 칸에 추가 */
+/* 홈 화면 앱 */
 const mainApps=[
   '캘린더',
   '사진',
@@ -588,35 +875,54 @@ const mainApps=[
   '카카오톡'
 ];
 
-/* Dock 순서 유지 */
+/* Dock: 음악 제거, 유튜브 추가 */
 const dockApps=[
   '전화',
   'Safari',
   '메시지',
-  '음악'
+  '유튜브'
 ];
 
-/* 모든 앱 터치 비활성화 */
 function makeApp(name){
   const el=document.createElement('div');
   el.className='app';
+
   el.innerHTML=`
     <div class="appicon">${icons[name]}</div>
     <div class="appname">${name}</div>
   `;
+
+  /* 카카오톡만 화면 열기 */
+  if(name==='카카오톡'){
+    el.addEventListener('click',openKakao);
+  }
+
   return el;
 }
 
 mainApps.forEach(name=>{
   document.getElementById('apps').appendChild(makeApp(name));
 });
+
 dockApps.forEach(name=>{
   document.getElementById('dock').appendChild(makeApp(name));
 });
 
+/* 카카오톡 열기 / 닫기 */
+function openKakao(){
+  document.getElementById('kakaoScreen').classList.add('active');
+  document.getElementById('homebar').style.display='none';
+}
+
+function closeKakao(){
+  document.getElementById('kakaoScreen').classList.remove('active');
+  document.getElementById('homebar').style.display='';
+}
+
 /* 실시간 시계 */
 function updateClock(){
   const now=new Date();
+
   const time=now.toLocaleTimeString('ko-KR',{
     hour:'2-digit',
     minute:'2-digit',
@@ -625,6 +931,7 @@ function updateClock(){
 
   document.getElementById('statusTime').textContent=time;
   document.getElementById('bigTime').textContent=time;
+
   document.getElementById('date').textContent=
     now.toLocaleDateString('ko-KR',{
       month:'long',
@@ -632,13 +939,18 @@ function updateClock(){
       weekday:'long'
     });
 
-  const days=['일요일','월요일','화요일','수요일','목요일','금요일','토요일'];
+  const days=[
+    '일요일','월요일','화요일','수요일',
+    '목요일','금요일','토요일'
+  ];
+
   const cal=document.querySelector('#apps #calDay');
   const date=document.querySelector('#apps #calDate');
 
   if(cal)cal.textContent=days[now.getDay()];
   if(date)date.textContent=now.getDate();
 }
+
 updateClock();
 setInterval(updateClock,1000);
 
@@ -647,6 +959,7 @@ function show(id){
   document.querySelectorAll('.screen').forEach(screen=>{
     screen.classList.remove('active');
   });
+
   document.getElementById(id).classList.add('active');
 }
 
@@ -675,16 +988,19 @@ function addPin(n){
         renderDots();
         document.getElementById('hint').textContent='';
         show('home');
+
       }else if(pin==='0511'){
         pin='';
         renderDots();
         document.getElementById('hint').textContent=
           '그건 제 생일인데요, 주임님';
+
       }else{
         pin='';
         renderDots();
         document.getElementById('hint').textContent='힌트 : 생일';
       }
+
       checking=false;
     },220);
   }
@@ -692,6 +1008,7 @@ function addPin(n){
 
 function erasePin(){
   if(checking)return;
+
   pin=pin.slice(0,-1);
   renderDots();
 }
@@ -700,6 +1017,7 @@ function cancelPin(){
   pin='';
   checking=false;
   renderDots();
+
   document.getElementById('hint').textContent='';
   show('lock');
 }
@@ -709,6 +1027,7 @@ const keys=document.getElementById('keys');
 
 ['1','2','3','4','5','6','7','8','9','','0',''].forEach(n=>{
   const button=document.createElement('button');
+
   button.className='key';
   button.textContent=n;
 
@@ -717,6 +1036,7 @@ const keys=document.getElementById('keys');
   }else{
     button.style.visibility='hidden';
   }
+
   keys.appendChild(button);
 });
 
@@ -725,15 +1045,20 @@ let startY=0;
 
 document.getElementById('lock').addEventListener(
   'touchstart',
-  e=>{startY=e.touches[0].clientY},
+  e=>{
+    startY=e.touches[0].clientY;
+  },
   {passive:true}
 );
 
-document.getElementById('lock').addEventListener('touchend',e=>{
-  if(startY-e.changedTouches[0].clientY>45){
-    show('pass');
+document.getElementById('lock').addEventListener(
+  'touchend',
+  e=>{
+    if(startY-e.changedTouches[0].clientY>45){
+      show('pass');
+    }
   }
-});
+);
 
 document.getElementById('lock').addEventListener('click',e=>{
   if(!e.target.closest('button')){
@@ -756,6 +1081,7 @@ function virtualFlashlight(){
   const enabled=lock.dataset.light==='on';
 
   lock.dataset.light=enabled?'off':'on';
+
   lock.style.background=enabled
     ?''
     :'radial-gradient(circle at 50% 50%,#777,#242424 80%)';
