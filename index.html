@@ -3,600 +3,184 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#000000">
 <title>김솔음의 휴대폰</title>
-
 <style>
-*{
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
-}
-
-html,body{
-  margin:0;
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  background:#000;
-  color:#fff;
-  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;
-}
-
-button{
-  font:inherit;
-  color:inherit;
-  cursor:pointer;
-}
-
-.phone{
-  position:relative;
-  width:100%;
-  height:100vh;
-  height:100dvh;
-  overflow:hidden;
-  background:radial-gradient(
-    ellipse at 50% 25%,
-    #19191b,
-    #080808 78%
-  );
-}
-
-.screen{
-  position:absolute;
-  inset:0;
-  display:none;
-}
-
-.screen.active{
-  display:block;
-}
-
-/* 상단 상태바 */
-
-.status{
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  height:54px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 7%;
-  z-index:20;
-  font-size:15px;
-  font-weight:600;
-  pointer-events:none;
-}
-
-.island{
-  position:absolute;
-  top:11px;
-  left:50%;
-  transform:translateX(-50%);
-  width:110px;
-  height:31px;
-  border-radius:22px;
-  background:#000;
-}
-
-.indicators{
-  display:flex;
-  align-items:flex-end;
-  gap:10px;
-}
-
-.signal{
-  display:flex;
-  align-items:flex-end;
-  gap:2px;
-  height:15px;
-}
-
-.signal i{
-  display:block;
-  width:4px;
-  background:#fff;
-  border-radius:2px;
-}
-
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif}
+button,input{font:inherit}
+button{cursor:pointer}
+.phone{position:relative;width:100%;height:100vh;height:100dvh;overflow:hidden;background:radial-gradient(ellipse at 50% 25%,#19191b,#080808 78%)}
+.screen{position:absolute;inset:0;display:none}
+.screen.active{display:block}
+.status{position:absolute;top:0;left:0;right:0;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 7%;z-index:30;font-size:15px;font-weight:600;pointer-events:none;color:#fff}
+.status.dark{color:#111}
+.island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:110px;height:31px;border-radius:22px;background:#000}
+.indicators{display:flex;align-items:flex-end;gap:10px}
+.signal{display:flex;align-items:flex-end;gap:2px;height:15px}
+.signal i{display:block;width:4px;background:currentColor;border-radius:2px}
 .signal i:nth-child(1){height:5px}
 .signal i:nth-child(2){height:8px}
 .signal i:nth-child(3){height:12px}
 .signal i:nth-child(4){height:15px}
+.battery{position:relative;width:25px;height:13px;border:1.7px solid currentColor;border-radius:4px;padding:2px}
+.battery:after{content:"";position:absolute;right:-4px;top:3px;width:2px;height:5px;background:currentColor;border-radius:2px}
+.battery-fill{width:70%;height:100%;background:currentColor;border-radius:1px}
+.homebar{position:absolute;bottom:9px;left:50%;transform:translateX(-50%);width:130px;height:5px;background:#fff;border-radius:10px;z-index:35;cursor:pointer}
+.homebar.dark{background:#222}
+.lockclock{position:absolute;top:clamp(100px,16%,155px);left:0;right:0;text-align:center}
+.bigtime{font-size:clamp(66px,19vw,92px);font-weight:200;letter-spacing:-3px;line-height:1.12}
+.date{font-size:19px;margin-top:10px}
+.locktip{position:absolute;bottom:112px;left:0;right:0;text-align:center;color:#bbb;font-size:13px}
+.lockbottom{position:absolute;bottom:42px;left:0;right:0;display:flex;justify-content:space-between;padding:0 34px}
+.round{width:49px;height:49px;border:0;border-radius:50%;background:#ffffff24;display:grid;place-items:center;color:#fff}
+.round svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#pass{--key-size:clamp(48px,8.3vh,72px);--key-gap-y:clamp(5px,1.5vh,13px);overflow:hidden}
+.passwrap{position:absolute;top:56px;bottom:30px;left:0;right:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 12px}
+.passlabel{font-size:21px;margin-bottom:12px}
+.hint{min-height:24px;margin-bottom:8px;color:#ffce67;font-size:14px;text-align:center}
+.dots{display:flex;gap:18px;margin-bottom:clamp(12px,3vh,30px)}
+.dot{width:13px;height:13px;border:1.5px solid #fff;border-radius:50%}
+.dot.filled{background:#fff}
+.keypad{display:grid;grid-template-columns:repeat(3,var(--key-size));gap:var(--key-gap-y) 19px}
+.key{width:var(--key-size);height:var(--key-size);border:0;border-radius:50%;background:#ffffff25;color:#fff;font-size:clamp(22px,4vh,30px);font-weight:300}
+.passfooter{width:calc(var(--key-size)*3 + 38px);display:flex;justify-content:space-between;margin-top:clamp(10px,2vh,23px)}
+.passfooter button{border:0;background:none;color:#fff;font-size:15px}
+.apps{position:absolute;top:14.5%;left:0;right:0;padding:0 6%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:12px;row-gap:29px}
+.app{text-align:center;min-width:0}
+.appicon{width:min(100%,62px);aspect-ratio:1;margin:auto;border-radius:15px;overflow:hidden;display:grid;place-items:center;background:#333;box-shadow:0 3px 9px #00000025}
+.appicon svg{display:block;width:100%;height:100%}
+.appname{font-size:12px;margin-top:8px;white-space:nowrap}
+.dock{position:absolute;bottom:34px;left:3%;width:94%;padding:14px 9px;border-radius:32px;background:#ffffff2e;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.dock .appicon{width:min(100%,62px)}
+.dock .appname{display:none}
 
-.battery{
-  position:relative;
-  width:25px;
-  height:13px;
-  border:1.7px solid #fff;
-  border-radius:4px;
-  padding:2px;
-}
+/* 알림 */
+.reminder-notice{position:absolute;top:65px;left:4%;width:92%;z-index:50;background:#e9e8edee;color:#171717;border-radius:22px;padding:14px 16px;box-shadow:0 7px 25px #0004;display:none}
+.reminder-notice.visible{display:block}
+.notice-top{display:flex;align-items:center;gap:9px;font-size:13px;color:#555}
+.notice-icon{width:24px;height:24px;background:white;border-radius:6px;display:grid;place-items:center;color:#ff9c18;font-size:18px}
+.notice-now{margin-left:auto}
+.notice-message{font-size:17px;margin-top:8px;line-height:1.4}
 
-.battery:after{
-  content:"";
-  position:absolute;
-  right:-4px;
-  top:3px;
-  width:2px;
-  height:5px;
-  background:#fff;
-  border-radius:2px;
-}
+/* 공통 앱 화면 */
+.app-page{position:absolute;inset:0;display:none;z-index:12;background:#fff;color:#151515;flex-direction:column}
+.app-page.active{display:flex}
+.page-head{flex-shrink:0;padding:69px 17px 15px;display:flex;align-items:center;gap:13px;min-height:119px}
+.back{border:0;background:none;color:inherit;padding:3px;font-size:30px;line-height:1}
+.page-title{font-size:25px;font-weight:750;letter-spacing:-.5px}
+.page-body{flex:1;min-height:0;overflow-y:auto}
+.page-homebar{position:absolute;bottom:9px;left:50%;transform:translateX(-50%);width:130px;height:5px;background:#222;border-radius:10px;z-index:15}
 
-.battery-fill{
-  width:70%;
-  height:100%;
-  background:#fff;
-  border-radius:1px;
-}
+/* 카카오톡 목록 */
+.kakao-row{display:flex;align-items:center;gap:13px;padding:14px 19px;min-height:87px;cursor:pointer}
+.avatar{width:56px;height:56px;flex-shrink:0;border-radius:19px;display:flex;align-items:center;justify-content:center;color:white;font-size:24px;font-weight:650}
+.avatar.black{background:#000}
+.avatar.teal{background:#60a9a2}
+.avatar.brown{background:#8b765b}
+.row-info{flex:1;min-width:0}
+.row-name{font-size:16px;font-weight:650;line-height:1.4;word-break:keep-all}
+.row-preview{font-size:13px;color:#929292;margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.kakao-tabs{height:75px;flex-shrink:0;display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid #eee;padding:8px 0 18px}
+.kakao-tab{display:flex;flex-direction:column;align-items:center;gap:4px;color:#aaa;font-size:11px}
+.kakao-tab.selected{color:#111;font-weight:700}
+.kakao-tab svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
-.homebar{
-  position:absolute;
-  bottom:9px;
-  left:50%;
-  transform:translateX(-50%);
-  width:130px;
-  height:5px;
-  background:#fff;
-  border-radius:10px;
-  z-index:30;
-  cursor:pointer;
-}
+/* 채팅방 */
+.chat-page{background:#b4c9d9}
+.chat-page .page-head{background:#b4c9d9}
+.chat-page .page-title{font-size:19px;line-height:1.3}
+.chat-messages{flex:1;min-height:0;overflow-y:auto;padding:16px 15px 18px;overscroll-behavior:contain}
+.date-chip{text-align:center;margin:13px 0 21px}
+.date-chip span{display:inline-block;background:#8fa8ba;color:white;border-radius:18px;padding:5px 12px;font-size:12px}
+.message-row{display:flex;align-items:flex-start;gap:9px;margin:12px 0}
+.message-row.mine{justify-content:flex-end}
+.message-row .avatar{width:38px;height:38px;border-radius:14px;font-size:16px}
+.message-content{max-width:76%;min-width:0}
+.message-name{font-size:13px;color:#3c4c58;margin:0 0 5px}
+.message-line{display:flex;align-items:flex-end;gap:5px}
+.bubble{background:white;border-radius:4px 16px 16px 16px;padding:10px 12px;font-size:15px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}
+.mine .bubble{background:#fee500;border-radius:16px 4px 16px 16px}
+.msg-time{font-size:10px;color:#51616c;white-space:nowrap}
+.chat-input-area{background:#fff;display:flex;align-items:center;gap:8px;padding:11px 12px 28px;flex-shrink:0}
+.chat-input{flex:1;min-width:0;border:0;background:#f1f1f1;border-radius:22px;padding:12px 14px;font-size:16px;outline:none;color:#111}
+.chat-send{border:0;background:#fee500;color:#222;border-radius:13px;padding:10px 12px;font-size:14px;font-weight:650}
+.chat-send:disabled{background:#e7e7e7;color:#aaa}
+.chat-input-area.disabled .chat-input{background:#f1f1f1}
 
-/* 잠금화면 */
+/* 전화 수신 및 통화 */
+.call-page{background:linear-gradient(#353842,#111216);color:white;text-align:center}
+.call-top{padding-top:clamp(115px,18vh,170px);display:flex;flex-direction:column;align-items:center}
+.call-avatar{width:95px;height:95px;border-radius:50%;background:#806bb0;display:grid;place-items:center;font-size:35px;font-weight:700;margin-bottom:20px}
+.call-name{font-size:29px;font-weight:650}
+.call-state{font-size:15px;color:#c8c8ca;margin-top:9px}
+.call-line{position:absolute;top:48%;left:8%;right:8%;font-size:20px;line-height:1.6}
+.call-help{position:absolute;bottom:195px;left:0;right:0;color:#aaa;font-size:12px}
+.call-actions{position:absolute;bottom:72px;left:0;right:0;display:flex;justify-content:center;gap:70px}
+.call-button{border:0;width:72px;height:72px;border-radius:50%;color:white;font-size:32px;display:grid;place-items:center}
+.call-button.red{background:#bd373b}
+.call-button.green{background:#3acb65}
+.call-action-label{font-size:12px;margin-top:8px}
+.call-end-single{position:absolute;bottom:72px;left:50%;transform:translateX(-50%)}
+.call-page .page-homebar{background:#fff}
 
-#lock{
-  touch-action:pan-y;
-}
-
-.lockclock{
-  position:absolute;
-  top:clamp(100px,16%,155px);
-  left:0;
-  right:0;
-  text-align:center;
-}
-
-.bigtime{
-  font-size:clamp(66px,19vw,92px);
-  font-weight:200;
-  letter-spacing:-3px;
-  line-height:1.12;
-}
-
-.date{
-  font-size:19px;
-  margin-top:10px;
-}
-
-.locktip{
-  position:absolute;
-  bottom:112px;
-  left:0;
-  right:0;
-  text-align:center;
-  color:#bbb;
-  font-size:13px;
-}
-
-.lockbottom{
-  position:absolute;
-  bottom:42px;
-  left:0;
-  right:0;
-  display:flex;
-  justify-content:space-between;
-  padding:0 34px;
-}
-
-.round{
-  width:49px;
-  height:49px;
-  border:0;
-  border-radius:50%;
-  background:#ffffff24;
-  display:grid;
-  place-items:center;
-}
-
-.round svg{
-  width:24px;
-  height:24px;
-  stroke:#fff;
-  fill:none;
-  stroke-width:2;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-}
-
-/* 비밀번호 화면 */
-
-#pass{
-  overflow:hidden;
-  --key-size:clamp(48px,8.3vh,72px);
-  --key-gap-y:clamp(5px,1.5vh,13px);
-}
-
-.passwrap{
-  position:absolute;
-  top:56px;
-  bottom:30px;
-  left:0;
-  right:0;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  padding:8px 12px;
-}
-
-.passlabel{
-  font-size:21px;
-  margin-bottom:12px;
-}
-
-.hint{
-  min-height:24px;
-  margin-bottom:8px;
-  color:#ffce67;
-  font-size:14px;
-  text-align:center;
-}
-
-.dots{
-  display:flex;
-  justify-content:center;
-  gap:18px;
-  margin-bottom:clamp(12px,3vh,30px);
-}
-
-.dot{
-  width:13px;
-  height:13px;
-  border:1.5px solid #fff;
-  border-radius:50%;
-}
-
-.dot.filled{
-  background:#fff;
-}
-
-.keypad{
-  display:grid;
-  grid-template-columns:repeat(3,var(--key-size));
-  gap:var(--key-gap-y) 19px;
-  justify-content:center;
-}
-
-.key{
-  width:var(--key-size);
-  height:var(--key-size);
-  border:0;
-  border-radius:50%;
-  background:#ffffff25;
-  font-size:clamp(22px,4vh,30px);
-  font-weight:300;
-}
-
-.key:active{
-  background:#ffffff55;
-}
-
-.passfooter{
-  width:calc(var(--key-size) * 3 + 38px);
-  display:flex;
-  justify-content:space-between;
-  margin-top:clamp(10px,2vh,23px);
-}
-
-.passfooter button{
-  border:0;
-  background:none;
-  font-size:15px;
-}
-
-/* 홈 화면 */
-
-.apps{
-  position:absolute;
-  top:14.5%;
-  left:0;
-  right:0;
-  padding:0 6%;
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  column-gap:12px;
-  row-gap:29px;
-}
-
-.app{
-  text-align:center;
-  min-width:0;
-}
-
-.appicon{
-  width:min(100%,62px);
-  aspect-ratio:1;
-  margin:auto;
-  border-radius:15px;
-  overflow:hidden;
-  display:grid;
-  place-items:center;
-  background:#333;
-  box-shadow:0 3px 9px #00000025;
-}
-
-.appicon svg{
-  display:block;
-  width:100%;
-  height:100%;
-}
-
-.appname{
-  font-size:12px;
-  margin-top:8px;
-  white-space:nowrap;
-}
-
-/* Dock */
-
-.dock{
-  position:absolute;
-  bottom:34px;
-  left:3%;
-  width:94%;
-  padding:14px 9px;
-  border-radius:32px;
-  background:#ffffff2e;
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:8px;
-}
-
-.dock .appicon{
-  width:min(100%,62px);
-}
-
-.dock .appname{
-  display:none;
-}
-
-/* 카카오톡 화면 */
-
-.kakao-screen{
-  position:absolute;
-  inset:0;
-  display:none;
-  flex-direction:column;
-  z-index:12;
-  background:#fff;
-  color:#191919;
-}
-
-.kakao-screen.active{
-  display:flex;
-}
-
-/* 카카오톡 상단 */
-
-.kakao-header{
-  flex-shrink:0;
-  padding:72px 20px 14px;
-  background:#fff;
-}
-
-.kakao-top{
-  display:flex;
-  align-items:center;
-  gap:13px;
-  height:38px;
-}
-
-.kakao-back{
-  border:0;
-  background:none;
-  padding:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  width:22px;
-  height:35px;
-  color:#111;
-}
-
-.kakao-back svg{
-  width:22px;
-  height:22px;
-  fill:none;
-  stroke:currentColor;
-  stroke-width:2.5;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-}
-
-.kakao-title{
-  font-size:27px;
-  font-weight:750;
-  letter-spacing:-0.8px;
-}
-
-/* 카카오톡 채팅 목록 */
-
-.kakao-list{
-  flex:1;
-  min-height:0;
-  overflow-y:auto;
-  padding:17px 0 12px;
-  background:#fff;
-}
-
-.kakao-chat{
-  display:flex;
-  align-items:center;
-  gap:13px;
-  width:100%;
-  min-height:89px;
-  padding:13px 19px;
-  background:#fff;
-}
-
-.kakao-avatar{
-  width:57px;
-  height:57px;
-  flex-shrink:0;
-  border-radius:20px;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.kakao-avatar svg{
-  display:block;
-  width:100%;
-  height:100%;
-}
-
-.kakao-chat-info{
-  flex:1;
-  min-width:0;
-}
-
-.kakao-chat-name{
-  font-size:16px;
-  font-weight:650;
-  line-height:1.4;
-  letter-spacing:-0.35px;
-  word-break:keep-all;
-}
-
-/* 카카오톡 하단 메뉴 */
-
-.kakao-tabs{
-  height:73px;
-  flex-shrink:0;
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  border-top:1px solid #ededed;
-  background:#fff;
-  padding-top:9px;
-  padding-bottom:15px;
-}
-
-.kakao-tab{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:4px;
-  color:#aaa;
-  font-size:11px;
-  font-weight:500;
-}
-
-.kakao-tab.selected{
-  color:#161616;
-  font-weight:700;
-}
-
-.kakao-tab svg{
-  width:22px;
-  height:22px;
-  fill:none;
-  stroke:currentColor;
-  stroke-width:1.8;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-}
-
-.kakao-tab.selected svg{
-  stroke-width:2.2;
-}
-
-.kakao-homebar{
-  position:absolute;
-  bottom:9px;
-  left:50%;
-  transform:translateX(-50%);
-  width:130px;
-  height:5px;
-  background:#171717;
-  border-radius:10px;
-  z-index:15;
-  cursor:pointer;
-}
+/* 유튜브 */
+.youtube-page{background:#0f0f0f;color:#fff}
+.youtube-head{padding:59px 16px 12px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.youtube-logo{font-size:21px;font-weight:750;letter-spacing:-.7px;display:flex;align-items:center;gap:5px;flex:1}
+.yt-play{width:29px;height:20px;background:#ff0033;border-radius:6px;display:grid;place-items:center;font-size:13px}
+.yt-icon-button{border:0;background:none;color:white;font-size:23px;padding:5px}
+.youtube-feed{flex:1;min-height:0;overflow-y:auto;padding-bottom:32px}
+.video-card{margin-bottom:25px}
+.video-thumb{position:relative;aspect-ratio:16/9;overflow:hidden;background:linear-gradient(125deg,#89d8ff 0%,#b9a2ff 35%,#ff91d7 70%,#f76ed8 100%)}
+.thumb-cloud{position:absolute;width:140px;height:65px;border-radius:50%;background:#ffffff9c;filter:blur(15px);top:8%;left:-10%}
+.thumb-star{position:absolute;font-size:65px;right:9%;top:4%;color:#fff4a5;text-shadow:0 2px 7px #ff70c0}
+.thumb-character{position:absolute;bottom:9%;width:35%;height:66%;border-radius:48% 48% 35% 35%;background:linear-gradient(#fff7fc,#f7b2e4);box-shadow:0 5px 20px #8446a055}
+.thumb-character.one{left:17%}
+.thumb-character.two{right:14%;background:linear-gradient(#ff7fc9,#ffc4ed)}
+.thumb-face{position:absolute;top:39%;left:18%;right:18%;display:flex;justify-content:space-around}
+.thumb-eye{width:21%;aspect-ratio:1;border-radius:50%;background:#40b9eb;border:3px solid white}
+.two .thumb-eye{background:#a741e5}
+.thumb-caption{position:absolute;left:0;bottom:0;right:0;background:#f46bd6e8;padding:8px 12px;font-size:20px;font-weight:900;color:white;text-shadow:0 2px 3px #bd2f9a}
+.thumb-caption.small{background:#ff87bdc9;font-size:18px}
+.video-length{position:absolute;bottom:9px;right:9px;background:#000b;color:white;font-size:12px;border-radius:5px;padding:3px 5px}
+.video-info{display:flex;gap:11px;padding:13px 13px 0}
+.channel-icon{width:37px;height:37px;flex-shrink:0;border-radius:50%;background:#f48fc8;display:grid;place-items:center;font-size:21px}
+.video-title{font-size:15px;line-height:1.45;font-weight:650}
+.video-meta{font-size:12px;color:#aaa;margin-top:5px}
+.youtube-search{display:none;position:absolute;inset:0;background:#0f0f0f;z-index:5;flex-direction:column;padding-top:56px}
+.youtube-search.active{display:flex}
+.search-head{display:flex;align-items:center;gap:10px;padding:10px 14px}
+.search-input{flex:1;min-width:0;border:0;background:#292929;color:white;padding:12px;border-radius:22px;font-size:15px;outline:none}
+.recent-label{font-size:13px;color:#aaa;padding:21px 20px 10px}
+.recent-item{padding:16px 20px;border-bottom:1px solid #242424;font-size:15px;display:flex;gap:14px;align-items:center}
+.recent-clock{font-size:21px;color:#aaa}
 
 @media(max-height:650px){
-  .apps{
-    top:17%;
-    row-gap:17px;
-  }
-
-  .apps .appicon,
-  .dock .appicon{
-    width:min(100%,56px);
-  }
-
-  .dock{
-    padding:10px 8px;
-  }
-
-  .kakao-header{
-    padding-top:59px;
-  }
+.apps{top:17%;row-gap:17px}
+.apps .appicon,.dock .appicon{width:min(100%,56px)}
+.dock{padding:10px 8px}
 }
-
 @media(max-height:580px){
-  #pass{
-    --key-size:clamp(39px,7.5vh,52px);
-    --key-gap-y:4px;
-  }
-
-  .passwrap{
-    top:45px;
-    bottom:18px;
-  }
-
-  .passlabel{
-    font-size:18px;
-    margin-bottom:5px;
-  }
-
-  .hint{
-    min-height:20px;
-    margin-bottom:4px;
-  }
-
-  .dots{
-    margin-bottom:9px;
-  }
-
-  .passfooter{
-    margin-top:7px;
-  }
+#pass{--key-size:clamp(39px,7.5vh,52px);--key-gap-y:4px}
+.passwrap{top:45px;bottom:18px}
+.passlabel{font-size:18px;margin-bottom:5px}
+.hint{min-height:20px;margin-bottom:4px}
+.dots{margin-bottom:9px}
+.passfooter{margin-top:7px}
 }
 </style>
 </head>
-
 <body>
 <div class="phone">
 
-<!-- 상태바 -->
-<div class="status">
+<div class="status" id="status">
   <span id="statusTime">9:41</span>
-
   <div class="island"></div>
-
   <div class="indicators">
-    <div class="signal">
-      <i></i><i></i><i></i><i></i>
-    </div>
-    <div class="battery">
-      <div class="battery-fill"></div>
-    </div>
+    <div class="signal"><i></i><i></i><i></i><i></i></div>
+    <div class="battery"><div class="battery-fill"></div></div>
   </div>
 </div>
 
@@ -606,40 +190,27 @@ button{
     <div class="bigtime" id="bigTime">9:41</div>
     <div class="date" id="date"></div>
   </div>
-
   <div class="locktip">위로 쓸어올려 잠금 해제</div>
-
   <div class="lockbottom">
     <button class="round" onclick="virtualFlashlight()" aria-label="손전등">
-      <svg viewBox="0 0 24 24">
-        <path d="M8 3h8v5l-2 3v9h-4v-9L8 8zM10 14h4"/>
-      </svg>
+      <svg viewBox="0 0 24 24"><path d="M8 3h8v5l-2 3v9h-4v-9L8 8zM10 14h4"/></svg>
     </button>
-
     <button class="round" onclick="show('pass')" aria-label="카메라">
-      <svg viewBox="0 0 24 24">
-        <path d="M3 7h4l2-3h6l2 3h4v13H3z"/>
-        <circle cx="12" cy="13" r="4"/>
-      </svg>
+      <svg viewBox="0 0 24 24"><path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/></svg>
     </button>
   </div>
 </section>
 
-<!-- 비밀번호 화면 -->
+<!-- 비밀번호 -->
 <section class="screen" id="pass">
   <div class="passwrap">
     <div class="passlabel">암호 입력</div>
     <div class="hint" id="hint"></div>
-
     <div class="dots">
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
+      <div class="dot"></div><div class="dot"></div>
+      <div class="dot"></div><div class="dot"></div>
     </div>
-
     <div class="keypad" id="keys"></div>
-
     <div class="passfooter">
       <button onclick="cancelPin()">취소</button>
       <button onclick="erasePin()">삭제</button>
@@ -653,452 +224,273 @@ button{
   <div class="dock" id="dock"></div>
 </section>
 
-<!-- 카카오톡 채팅 목록 화면 -->
-<section class="kakao-screen" id="kakaoScreen">
+<!-- 미리 알림 -->
+<div class="reminder-notice" id="reminderNotice">
+  <div class="notice-top">
+    <div class="notice-icon">☷</div>
+    <span>미리 알림</span>
+    <span class="notice-now">지금</span>
+  </div>
+  <div class="notice-message">백사헌에게 안부 문자 보내기</div>
+</div>
 
-  <div class="kakao-header">
-    <div class="kakao-top">
+<!-- 카카오톡 채팅 목록 -->
+<section class="app-page" id="kakaoPage">
+  <header class="page-head">
+    <button class="back" onclick="closeKakao()">‹</button>
+    <div class="page-title">채팅</div>
+  </header>
 
-      <button class="kakao-back" onclick="closeKakao()" aria-label="뒤로 가기">
-        <svg viewBox="0 0 24 24">
-          <path d="M15 4L7 12L15 20"/>
-        </svg>
-      </button>
+  <div class="page-body">
+    <div class="kakao-row" onclick="openChat('baek')">
+      <div class="avatar black"></div>
+      <div class="row-info">
+        <div class="row-name">백사헌</div>
+        <div class="row-preview">연쇄살인마 조심해</div>
+      </div>
+    </div>
 
-      <div class="kakao-title">채팅</div>
+    <div class="kakao-row" onclick="openChat('company')">
+      <div class="avatar teal">백</div>
+      <div class="row-info">
+        <div class="row-name">백일몽주식회사 동기 단톡방</div>
+        <div class="row-preview">오지안: 다들 좋은 하루 보내세요~</div>
+      </div>
+    </div>
 
+    <div class="kakao-row" onclick="openChat('team')">
+      <div class="avatar brown">D</div>
+      <div class="row-info">
+        <div class="row-name">현장탐사팀 D조</div>
+        <div class="row-preview">은하제 대리님: 오전 어둠 끝나면 로비로 내려와</div>
+      </div>
     </div>
   </div>
 
-  <div class="kakao-list">
-
-    <!-- 첫 번째 채팅방: 백사헌 -->
-    <div class="kakao-chat">
-      <div class="kakao-avatar">
-        <svg viewBox="0 0 80 80">
-          <rect width="80" height="80" rx="24" fill="#181818"/>
-        </svg>
-      </div>
-      <div class="kakao-chat-info">
-        <div class="kakao-chat-name">백사헌</div>
-      </div>
-    </div>
-
-    <!-- 두 번째 채팅방: 백일몽주식회사 동기 단톡방 -->
-    <div class="kakao-chat">
-      <div class="kakao-avatar">
-        <svg viewBox="0 0 80 80">
-          <rect width="80" height="80" rx="24" fill="#60a9a2"/>
-          <text
-            x="40" y="51"
-            text-anchor="middle"
-            font-size="33"
-            font-weight="600"
-            fill="#fff"
-          >백</text>
-        </svg>
-      </div>
-      <div class="kakao-chat-info">
-        <div class="kakao-chat-name">백일몽주식회사 동기 단톡방</div>
-      </div>
-    </div>
-
-    <!-- 세 번째 채팅방: 현장탐사팀 D조 -->
-    <div class="kakao-chat">
-      <div class="kakao-avatar">
-        <svg viewBox="0 0 80 80">
-          <rect width="80" height="80" rx="24" fill="#8b765b"/>
-          <text
-            x="40" y="51"
-            text-anchor="middle"
-            font-size="30"
-            font-weight="600"
-            fill="#fff"
-          >D</text>
-        </svg>
-      </div>
-      <div class="kakao-chat-info">
-        <div class="kakao-chat-name">현장탐사팀 D조</div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- 하단 카카오톡 메뉴: 현재는 디자인만 표시 -->
   <nav class="kakao-tabs">
-
     <div class="kakao-tab">
-      <svg viewBox="0 0 24 24">
-        <circle cx="12" cy="8" r="4"/>
-        <path d="M4 21C4 16 7 14 12 14S20 16 20 21"/>
-      </svg>
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21C4 16 7 14 12 14S20 16 20 21"/></svg>
       <span>친구</span>
     </div>
-
     <div class="kakao-tab selected">
-      <svg viewBox="0 0 24 24">
-        <path d="M4 5H20V16H10L5 20V16H4Z"/>
-      </svg>
+      <svg viewBox="0 0 24 24"><path d="M4 5H20V16H10L5 20V16H4Z"/></svg>
       <span>채팅</span>
     </div>
-
     <div class="kakao-tab">
-      <svg viewBox="0 0 24 24">
-        <rect x="3" y="5" width="18" height="14" rx="3"/>
-        <path d="M10 9L15 12L10 15Z"/>
-      </svg>
+      <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 9L15 12L10 15Z"/></svg>
       <span>뷰</span>
     </div>
-
     <div class="kakao-tab">
-      <svg viewBox="0 0 24 24">
-        <path d="M4 8H20L19 21H5Z"/>
-        <path d="M9 9V6C9 2 15 2 15 6V9"/>
-      </svg>
+      <svg viewBox="0 0 24 24"><path d="M4 8H20L19 21H5Z"/><path d="M9 9V6C9 2 15 2 15 6V9"/></svg>
       <span>쇼핑</span>
     </div>
-
     <div class="kakao-tab">
-      <svg viewBox="0 0 24 24">
-        <circle cx="5" cy="12" r="1.5"/>
-        <circle cx="12" cy="12" r="1.5"/>
-        <circle cx="19" cy="12" r="1.5"/>
-      </svg>
+      <svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>
       <span>더보기</span>
     </div>
-
   </nav>
-
-  <div class="kakao-homebar" onclick="closeKakao()"></div>
+  <div class="page-homebar" onclick="closeKakao()"></div>
 </section>
 
-<!-- 기본 홈 바 -->
-<div class="homebar" id="homebar"></div>
+<!-- 카카오톡 채팅방 -->
+<section class="app-page chat-page" id="chatPage">
+  <header class="page-head">
+    <button class="back" onclick="backToKakao()">‹</button>
+    <div class="page-title" id="chatTitle"></div>
+  </header>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div class="chat-input-area" id="chatInputArea">
+    <input class="chat-input" id="chatInput"
+      type="text" placeholder="메시지 입력"
+      autocomplete="off" enterkeyhint="send">
+    <button class="chat-send" id="chatSend" onclick="sendMessage()">전송</button>
+  </div>
+  <div class="page-homebar" onclick="closeKakao()"></div>
+</section>
 
+<!-- 전화 수신 및 통화 -->
+<section class="app-page call-page" id="callPage">
+  <div class="call-top">
+    <div class="call-avatar">백</div>
+    <div class="call-name" id="callName">백사헌</div>
+    <div class="call-state" id="callState">전화가 오고 있어요</div>
+  </div>
+  <div class="call-line" id="callLine"></div>
+  <div class="call-help" id="callHelp"></div>
+
+  <div class="call-actions" id="incomingActions">
+    <div>
+      <button class="call-button green" onclick="acceptCall()">☎</button>
+      <div class="call-action-label">받기</div>
+    </div>
+  </div>
+
+  <div class="call-end-single" id="endAction" style="display:none">
+    <button class="call-button red" onclick="endCall()">☎</button>
+    <div class="call-action-label">통화 종료</div>
+  </div>
+
+  <div class="page-homebar"></div>
+</section>
+
+<!-- 유튜브 -->
+<section class="app-page youtube-page" id="youtubePage">
+  <header class="youtube-head">
+    <button class="yt-icon-button" onclick="closeYouTube()">‹</button>
+    <div class="youtube-logo">
+      <span class="yt-play">▶</span>
+      YouTube
+    </div>
+    <button class="yt-icon-button" onclick="openYouTubeSearch()" aria-label="검색">⌕</button>
+  </header>
+
+  <div class="youtube-feed">
+
+    <article class="video-card">
+      <div class="video-thumb">
+        <div class="thumb-cloud"></div>
+        <div class="thumb-star">✦</div>
+        <div class="thumb-character one">
+          <div class="thumb-face"><i class="thumb-eye"></i><i class="thumb-eye"></i></div>
+        </div>
+        <div class="thumb-character two">
+          <div class="thumb-face"><i class="thumb-eye"></i><i class="thumb-eye"></i></div>
+        </div>
+        <div class="thumb-caption">슈팅스타 캐치! 티니핑<br>21화~26화</div>
+        <span class="video-length">1:10:12</span>
+      </div>
+      <div class="video-info">
+        <div class="channel-icon">🌸</div>
+        <div>
+          <div class="video-title">⭐슈팅스타 캐치! 티니핑⭐ 본편 몰아보기 | 21-26화 | 정주행 | 4K</div>
+          <div class="video-meta">티니핑TV</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="video-card">
+      <div class="video-thumb" style="background:linear-gradient(120deg,#8ce1ff,#f7b4ff 55%,#ff75bc)">
+        <div class="thumb-cloud"></div>
+        <div class="thumb-star">★</div>
+        <div class="thumb-character one" style="background:linear-gradient(#a7eaff,#e7faff)">
+          <div class="thumb-face"><i class="thumb-eye"></i><i class="thumb-eye"></i></div>
+        </div>
+        <div class="thumb-character two">
+          <div class="thumb-face"><i class="thumb-eye"></i><i class="thumb-eye"></i></div>
+        </div>
+        <div class="thumb-caption small">슈팅스타 캐치! 티니핑<br>정주행 몰아보기</div>
+      </div>
+      <div class="video-info">
+        <div class="channel-icon">🌸</div>
+        <div>
+          <div class="video-title">슈팅스타 캐치! 티니핑 | 티니핑 이야기 몰아보기</div>
+          <div class="video-meta">티니핑TV</div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="youtube-search" id="youtubeSearch">
+    <div class="search-head">
+      <button class="yt-icon-button" onclick="closeYouTubeSearch()">‹</button>
+      <input class="search-input" id="youtubeSearchInput" placeholder="YouTube 검색" readonly>
+    </div>
+    <div class="recent-label">최근 검색</div>
+    <div class="recent-item"><span class="recent-clock">◷</span>캐치 티니핑 시리즈</div>
+    <div class="recent-item"><span class="recent-clock">◷</span>밤에 잠이 안 올 때</div>
+    <div class="recent-item"><span class="recent-clock">◷</span>잠 잘 오는 영상</div>
+  </div>
+
+  <div class="page-homebar" style="background:white" onclick="closeYouTube()"></div>
+</section>
+
+<div class="homebar" id="homebar"></div>
 </div>
 
 <script>
+/* 앱 아이콘 */
 const icons={
-
-'캘린더':`
-<svg viewBox="0 0 80 80">
-  <rect width="80" height="80" rx="18" fill="#fafafa"/>
-  <text x="40" y="21" text-anchor="middle"
-    font-size="13" font-weight="600"
-    fill="#e84242" id="calDay">화요일</text>
-  <text x="40" y="65" text-anchor="middle"
-    font-size="46" font-weight="300"
-    fill="#111" id="calDate">27</text>
-</svg>`,
-
-'사진':`
-<svg viewBox="0 0 80 80">
-  <rect width="80" height="80" rx="18" fill="#fff"/>
-  <g transform="translate(40 40)">
-    <ellipse cy="-17" rx="10" ry="20" fill="#ff554c" opacity=".9"/>
-    <ellipse cy="-17" rx="10" ry="20" fill="#ff9d20" opacity=".9" transform="rotate(45)"/>
-    <ellipse cy="-17" rx="10" ry="20" fill="#ffd52d" opacity=".9" transform="rotate(90)"/>
-    <ellipse cy="-17" rx="10" ry="20" fill="#42c86a" opacity=".9" transform="rotate(135)"/>
-    <ellipse cy="-17" rx="10" ry="20" fill="#55d0ed" opacity=".9" transform="rotate(180)"/>
-    <ellipse cy="-17" rx="10" ry="20" fill="#2488f4" opacity=".9" transform="rotate(225)"/>
-    <ellipse cy="-17" rx="10" ry="20" fill="#aa49e8" opacity=".9" transform="rotate(270)"/>
-    <ellipse cy="-17" rx="10" ry="20" fill="#f0469c" opacity=".9" transform="rotate(315)"/>
-    <circle r="7" fill="#fff" opacity=".65"/>
-  </g>
-</svg>`,
-
-'카메라':`
-<svg viewBox="0 0 80 80">
-  <defs>
-    <linearGradient id="camBg" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#ddd"/>
-      <stop offset="1" stop-color="#999"/>
-    </linearGradient>
-    <radialGradient id="camLens">
-      <stop stop-color="#83c8ff"/>
-      <stop offset=".25" stop-color="#14294b"/>
-      <stop offset=".55" stop-color="#070b18"/>
-      <stop offset=".75" stop-color="#465779"/>
-      <stop offset="1" stop-color="#08090e"/>
-    </radialGradient>
-  </defs>
-  <rect width="80" height="80" rx="18" fill="url(#camBg)"/>
-  <circle cx="40" cy="40" r="32" fill="#292929"/>
-  <circle cx="40" cy="40" r="29" fill="#777"/>
-  <circle cx="40" cy="40" r="25" fill="#111"/>
-  <circle cx="40" cy="40" r="22" fill="url(#camLens)"/>
-  <ellipse cx="34" cy="29" rx="10" ry="6" fill="#d8eaff" opacity=".75"/>
-  <circle cx="40" cy="40" r="14" fill="none" stroke="#4668a5" stroke-width="2" opacity=".7"/>
-</svg>`,
-
-'지도':`
-<svg viewBox="0 0 80 80">
-  <rect width="80" height="80" rx="18" fill="#f7f7f7"/>
-  <path d="M0 20L80 5V80H0Z" fill="#e5e9df"/>
-  <path d="M0 55L80 18" stroke="#fff" stroke-width="13"/>
-  <path d="M20 0L45 80" stroke="#fff" stroke-width="12"/>
-  <path d="M0 40L80 55" stroke="#fff" stroke-width="9"/>
-  <path d="M0 56L80 19" stroke="#f6d75b" stroke-width="4"/>
-  <path d="M54 0L80 0V27L61 36Z" fill="#a8d9ad"/>
-  <path d="M40 20C27 20 20 29 20 39C20 54 40 69 40 69S60 54 60 39C60 29 53 20 40 20Z" fill="#ef4b48"/>
-  <circle cx="40" cy="39" r="8" fill="white"/>
-</svg>`,
-
-'메모':`
-<svg viewBox="0 0 80 80">
-  <rect width="80" height="80" rx="18" fill="#fff"/>
-  <path d="M0 0H80V23H0Z" fill="#ffd948"/>
-  <path d="M0 23H80" stroke="#ddd" stroke-width="2" stroke-dasharray="2 4"/>
-  <path d="M11 38H69M11 52H69M11 66H69"
-    stroke="#bdbdbd" stroke-width="2"/>
-</svg>`,
-
-'날씨':`
-<svg viewBox="0 0 80 80">
-  <defs>
-    <linearGradient id="weatherBg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#4aa6ff"/>
-      <stop offset="1" stop-color="#1675df"/>
-    </linearGradient>
-    <linearGradient id="weatherCloud" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#fff"/>
-      <stop offset="1" stop-color="#e7f1fa"/>
-    </linearGradient>
-  </defs>
-  <rect width="80" height="80" rx="18" fill="url(#weatherBg)"/>
-  <circle cx="51" cy="29" r="19" fill="#ffd54b"/>
-  <path d="M19 62C11 62 7 57 7 50C7 43 13 38 20 38C23 38 26 39 28 40C31 31 39 27 47 29C55 31 60 38 60 45C67 45 73 50 73 56C73 62 68 66 61 66H20C19.5 66 19 64 19 62Z"
-    fill="url(#weatherCloud)"/>
-</svg>`,
-
-'미리알림':`
-<svg viewBox="0 0 80 80">
-  <rect width="80" height="80" rx="18" fill="#fff"/>
-  <circle cx="19" cy="23" r="6" fill="#ffad20"/>
-  <circle cx="19" cy="40" r="6" fill="#168dff"/>
-  <circle cx="19" cy="57" r="6" fill="#ff4949"/>
-  <path d="M32 23H68M32 40H68M32 57H68"
-    stroke="#d4d4d4" stroke-width="3"/>
-</svg>`,
-
-'네이버':`
-<svg viewBox="0 0 80 80">
-  <defs>
-    <linearGradient id="naverBg" x1="0" y1="0" x2="0" y2="1">
-      <stop stop-color="#39d875"/>
-      <stop offset="1" stop-color="#16b953"/>
-    </linearGradient>
-  </defs>
-  <rect width="80" height="80" rx="18" fill="url(#naverBg)"/>
-  <path d="M20 18H35L48 38V18H62V62H47L33 41V62H20Z"
-    fill="#fff"/>
-</svg>`,
-
-'카카오톡':`
-<svg viewBox="0 0 80 80">
-  <rect width="80" height="80" rx="18" fill="#FEE500"/>
-  <path d="M40 15C21 15 10 26 10 40C10 49 16 56 25 60L22 69C21.5 71 23 72 25 71L37 63C38 63 39 63 40 63C59 63 70 52 70 40C70 26 59 15 40 15Z"
-    fill="#3C1E1E"/>
-  <text x="40" y="46" text-anchor="middle"
-    font-family="Arial,sans-serif"
-    font-size="16" font-weight="900"
-    fill="#FEE500">TALK</text>
-</svg>`,
-
-'전화':`
-<svg viewBox="0 0 80 80">
-  <defs>
-    <linearGradient id="phoneBg" x1="0" y1="0" x2="0" y2="1">
-      <stop stop-color="#72ec77"/>
-      <stop offset="1" stop-color="#35c956"/>
-    </linearGradient>
-  </defs>
-  <rect width="80" height="80" rx="18" fill="url(#phoneBg)"/>
-  <path d="M24 15Q19 13 15 22Q9 39 29 59Q48 77 62 65Q68 60 63 56L51 47Q48 45 44 50L40 54Q30 49 25 39L30 34Q33 31 30 27Z"
-    fill="#fff"/>
-</svg>`,
-
-'Safari':`
-<svg viewBox="0 0 80 80">
-  <rect width="80" height="80" rx="18" fill="#fff"/>
-  <circle cx="40" cy="40" r="31" fill="#159fe9" stroke="#d5d5d5" stroke-width="3"/>
-  <circle cx="40" cy="40" r="26" fill="none" stroke="#bce9ff" stroke-width="1" stroke-dasharray="1 3"/>
-  <path d="M51 24L44 44L28 55L36 35Z" fill="white"/>
-  <path d="M51 24L44 44L36 35Z" fill="#f4434d"/>
-</svg>`,
-
-'메시지':`
-<svg viewBox="0 0 80 80">
-  <defs>
-    <linearGradient id="messageBg" x1="0" y1="0" x2="0" y2="1">
-      <stop stop-color="#5be66e"/>
-      <stop offset="1" stop-color="#25c94b"/>
-    </linearGradient>
-  </defs>
-  <rect width="80" height="80" rx="18" fill="url(#messageBg)"/>
-  <ellipse cx="40" cy="38" rx="28" ry="22" fill="#fff"/>
-  <path d="M23 51L19 65L36 58" fill="#fff"/>
-</svg>`,
-
-'유튜브':`
-<svg viewBox="0 0 80 80">
-  <rect width="80" height="80" rx="18" fill="#fff"/>
-  <rect x="9" y="22" width="62" height="37" rx="12" fill="#FF0033"/>
-  <path d="M35 31L35 50L51 40.5Z" fill="#fff"/>
-</svg>`
+'캘린더':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#fafafa"/><text x="40" y="21" text-anchor="middle" font-size="13" font-weight="600" fill="#e84242" id="calDay">수요일</text><text x="40" y="65" text-anchor="middle" font-size="46" font-weight="300" fill="#111" id="calDate">28</text></svg>`,
+'사진':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#fff"/><g transform="translate(40 40)"><ellipse cy="-17" rx="10" ry="20" fill="#ff554c" opacity=".9"/><ellipse cy="-17" rx="10" ry="20" fill="#ff9d20" opacity=".9" transform="rotate(45)"/><ellipse cy="-17" rx="10" ry="20" fill="#ffd52d" opacity=".9" transform="rotate(90)"/><ellipse cy="-17" rx="10" ry="20" fill="#42c86a" opacity=".9" transform="rotate(135)"/><ellipse cy="-17" rx="10" ry="20" fill="#55d0ed" opacity=".9" transform="rotate(180)"/><ellipse cy="-17" rx="10" ry="20" fill="#2488f4" opacity=".9" transform="rotate(225)"/><ellipse cy="-17" rx="10" ry="20" fill="#aa49e8" opacity=".9" transform="rotate(270)"/><ellipse cy="-17" rx="10" ry="20" fill="#f0469c" opacity=".9" transform="rotate(315)"/><circle r="7" fill="#fff" opacity=".65"/></g></svg>`,
+'카메라':`<svg viewBox="0 0 80 80"><defs><linearGradient id="camBg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ddd"/><stop offset="1" stop-color="#999"/></linearGradient><radialGradient id="camLens"><stop stop-color="#83c8ff"/><stop offset=".25" stop-color="#14294b"/><stop offset=".55" stop-color="#070b18"/><stop offset=".75" stop-color="#465779"/><stop offset="1" stop-color="#08090e"/></radialGradient></defs><rect width="80" height="80" rx="18" fill="url(#camBg)"/><circle cx="40" cy="40" r="32" fill="#292929"/><circle cx="40" cy="40" r="29" fill="#777"/><circle cx="40" cy="40" r="25" fill="#111"/><circle cx="40" cy="40" r="22" fill="url(#camLens)"/><ellipse cx="34" cy="29" rx="10" ry="6" fill="#d8eaff" opacity=".75"/><circle cx="40" cy="40" r="14" fill="none" stroke="#4668a5" stroke-width="2" opacity=".7"/></svg>`,
+'지도':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#f7f7f7"/><path d="M0 20L80 5V80H0Z" fill="#e5e9df"/><path d="M0 55L80 18" stroke="#fff" stroke-width="13"/><path d="M20 0L45 80" stroke="#fff" stroke-width="12"/><path d="M0 40L80 55" stroke="#fff" stroke-width="9"/><path d="M0 56L80 19" stroke="#f6d75b" stroke-width="4"/><path d="M54 0L80 0V27L61 36Z" fill="#a8d9ad"/><path d="M40 20C27 20 20 29 20 39C20 54 40 69 40 69S60 54 60 39C60 29 53 20 40 20Z" fill="#ef4b48"/><circle cx="40" cy="39" r="8" fill="white"/></svg>`,
+'메모':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#fff"/><path d="M0 0H80V23H0Z" fill="#ffd948"/><path d="M0 23H80" stroke="#ddd" stroke-width="2" stroke-dasharray="2 4"/><path d="M11 38H69M11 52H69M11 66H69" stroke="#bdbdbd" stroke-width="2"/></svg>`,
+'날씨':`<svg viewBox="0 0 80 80"><defs><linearGradient id="weatherBg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4aa6ff"/><stop offset="1" stop-color="#1675df"/></linearGradient><linearGradient id="weatherCloud" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#e7f1fa"/></linearGradient></defs><rect width="80" height="80" rx="18" fill="url(#weatherBg)"/><circle cx="51" cy="29" r="19" fill="#ffd54b"/><path d="M19 62C11 62 7 57 7 50C7 43 13 38 20 38C23 38 26 39 28 40C31 31 39 27 47 29C55 31 60 38 60 45C67 45 73 50 73 56C73 62 68 66 61 66H20C19.5 66 19 64 19 62Z" fill="url(#weatherCloud)"/></svg>`,
+'미리알림':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#fff"/><circle cx="19" cy="23" r="6" fill="#ffad20"/><circle cx="19" cy="40" r="6" fill="#168dff"/><circle cx="19" cy="57" r="6" fill="#ff4949"/><path d="M32 23H68M32 40H68M32 57H68" stroke="#d4d4d4" stroke-width="3"/></svg>`,
+'네이버':`<svg viewBox="0 0 80 80"><defs><linearGradient id="naverBg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#39d875"/><stop offset="1" stop-color="#16b953"/></linearGradient></defs><rect width="80" height="80" rx="18" fill="url(#naverBg)"/><path d="M20 18H35L48 38V18H62V62H47L33 41V62H20Z" fill="#fff"/></svg>`,
+'카카오톡':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#FEE500"/><path d="M40 15C21 15 10 26 10 40C10 49 16 56 25 60L22 69C21.5 71 23 72 25 71L37 63C38 63 39 63 40 63C59 63 70 52 70 40C70 26 59 15 40 15Z" fill="#3C1E1E"/><text x="40" y="46" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="900" fill="#FEE500">TALK</text></svg>`,
+'전화':`<svg viewBox="0 0 80 80"><defs><linearGradient id="phoneBg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#72ec77"/><stop offset="1" stop-color="#35c956"/></linearGradient></defs><rect width="80" height="80" rx="18" fill="url(#phoneBg)"/><path d="M24 15Q19 13 15 22Q9 39 29 59Q48 77 62 65Q68 60 63 56L51 47Q48 45 44 50L40 54Q30 49 25 39L30 34Q33 31 30 27Z" fill="#fff"/></svg>`,
+'Safari':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#fff"/><circle cx="40" cy="40" r="31" fill="#159fe9" stroke="#d5d5d5" stroke-width="3"/><circle cx="40" cy="40" r="26" fill="none" stroke="#bce9ff" stroke-width="1" stroke-dasharray="1 3"/><path d="M51 24L44 44L28 55L36 35Z" fill="white"/><path d="M51 24L44 44L36 35Z" fill="#f4434d"/></svg>`,
+'메시지':`<svg viewBox="0 0 80 80"><defs><linearGradient id="messageBg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#5be66e"/><stop offset="1" stop-color="#25c94b"/></linearGradient></defs><rect width="80" height="80" rx="18" fill="url(#messageBg)"/><ellipse cx="40" cy="38" rx="28" ry="22" fill="#fff"/><path d="M23 51L19 65L36 58" fill="#fff"/></svg>`,
+'유튜브':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#fff"/><rect x="9" y="22" width="62" height="37" rx="12" fill="#FF0033"/><path d="M35 31L35 50L51 40.5Z" fill="#fff"/></svg>`
 };
 
-/* 홈 화면 앱 순서 */
-const mainApps=[
-  '캘린더',
-  '사진',
-  '카메라',
-  '지도',
-  '메모',
-  '날씨',
-  '미리알림',
-  '네이버',
-  '카카오톡'
-];
+const mainApps=['캘린더','사진','카메라','지도','메모','날씨','미리알림','네이버','카카오톡'];
+const dockApps=['전화','Safari','메시지','유튜브'];
 
-/* Dock 앱 순서 */
-const dockApps=[
-  '전화',
-  'Safari',
-  '메시지',
-  '유튜브'
-];
-
-/* 앱 생성 */
 function makeApp(name){
   const el=document.createElement('div');
   el.className='app';
-
-  el.innerHTML=`
-    <div class="appicon">${icons[name]}</div>
-    <div class="appname">${name}</div>
-  `;
-
-  if(name==='카카오톡'){
-    el.addEventListener('click',openKakao);
-  }
-
+  el.innerHTML=`<div class="appicon">${icons[name]}</div><div class="appname">${name}</div>`;
+  if(name==='카카오톡')el.onclick=openKakao;
+  if(name==='유튜브')el.onclick=openYouTube;
   return el;
 }
+mainApps.forEach(n=>document.getElementById('apps').appendChild(makeApp(n)));
+dockApps.forEach(n=>document.getElementById('dock').appendChild(makeApp(n)));
 
-mainApps.forEach(name=>{
-  document.getElementById('apps').appendChild(makeApp(name));
-});
-
-dockApps.forEach(name=>{
-  document.getElementById('dock').appendChild(makeApp(name));
-});
-
-/* 카카오톡 열기 */
-function openKakao(){
-  document.getElementById('kakaoScreen').classList.add('active');
-  document.getElementById('homebar').style.display='none';
-}
-
-/* 카카오톡 닫기 */
-function closeKakao(){
-  document.getElementById('kakaoScreen').classList.remove('active');
-  document.getElementById('homebar').style.display='';
-}
-
-/* 실시간 시계 */
 function updateClock(){
   const now=new Date();
-
-  const time=now.toLocaleTimeString('ko-KR',{
-    hour:'2-digit',
-    minute:'2-digit',
-    hour12:false
-  });
-
+  const time=now.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',hour12:false});
   document.getElementById('statusTime').textContent=time;
   document.getElementById('bigTime').textContent=time;
-
-  document.getElementById('date').textContent=
-    now.toLocaleDateString('ko-KR',{
-      month:'long',
-      day:'numeric',
-      weekday:'long'
-    });
-
-  const days=[
-    '일요일','월요일','화요일','수요일',
-    '목요일','금요일','토요일'
-  ];
-
-  const cal=document.querySelector('#apps #calDay');
-  const date=document.querySelector('#apps #calDate');
-
-  if(cal)cal.textContent=days[now.getDay()];
-  if(date)date.textContent=now.getDate();
+  document.getElementById('date').textContent=now.toLocaleDateString('ko-KR',{month:'long',day:'numeric',weekday:'long'});
+  const days=['일요일','월요일','화요일','수요일','목요일','금요일','토요일'];
+  document.getElementById('calDay').textContent=days[now.getDay()];
+  document.getElementById('calDate').textContent=now.getDate();
 }
-
 updateClock();
 setInterval(updateClock,1000);
 
-/* 화면 전환 */
 function show(id){
-  document.querySelectorAll('.screen').forEach(screen=>{
-    screen.classList.remove('active');
-  });
-
+  document.querySelectorAll('.screen').forEach(el=>el.classList.remove('active'));
   document.getElementById(id).classList.add('active');
+  updateAppearance();
 }
 
-/* 비밀번호 */
-let pin='';
-let checking=false;
-
+let pin='',checking=false;
 function renderDots(){
-  document.querySelectorAll('.dot').forEach((dot,i)=>{
-    dot.classList.toggle('filled',i<pin.length);
-  });
+  document.querySelectorAll('.dot').forEach((dot,i)=>dot.classList.toggle('filled',i<pin.length));
 }
-
 function addPin(n){
   if(checking||pin.length>=4)return;
-
   pin+=n;
   renderDots();
-
   if(pin.length===4){
     checking=true;
-
     setTimeout(()=>{
       if(pin==='0913'){
         pin='';
         renderDots();
         document.getElementById('hint').textContent='';
         show('home');
-
-      }else if(pin==='0511'){
-        pin='';
-        renderDots();
-        document.getElementById('hint').textContent=
-          '그건 제 생일인데요, 주임님';
-
+        scheduleReminder();
       }else{
+        document.getElementById('hint').textContent=
+          pin==='0511'?'그건 제 생일인데요, 주임님':'힌트 : 생일';
         pin='';
         renderDots();
-        document.getElementById('hint').textContent='힌트 : 생일';
       }
-
       checking=false;
     },220);
   }
 }
-
 function erasePin(){
   if(checking)return;
   pin=pin.slice(0,-1);
   renderDots();
 }
-
 function cancelPin(){
   pin='';
   checking=false;
@@ -1106,70 +498,311 @@ function cancelPin(){
   document.getElementById('hint').textContent='';
   show('lock');
 }
-
-/* 키패드 */
-const keys=document.getElementById('keys');
-
 ['1','2','3','4','5','6','7','8','9','','0',''].forEach(n=>{
-  const button=document.createElement('button');
-  button.className='key';
-  button.textContent=n;
-
-  if(n){
-    button.onclick=()=>addPin(n);
-  }else{
-    button.style.visibility='hidden';
-  }
-
-  keys.appendChild(button);
+  const b=document.createElement('button');
+  b.className='key';
+  b.textContent=n;
+  if(n)b.onclick=()=>addPin(n);
+  else b.style.visibility='hidden';
+  document.getElementById('keys').appendChild(b);
 });
-
-/* 잠금화면 위로 쓸기 */
 let startY=0;
-
-document.getElementById('lock').addEventListener(
-  'touchstart',
-  e=>{
-    startY=e.touches[0].clientY;
-  },
-  {passive:true}
-);
-
-document.getElementById('lock').addEventListener(
-  'touchend',
-  e=>{
-    if(startY-e.changedTouches[0].clientY>45){
-      show('pass');
-    }
-  }
-);
-
-document.getElementById('lock').addEventListener('click',e=>{
-  if(!e.target.closest('button')){
-    show('pass');
-  }
+document.getElementById('lock').addEventListener('touchstart',e=>{
+  startY=e.touches[0].clientY;
+},{passive:true});
+document.getElementById('lock').addEventListener('touchend',e=>{
+  if(startY-e.changedTouches[0].clientY>45)show('pass');
 });
-
-/* 홈 인디케이터 */
-document.getElementById('homebar').onclick=()=>{
-  if(document.getElementById('lock').classList.contains('active')){
-    show('pass');
-  }else if(document.getElementById('pass').classList.contains('active')){
-    cancelPin();
-  }
-};
-
-/* 가상 손전등 */
+document.getElementById('lock').addEventListener('click',e=>{
+  if(!e.target.closest('button'))show('pass');
+});
 function virtualFlashlight(){
   const lock=document.getElementById('lock');
-  const enabled=lock.dataset.light==='on';
-
-  lock.dataset.light=enabled?'off':'on';
-
-  lock.style.background=enabled
-    ?''
-    :'radial-gradient(circle at 50% 50%,#777,#242424 80%)';
+  const on=lock.dataset.light==='on';
+  lock.dataset.light=on?'off':'on';
+  lock.style.background=on?'':'radial-gradient(circle at 50% 50%,#777,#242424 80%)';
 }
+
+let reminderTimer=null;
+function scheduleReminder(){
+  clearTimeout(reminderTimer);
+  document.getElementById('reminderNotice').classList.remove('visible');
+  reminderTimer=setTimeout(()=>{
+    document.getElementById('reminderNotice').classList.add('visible');
+  },2000);
+}
+
+function hideReminder(){
+  document.getElementById('reminderNotice').classList.remove('visible');
+}
+function updateAppearance(){
+  const light=['kakaoPage','chatPage'].some(id=>document.getElementById(id).classList.contains('active'));
+  document.getElementById('status').classList.toggle('dark',light);
+  const homebar=document.getElementById('homebar');
+  const appOpen=[...document.querySelectorAll('.app-page.active')].length>0;
+  homebar.style.display=appOpen?'none':'';
+}
+
+function closeAllPages(){
+  document.querySelectorAll('.app-page').forEach(el=>el.classList.remove('active'));
+  hideReminder();
+  updateAppearance();
+}
+function openKakao(){
+  closeAllPages();
+  document.getElementById('kakaoPage').classList.add('active');
+  updateAppearance();
+}
+function closeKakao(){
+  closeAllPages();
+  show('home');
+}
+function backToKakao(){
+  document.getElementById('chatPage').classList.remove('active');
+  document.getElementById('kakaoPage').classList.add('active');
+  document.activeElement.blur();
+  updateAppearance();
+}
+function openYouTube(){
+  closeAllPages();
+  document.getElementById('youtubePage').classList.add('active');
+  document.getElementById('youtubeSearch').classList.remove('active');
+  updateAppearance();
+}
+function closeYouTube(){
+  closeAllPages();
+  show('home');
+}
+function openYouTubeSearch(){
+  document.getElementById('youtubeSearch').classList.add('active');
+}
+function closeYouTubeSearch(){
+  document.getElementById('youtubeSearch').classList.remove('active');
+}
+
+/* 날짜 및 메시지 데이터 */
+const today=new Date();
+function dayOffset(n){
+  const d=new Date(today);
+  d.setDate(d.getDate()+n);
+  return d;
+}
+function formatDay(d){
+  return `${d.getMonth()+1}월 ${d.getDate()}일 ${['일요일','월요일','화요일','수요일','목요일','금요일','토요일'][d.getDay()]}`;
+}
+function clockLabel(h,m){
+  return `${h<12?'오전':'오후'} ${h%12||12}:${String(m).padStart(2,'0')}`;
+}
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g,c=>({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
+}
+function loadBaekMessages(){
+  const messages=[];
+  for(let n=-7;n<=-1;n++){
+    messages.push({
+      date:formatDay(dayOffset(n)),
+      name:'김솔음',
+      text:'연쇄살인마 조심해',
+      time:clockLabel(19,52),
+      mine:true
+    });
+  }
+  try{
+    const saved=JSON.parse(localStorage.getItem('solBaekMessages')||'[]');
+    if(Array.isArray(saved)){
+      saved.forEach(item=>{
+        if(item&&typeof item.text==='string'&&typeof item.date==='string'){
+          messages.push({
+            date:item.date,name:'김솔음',text:item.text,
+            time:typeof item.time==='string'?item.time:'',
+            mine:true
+          });
+        }
+      });
+    }
+  }catch(e){}
+  return messages;
+}
+
+const companyMessages=[
+  {date:'10월 14일 수요일',name:'윤서진',text:'헉',time:'오후 3:12',color:'#ee6099'},
+  {date:'10월 14일 수요일',name:'조민재',text:'와',time:'오후 3:12',color:'#ffb74f'},
+  {date:'10월 14일 수요일',name:'한수빈',text:'와 진짜 김솔음씨 맞으세요?',time:'오후 3:13',color:'#ee6099'},
+  {date:'10월 14일 수요일',name:'오지안',text:'진짜예요? 누가 초대하셨어요?',time:'오후 3:13',color:'#ee6099'},
+  {date:'10월 14일 수요일',name:'문태오',text:'와 대박대박',time:'오후 3:14',color:'#ffb74f'},
+  {date:'10월 14일 수요일',name:'정하윤',text:'와 그 수석',time:'오후 3:14',color:'#e56d73'},
+  {date:'10월 14일 수요일',name:'강이학',text:'와! 안녕하세요 ㅎㅎ',time:'오후 3:15',color:'#e56d73'},
+  {date:'10월 14일 수요일',name:'강이학',text:'포인트 4만 받으신 거 사실인가요? ㅎㅎ',time:'오후 3:15',color:'#e56d73'},
+  {date:'10월 14일 수요일',name:'김솔음',text:'최선을 다했습니다.',time:'오후 3:17',mine:false,color:'#000'},
+  {date:'10월 15일 목요일',name:'한수빈',text:'식사하셨나요?',time:'오후 12:20',color:'#ee6099'},
+  {date:'10월 16일 금요일',name:'정하윤',text:'주말 잘 보내세요 ㅎㅎ',time:'오후 5:48',color:'#e56d73'},
+  {date:'10월 19일 월요일',name:'오지안',text:'다들 좋은 하루 보내세요~',time:'오전 9:05',color:'#ee6099'}
+];
+
+const teamMessages=[
+  {date:formatDay(dayOffset(0)),name:'은하제 대리님',text:'오늘 점심 제육 어떠십니까',time:'오전 10:35',color:'#607caa'},
+  {date:formatDay(dayOffset(0)),name:'박민성 주임님',text:'와~ 좋아요~ ㅎㅎ',time:'오전 10:36',color:'#6eac84'},
+  {date:formatDay(dayOffset(0)),name:'은하제 대리님',text:'오전 어둠 끝나면 로비로 내려와',time:'오전 10:37',color:'#607caa'}
+];
+
+let currentChat='';
+function openChat(which){
+  currentChat=which;
+  document.getElementById('kakaoPage').classList.remove('active');
+  document.getElementById('chatPage').classList.add('active');
+  const title={
+    baek:'백사헌',
+    company:'백일몽주식회사 동기 단톡방',
+    team:'현장탐사팀 D조'
+  }[which];
+  document.getElementById('chatTitle').textContent=title;
+  const input=document.getElementById('chatInput');
+  input.value='';
+  input.disabled=which!=='baek';
+  input.placeholder=which==='baek'?'메시지 입력':'';
+  document.getElementById('chatSend').disabled=which!=='baek';
+  renderChat();
+  updateAppearance();
+}
+
+function renderChat(){
+  const list=document.getElementById('chatMessages');
+  list.innerHTML='';
+  const data=currentChat==='baek'?loadBaekMessages():
+    currentChat==='company'?companyMessages:teamMessages;
+  let lastDate='';
+  data.forEach(item=>{
+    if(item.date!==lastDate){
+      const chip=document.createElement('div');
+      chip.className='date-chip';
+      chip.innerHTML=`<span>${escapeHtml(item.date)}</span>`;
+      list.appendChild(chip);
+      lastDate=item.date;
+    }
+    const row=document.createElement('div');
+    row.className='message-row'+(item.mine?' mine':'');
+    if(item.mine){
+      row.innerHTML=`
+        <div class="message-line">
+          <span class="msg-time">${escapeHtml(item.time)}</span>
+          <div class="bubble">${escapeHtml(item.text)}</div>
+        </div>`;
+    }else{
+      const color=item.color||'#000';
+      const initial=item.name.slice(0,1);
+      row.innerHTML=`
+        <div class="avatar" style="background:${color}">${escapeHtml(initial)}</div>
+        <div class="message-content">
+          <div class="message-name">${escapeHtml(item.name)}</div>
+          <div class="message-line">
+            <div class="bubble">${escapeHtml(item.text)}</div>
+            <span class="msg-time">${escapeHtml(item.time)}</span>
+          </div>
+        </div>`;
+    }
+    list.appendChild(row);
+  });
+  list.scrollTop=list.scrollHeight;
+}
+
+function sendMessage(){
+  if(currentChat!=='baek')return;
+  const input=document.getElementById('chatInput');
+  const text=input.value.trim();
+  if(!text)return;
+  const now=new Date();
+  const item={
+    text,
+    date:formatDay(now),
+    time:clockLabel(now.getHours(),now.getMinutes())
+  };
+  let saved=[];
+  try{
+    const data=JSON.parse(localStorage.getItem('solBaekMessages')||'[]');
+    if(Array.isArray(data))saved=data;
+  }catch(e){}
+  saved.push(item);
+  try{localStorage.setItem('solBaekMessages',JSON.stringify(saved));}catch(e){}
+  input.value='';
+  input.blur();
+  renderChat();
+  if(text==='연쇄살인마 조심해')startIncomingCall();
+}
+document.getElementById('chatInput').addEventListener('keydown',e=>{
+  if(e.key==='Enter'){
+    e.preventDefault();
+    sendMessage();
+  }
+});
+
+/* 백사헌 전화 */
+const callLines=[
+  '주임님.',
+  '자꾸 이상한 소리가 들려요.',
+  '네?',
+  '버리라고? 테이프?',
+  '이미 늦은 거 같은데요.'
+];
+let callActive=false;
+let lineIndex=-1;
+let callStartedAt=0;
+let callInterval=null;
+
+function startIncomingCall(){
+  document.getElementById('chatPage').classList.remove('active');
+  document.getElementById('callPage').classList.add('active');
+  document.getElementById('callState').textContent='전화가 오고 있어요';
+  document.getElementById('callLine').textContent='';
+  document.getElementById('callHelp').textContent='';
+  document.getElementById('incomingActions').style.display='flex';
+  document.getElementById('endAction').style.display='none';
+  callActive=false;
+  lineIndex=-1;
+  updateAppearance();
+}
+function acceptCall(){
+  callActive=true;
+  lineIndex=0;
+  callStartedAt=Date.now();
+  document.getElementById('incomingActions').style.display='none';
+  document.getElementById('endAction').style.display='block';
+  document.getElementById('callLine').textContent=`“${callLines[0]}”`;
+  document.getElementById('callHelp').textContent='화면을 누르면 다음 대사';
+  document.getElementById('callState').textContent='00:00';
+  clearInterval(callInterval);
+  callInterval=setInterval(()=>{
+    const s=Math.floor((Date.now()-callStartedAt)/1000);
+    document.getElementById('callState').textContent=
+      `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+  },500);
+}
+document.getElementById('callPage').addEventListener('click',e=>{
+  if(!callActive)return;
+  if(e.target.closest('button'))return;
+  if(lineIndex<callLines.length-1){
+    lineIndex++;
+    document.getElementById('callLine').textContent=`“${callLines[lineIndex]}”`;
+    if(lineIndex===callLines.length-1){
+      document.getElementById('callHelp').textContent='';
+    }
+  }
+});
+function endCall(){
+  if(!callActive||lineIndex<callLines.length-1)return;
+  clearInterval(callInterval);
+  callActive=false;
+  document.getElementById('callPage').classList.remove('active');
+  document.getElementById('chatPage').classList.add('active');
+  renderChat();
+  updateAppearance();
+}
+
+document.getElementById('homebar').onclick=()=>{
+  if(document.getElementById('lock').classList.contains('active'))show('pass');
+  else if(document.getElementById('pass').classList.contains('active'))cancelPin();
+};
 </script>
 </body>
 </html>
