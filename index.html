@@ -116,7 +116,7 @@ button{cursor:pointer}
 .chat-send{border:0;background:#fee500;color:#222;border-radius:13px;padding:10px 12px;font-size:14px;font-weight:650}
 .chat-send:disabled{background:#e7e7e7;color:#aaa}
 
-/* 전화 수신 및 통화 중: 참고 이미지 비율 */
+/* 전화 수신 및 통화 중 */
 .call-page{
   background:linear-gradient(180deg,#505760 0%,#4a4e56 48%,#3f4249 100%);
   color:#fff;
@@ -151,24 +151,6 @@ button{cursor:pointer}
   font-size:clamp(18px,2.4vh,22px);
   font-weight:300;
   margin-top:12px;
-}
-.call-line{
-  position:absolute;
-  top:44%;
-  left:9%;
-  width:82%;
-  font-size:clamp(19px,2.5vh,23px);
-  line-height:1.6;
-  text-align:center;
-  word-break:keep-all;
-}
-.call-help{
-  position:absolute;
-  bottom:26%;
-  left:0;
-  right:0;
-  color:#b9bac0;
-  font-size:12px;
 }
 .incoming-controls{position:absolute;inset:0;pointer-events:none}
 .call-aux-row{
@@ -233,6 +215,7 @@ button{cursor:pointer}
   fill:#fff;
 }
 .call-round.red svg{transform:rotate(135deg)}
+.call-round.green svg{transform:rotate(0deg)}
 .call-main-label{color:#fff;font-size:clamp(14px,2vh,17px)}
 .call-end-single{
   position:absolute;
@@ -245,38 +228,6 @@ button{cursor:pointer}
   gap:11px;
 }
 .call-page .page-homebar{background:#fff}
-
-/* 유튜브 */
-.youtube-page{background:#0f0f0f;color:#fff}
-.youtube-head{padding:59px 16px 12px;display:flex;align-items:center;gap:12px;flex-shrink:0}
-.youtube-logo{font-size:21px;font-weight:750;letter-spacing:-.7px;display:flex;align-items:center;gap:5px;flex:1}
-.yt-play{width:29px;height:20px;background:#ff0033;border-radius:6px;display:grid;place-items:center;font-size:13px}
-.yt-icon-button{border:0;background:none;color:white;font-size:23px;padding:5px}
-.youtube-feed{flex:1;min-height:0;overflow-y:auto;padding-bottom:32px}
-.video-card{margin-bottom:25px}
-.video-thumb{position:relative;aspect-ratio:16/9;overflow:hidden;background:linear-gradient(125deg,#89d8ff 0%,#b9a2ff 35%,#ff91d7 70%,#f76ed8 100%)}
-.thumb-cloud{position:absolute;width:140px;height:65px;border-radius:50%;background:#ffffff9c;filter:blur(15px);top:8%;left:-10%}
-.thumb-star{position:absolute;font-size:65px;right:9%;top:4%;color:#fff4a5;text-shadow:0 2px 7px #ff70c0}
-.thumb-character{position:absolute;bottom:9%;width:35%;height:66%;border-radius:48% 48% 35% 35%;background:linear-gradient(#fff7fc,#f7b2e4);box-shadow:0 5px 20px #8446a055}
-.thumb-character.one{left:17%}
-.thumb-character.two{right:14%;background:linear-gradient(#ff7fc9,#ffc4ed)}
-.thumb-face{position:absolute;top:39%;left:18%;right:18%;display:flex;justify-content:space-around}
-.thumb-eye{width:21%;aspect-ratio:1;border-radius:50%;background:#40b9eb;border:3px solid white}
-.two .thumb-eye{background:#a741e5}
-.thumb-caption{position:absolute;left:0;bottom:0;right:0;background:#f46bd6e8;padding:8px 12px;font-size:20px;font-weight:900;color:white;text-shadow:0 2px 3px #bd2f9a}
-.thumb-caption.small{background:#ff87bdc9;font-size:18px}
-.video-length{position:absolute;bottom:9px;right:9px;background:#000b;color:white;font-size:12px;border-radius:5px;padding:3px 5px}
-.video-info{display:flex;gap:11px;padding:13px 13px 0}
-.channel-icon{width:37px;height:37px;flex-shrink:0;border-radius:50%;background:#f48fc8;display:grid;place-items:center;font-size:21px}
-.video-title{font-size:15px;line-height:1.45;font-weight:650}
-.video-meta{font-size:12px;color:#aaa;margin-top:5px}
-.youtube-search{display:none;position:absolute;inset:0;background:#0f0f0f;z-index:5;flex-direction:column;padding-top:56px}
-.youtube-search.active{display:flex}
-.search-head{display:flex;align-items:center;gap:10px;padding:10px 14px}
-.search-input{flex:1;min-width:0;border:0;background:#292929;color:white;padding:12px;border-radius:22px;font-size:15px;outline:none}
-.recent-label{font-size:13px;color:#aaa;padding:21px 20px 10px}
-.recent-item{padding:16px 20px;border-bottom:1px solid #242424;font-size:15px;display:flex;gap:14px;align-items:center}
-.recent-clock{font-size:21px;color:#aaa}
 
 @media(max-height:650px){
   .apps{top:17%;row-gap:17px}
@@ -452,9 +403,6 @@ button{cursor:pointer}
     <div class="call-state" id="callState"></div>
   </div>
 
-  <div class="call-line" id="callLine"></div>
-  <div class="call-help" id="callHelp"></div>
-
   <div class="incoming-controls" id="incomingControls">
     <div class="call-aux-row">
       <div class="call-aux-item">
@@ -500,7 +448,7 @@ button{cursor:pointer}
   <div class="call-end-single" id="endAction" style="display:none">
     <button class="call-round red" onclick="endCall()" aria-label="통화 종료">
       <svg viewBox="0 0 24 24">
-        <path d="M4.5 9.2C9 5.7 15 5.7 19.5 9.2L21 11.1C21.5 11.8 21.4 12.7 20.8 13.3L18.5 15.4C17.8 16 17 15.8 16.5 15.2L14.7 13.2C14.4 12.9 14.3 12.5 14.4 12.1L14.7 11C12.9 10.4 11.1 10.4 9.3 11L9.6 12.1C9.7 12.5 9.6 12.9 9.3 13.2L7.5 15.2C7 15.8 6.2 16 5.5 15.4L3.2 13.3C2.6 12.7 2.5 11.8 3 11.1Z"/>
+        <path d="M4.5 9.2C9 5.7 15 5.7 19.5 9.2L21 11.1C21.5 11.8 21.4 12.7 20.8 13.3L18.5 15.4C17.8 16 17 15.8 16.5 15.2L14.7 13.2C14.4 12.9 14.3 12.5 14.4 12.1L14.7 11C12.9 10.4 11.1 10.4 9.3 11L9.6 12.1C9.7 12.5 9.6 12.9 9.3 13.2L7.5 15.2C7 15.8 6.2 16 5.5 15.4L3.2 13.3C2.6 12.7 2.5 11.8 3 11.1L4.5 9.2Z"/>
       </svg>
     </button>
     <div class="call-main-label">끊기</div>
@@ -508,66 +456,60 @@ button{cursor:pointer}
 
 </section>
 
-<section class="app-page youtube-page" id="youtubePage">
-  <header class="youtube-head">
-    <button class="yt-icon-button" onclick="closeYouTube()">‹</button>
-    <div class="youtube-logo"><span class="yt-play">▶</span>YouTube</div>
-    <button class="yt-icon-button" onclick="openYouTubeSearch()" aria-label="검색">⌕</button>
+<section class="app-page youtube-page" id="youtubePage" style="background:#0f0f0f;color:white">
+  <header style="padding:59px 16px 12px;display:flex;align-items:center;gap:12px;flex-shrink:0">
+    <button style="border:0;background:none;color:white;font-size:23px" onclick="closeYouTube()">‹</button>
+    <div style="font-size:21px;font-weight:750;flex:1;display:flex;align-items:center;gap:6px">
+      <span style="background:#ff0033;border-radius:6px;padding:1px 7px;font-size:14px">▶</span>YouTube
+    </div>
+    <button style="border:0;background:none;color:white;font-size:25px" onclick="openYouTubeSearch()">⌕</button>
   </header>
-  <div class="youtube-feed">
-    <article class="video-card">
-      <div class="video-thumb">
-        <div class="thumb-cloud"></div>
-        <div class="thumb-star">✦</div>
-        <div class="thumb-character one">
-          <div class="thumb-face"><i class="thumb-eye"></i><i class="thumb-eye"></i></div>
+
+  <div style="flex:1;overflow-y:auto;padding-bottom:30px">
+    <article style="margin-bottom:24px">
+      <div style="aspect-ratio:16/9;background:linear-gradient(125deg,#89d8ff,#b9a2ff 35%,#ff91d7 70%,#f76ed8);position:relative;overflow:hidden">
+        <div style="position:absolute;left:15%;top:23%;font-size:85px">🧚🏻‍♀️</div>
+        <div style="position:absolute;right:13%;top:20%;font-size:85px">🧚🏻‍♀️</div>
+        <div style="position:absolute;bottom:0;left:0;right:0;background:#f46bd6e8;padding:9px;font-size:19px;font-weight:900">
+          슈팅스타 캐치! 티니핑 21화~26화
         </div>
-        <div class="thumb-character two">
-          <div class="thumb-face"><i class="thumb-eye"></i><i class="thumb-eye"></i></div>
-        </div>
-        <div class="thumb-caption">슈팅스타 캐치! 티니핑<br>21화~26화</div>
-        <span class="video-length">1:10:12</span>
+        <span style="position:absolute;right:8px;bottom:9px;background:#000a;border-radius:4px;padding:3px 5px;font-size:12px">1:10:12</span>
       </div>
-      <div class="video-info">
-        <div class="channel-icon">🌸</div>
+      <div style="padding:13px;display:flex;gap:11px">
+        <div style="background:#f48fc8;border-radius:50%;width:37px;height:37px;display:grid;place-items:center">🌸</div>
         <div>
-          <div class="video-title">⭐슈팅스타 캐치! 티니핑⭐ 본편 몰아보기 | 21-26화 | 정주행 | 4K</div>
-          <div class="video-meta">티니핑TV</div>
+          <div style="font-size:15px;font-weight:650;line-height:1.45">⭐슈팅스타 캐치! 티니핑⭐ 본편 몰아보기 | 21-26화 | 정주행 | 4K</div>
+          <div style="font-size:12px;color:#aaa;margin-top:5px">티니핑TV</div>
         </div>
       </div>
     </article>
-
-    <article class="video-card">
-      <div class="video-thumb" style="background:linear-gradient(120deg,#8ce1ff,#f7b4ff 55%,#ff75bc)">
-        <div class="thumb-cloud"></div>
-        <div class="thumb-star">★</div>
-        <div class="thumb-character one" style="background:linear-gradient(#a7eaff,#e7faff)">
-          <div class="thumb-face"><i class="thumb-eye"></i><i class="thumb-eye"></i></div>
+    <article>
+      <div style="aspect-ratio:16/9;background:linear-gradient(120deg,#8ce1ff,#f7b4ff 55%,#ff75bc);position:relative;overflow:hidden">
+        <div style="position:absolute;left:15%;top:23%;font-size:85px">🧚🏻‍♀️</div>
+        <div style="position:absolute;right:13%;top:20%;font-size:85px">🧚🏻‍♀️</div>
+        <div style="position:absolute;bottom:0;left:0;right:0;background:#f46bd6e8;padding:9px;font-size:19px;font-weight:900">
+          슈팅스타 캐치! 티니핑 정주행 몰아보기
         </div>
-        <div class="thumb-character two">
-          <div class="thumb-face"><i class="thumb-eye"></i><i class="thumb-eye"></i></div>
-        </div>
-        <div class="thumb-caption small">슈팅스타 캐치! 티니핑<br>정주행 몰아보기</div>
       </div>
-      <div class="video-info">
-        <div class="channel-icon">🌸</div>
+      <div style="padding:13px;display:flex;gap:11px">
+        <div style="background:#f48fc8;border-radius:50%;width:37px;height:37px;display:grid;place-items:center">🌸</div>
         <div>
-          <div class="video-title">슈팅스타 캐치! 티니핑 | 티니핑 이야기 몰아보기</div>
-          <div class="video-meta">티니핑TV</div>
+          <div style="font-size:15px;font-weight:650;line-height:1.45">슈팅스타 캐치! 티니핑 | 티니핑 이야기 몰아보기</div>
+          <div style="font-size:12px;color:#aaa;margin-top:5px">티니핑TV</div>
         </div>
       </div>
     </article>
   </div>
 
-  <div class="youtube-search" id="youtubeSearch">
-    <div class="search-head">
-      <button class="yt-icon-button" onclick="closeYouTubeSearch()">‹</button>
-      <input class="search-input" placeholder="YouTube 검색" readonly>
+  <div id="youtubeSearch" style="display:none;position:absolute;inset:0;background:#0f0f0f;z-index:5;padding-top:56px">
+    <div style="display:flex;align-items:center;gap:10px;padding:10px 14px">
+      <button style="border:0;background:none;color:white;font-size:25px" onclick="closeYouTubeSearch()">‹</button>
+      <input placeholder="YouTube 검색" readonly style="flex:1;min-width:0;border:0;background:#292929;color:white;padding:12px;border-radius:22px;font-size:15px">
     </div>
-    <div class="recent-label">최근 검색</div>
-    <div class="recent-item"><span class="recent-clock">◷</span>캐치 티니핑 시리즈</div>
-    <div class="recent-item"><span class="recent-clock">◷</span>밤에 잠이 안 올 때</div>
-    <div class="recent-item"><span class="recent-clock">◷</span>잠 잘 오는 영상</div>
+    <div style="font-size:13px;color:#aaa;padding:21px 20px 10px">최근 검색</div>
+    <div style="padding:16px 20px;border-bottom:1px solid #242424">◷　캐치 티니핑 시리즈</div>
+    <div style="padding:16px 20px;border-bottom:1px solid #242424">◷　밤에 잠이 안 올 때</div>
+    <div style="padding:16px 20px;border-bottom:1px solid #242424">◷　잠 잘 오는 영상</div>
   </div>
   <div class="page-homebar" style="background:white" onclick="closeYouTube()"></div>
 </section>
@@ -584,11 +526,11 @@ const icons={
 '메모':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#fff"/><path d="M0 0H80V23H0Z" fill="#ffd948"/><path d="M0 23H80" stroke="#ddd" stroke-width="2" stroke-dasharray="2 4"/><path d="M11 38H69M11 52H69M11 66H69" stroke="#bdbdbd" stroke-width="2"/></svg>`,
 '날씨':`<svg viewBox="0 0 80 80"><defs><linearGradient id="weatherBg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4aa6ff"/><stop offset="1" stop-color="#1675df"/></linearGradient><linearGradient id="weatherCloud" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#e7f1fa"/></linearGradient></defs><rect width="80" height="80" rx="18" fill="url(#weatherBg)"/><circle cx="51" cy="29" r="19" fill="#ffd54b"/><path d="M19 62C11 62 7 57 7 50C7 43 13 38 20 38C23 38 26 39 28 40C31 31 39 27 47 29C55 31 60 38 60 45C67 45 73 50 73 56C73 62 68 66 61 66H20C19.5 66 19 64 19 62Z" fill="url(#weatherCloud)"/></svg>`,
 '미리알림':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#fff"/><circle cx="19" cy="23" r="6" fill="#ffad20"/><circle cx="19" cy="40" r="6" fill="#168dff"/><circle cx="19" cy="57" r="6" fill="#ff4949"/><path d="M32 23H68M32 40H68M32 57H68" stroke="#d4d4d4" stroke-width="3"/></svg>`,
-'네이버':`<svg viewBox="0 0 80 80"><defs><linearGradient id="naverBg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#39d875"/><stop offset="1" stop-color="#16b953"/></linearGradient></defs><rect width="80" height="80" rx="18" fill="url(#naverBg)"/><path d="M20 18H35L48 38V18H62V62H47L33 41V62H20Z" fill="#fff"/></svg>`,
+'네이버':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#18c653"/><path d="M20 18H35L48 38V18H62V62H47L33 41V62H20Z" fill="#fff"/></svg>`,
 '카카오톡':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#FEE500"/><path d="M40 15C21 15 10 26 10 40C10 49 16 56 25 60L22 69C21.5 71 23 72 25 71L37 63C38 63 39 63 40 63C59 63 70 52 70 40C70 26 59 15 40 15Z" fill="#3C1E1E"/><text x="40" y="46" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="900" fill="#FEE500">TALK</text></svg>`,
-'전화':`<svg viewBox="0 0 80 80"><defs><linearGradient id="phoneBg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#72ec77"/><stop offset="1" stop-color="#35c956"/></linearGradient></defs><rect width="80" height="80" rx="18" fill="url(#phoneBg)"/><path d="M24 15Q19 13 15 22Q9 39 29 59Q48 77 62 65Q68 60 63 56L51 47Q48 45 44 50L40 54Q30 49 25 39L30 34Q33 31 30 27Z" fill="#fff"/></svg>`,
+'전화':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#43d35b"/><path d="M24 15Q19 13 15 22Q9 39 29 59Q48 77 62 65Q68 60 63 56L51 47Q48 45 44 50L40 54Q30 49 25 39L30 34Q33 31 30 27Z" fill="#fff"/></svg>`,
 'Safari':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#fff"/><circle cx="40" cy="40" r="31" fill="#159fe9" stroke="#d5d5d5" stroke-width="3"/><circle cx="40" cy="40" r="26" fill="none" stroke="#bce9ff" stroke-width="1" stroke-dasharray="1 3"/><path d="M51 24L44 44L28 55L36 35Z" fill="white"/><path d="M51 24L44 44L36 35Z" fill="#f4434d"/></svg>`,
-'메시지':`<svg viewBox="0 0 80 80"><defs><linearGradient id="messageBg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#5be66e"/><stop offset="1" stop-color="#25c94b"/></linearGradient></defs><rect width="80" height="80" rx="18" fill="url(#messageBg)"/><ellipse cx="40" cy="38" rx="28" ry="22" fill="#fff"/><path d="M23 51L19 65L36 58" fill="#fff"/></svg>`,
+'메시지':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#25d64f"/><ellipse cx="40" cy="38" rx="28" ry="22" fill="#fff"/><path d="M23 51L19 65L36 58" fill="#fff"/></svg>`,
 '유튜브':`<svg viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#fff"/><rect x="9" y="22" width="62" height="37" rx="12" fill="#FF0033"/><path d="M35 31L35 50L51 40.5Z" fill="#fff"/></svg>`
 };
 
@@ -756,7 +698,7 @@ function backToKakao(){
 function openYouTube(){
   closeAllPages();
   document.getElementById('youtubePage').classList.add('active');
-  document.getElementById('youtubeSearch').classList.remove('active');
+  document.getElementById('youtubeSearch').style.display='none';
   updateAppearance();
 }
 function closeYouTube(){
@@ -764,10 +706,10 @@ function closeYouTube(){
   show('home');
 }
 function openYouTubeSearch(){
-  document.getElementById('youtubeSearch').classList.add('active');
+  document.getElementById('youtubeSearch').style.display='block';
 }
 function closeYouTubeSearch(){
-  document.getElementById('youtubeSearch').classList.remove('active');
+  document.getElementById('youtubeSearch').style.display='none';
 }
 
 function dayOffset(n){
@@ -788,16 +730,10 @@ function escapeHtml(s){
   }[c]));
 }
 
-/* 백사헌 메시지:
-   7일간 하루 한 번씩 고정.
-   오늘 새로 보내는 메시지는 하나만 저장.
-   이전 버전의 중복 누적 기록은 사용하지 않음. */
-const BAEK_STORAGE_KEY='solBaekSingleTodayV2';
-
-function getTodayKey(){
-  const d=new Date();
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-}
+/* 백사헌: 기존 7개 메시지는 항상 과거 날짜.
+   새로 보낸 메시지는 현재 페이지에서만 표시.
+   새로고침하면 초기 상태로 복원. */
+let baekNewMessages=[];
 
 function loadBaekMessages(){
   const messages=[];
@@ -812,28 +748,10 @@ function loadBaekMessages(){
     });
   }
 
-  let todayMessage=null;
-  try{
-    const saved=JSON.parse(localStorage.getItem(BAEK_STORAGE_KEY)||'null');
-    if(saved&&saved.dayKey===getTodayKey()&&typeof saved.text==='string'){
-      todayMessage=saved;
-    }
-  }catch(e){}
-
-  if(todayMessage){
-    messages.push({
-      date:formatDay(new Date()),
-      name:'김솔음',
-      text:todayMessage.text,
-      time:todayMessage.time||'',
-      mine:true
-    });
-  }
-
-  return messages;
+  return messages.concat(baekNewMessages);
 }
 
-/* 동기 단톡방: 기존 내용 유지 */
+/* 동기 단톡방 */
 const companyMessages=[
   {date:'10월 14일 수요일',name:'윤서진',text:'헉',time:'오후 3:12',color:'#ee6099'},
   {date:'10월 14일 수요일',name:'조민재',text:'와',time:'오후 3:12',color:'#ffb74f'},
@@ -849,7 +767,7 @@ const companyMessages=[
   {date:'10월 19일 월요일',name:'오지안',text:'다들 좋은 하루 보내세요~',time:'오전 9:05',color:'#ee6099'}
 ];
 
-/* D조: 오늘 이전 날짜 중 가장 가까운 평일 */
+/* D조: 오늘 이전의 가장 가까운 평일 */
 function previousWeekday(){
   const d=dayOffset(-1);
   while(d.getDay()===0||d.getDay()===6){
@@ -934,9 +852,7 @@ function renderChat(){
   list.scrollTop=list.scrollHeight;
 }
 
-/* 문자 전송: 같은 경고 문자는 오늘 한 번만 표시 */
 let incomingCallTimer=null;
-let otherBaekMessage=null;
 
 function sendMessage(){
   if(currentChat!=='baek')return;
@@ -946,49 +862,26 @@ function sendMessage(){
   if(!text)return;
 
   const now=new Date();
+  const item={
+    date:formatDay(now),
+    name:'김솔음',
+    text,
+    time:clockLabel(now.getHours(),now.getMinutes()),
+    mine:true
+  };
+
+  baekNewMessages.push(item);
+  input.value='';
+  input.blur();
+  renderChat();
 
   if(text==='연쇄살인마 조심해'){
-    const item={
-      dayKey:getTodayKey(),
-      text,
-      time:clockLabel(now.getHours(),now.getMinutes())
-    };
-
-    try{
-      localStorage.setItem(BAEK_STORAGE_KEY,JSON.stringify(item));
-    }catch(e){}
-
-    input.value='';
-    input.blur();
-    renderChat();
-
     clearTimeout(incomingCallTimer);
     incomingCallTimer=setTimeout(()=>{
       startIncomingCall();
       incomingCallTimer=null;
     },3000);
-    return;
   }
-
-  /* 다른 글자는 전화나 답장이 오지 않음 */
-  otherBaekMessage={
-    text,
-    time:clockLabel(now.getHours(),now.getMinutes())
-  };
-
-  input.value='';
-  input.blur();
-
-  const list=document.getElementById('chatMessages');
-  const row=document.createElement('div');
-  row.className='message-row mine';
-  row.innerHTML=`
-    <div class="message-line">
-      <span class="msg-time">${escapeHtml(otherBaekMessage.time)}</span>
-      <div class="bubble">${escapeHtml(otherBaekMessage.text)}</div>
-    </div>`;
-  list.appendChild(row);
-  list.scrollTop=list.scrollHeight;
 }
 
 document.getElementById('chatInput').addEventListener('keydown',e=>{
@@ -998,17 +891,8 @@ document.getElementById('chatInput').addEventListener('keydown',e=>{
   }
 });
 
-/* 전화 */
-const callLines=[
-  '주임님.',
-  '자꾸 이상한 소리가 들려요.',
-  '네?',
-  '버리라고? 테이프?',
-  '이미 늦은 거 같은데요.'
-];
-
+/* 전화: 대사 없음, 받자마자 종료 가능 */
 let callActive=false;
-let lineIndex=-1;
 let callStartedAt=0;
 let callInterval=null;
 
@@ -1017,26 +901,19 @@ function startIncomingCall(){
   document.getElementById('callPage').classList.add('active');
 
   document.getElementById('callState').textContent='';
-  document.getElementById('callLine').textContent='';
-  document.getElementById('callHelp').textContent='';
-
   document.getElementById('incomingControls').style.display='block';
   document.getElementById('endAction').style.display='none';
 
   callActive=false;
-  lineIndex=-1;
   updateAppearance();
 }
 
 function acceptCall(){
   callActive=true;
-  lineIndex=0;
   callStartedAt=Date.now();
 
   document.getElementById('incomingControls').style.display='none';
   document.getElementById('endAction').style.display='flex';
-  document.getElementById('callLine').textContent=`“${callLines[0]}”`;
-  document.getElementById('callHelp').textContent='화면을 누르면 다음 대사';
   document.getElementById('callState').textContent='00:00';
 
   clearInterval(callInterval);
@@ -1047,21 +924,8 @@ function acceptCall(){
   },500);
 }
 
-document.getElementById('callPage').addEventListener('click',e=>{
-  if(!callActive||e.target.closest('button'))return;
-
-  if(lineIndex<callLines.length-1){
-    lineIndex++;
-    document.getElementById('callLine').textContent=`“${callLines[lineIndex]}”`;
-
-    if(lineIndex===callLines.length-1){
-      document.getElementById('callHelp').textContent='';
-    }
-  }
-});
-
 function endCall(){
-  if(!callActive||lineIndex<callLines.length-1)return;
+  if(!callActive)return;
 
   clearInterval(callInterval);
   callActive=false;
@@ -1073,7 +937,6 @@ function endCall(){
   updateAppearance();
 }
 
-/* 마지막 대사 전 종료 불가 */
 function rejectCall(){}
 
 document.getElementById('homebar').onclick=()=>{
